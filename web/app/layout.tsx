@@ -1,14 +1,15 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Roboto } from 'next/font/google'
 import '../global.css'
+import { Suspense } from 'react'
+import Loading from './loading'
+import Header from '@/components/partials/header'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-})
+// font config
 
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
+const roboto = Roboto({
+  variable: '--font-roboto',
+  weight: '400',
   subsets: ['latin'],
 })
 
@@ -24,10 +25,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={` ${roboto.variable} antialiased`}>
+        <Suspense fallback={<Loading />}>
+          <Header />
+          {children}
+        </Suspense>
       </body>
     </html>
   )
