@@ -16,9 +16,9 @@ const Header = () => {
         <Image
           src="/icons/logo.png"
           alt="Logo"
-          width={180}
-          height={40}
-          className="items-center flex justify-center mt-2 md:mt-0"
+          width={289}
+          height={213}
+          className="w-44 items-center flex justify-center mt-2 md:mt-0"
         />
       </div>
       <div className="sm:col-span-6 flex items-center justify-center">
