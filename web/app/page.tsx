@@ -47,7 +47,7 @@ export default function Home() {
       {/* Seperator */}
       <div className="h-48"></div>
       {/* Course list */}
-      <div className="container mx-auto w-full h-[500px]">
+      <div className="container mx-auto w-full h-[500px] p-4 mt-8">
         <CourseCard />
       </div>
     </div>

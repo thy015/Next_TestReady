@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${roboto.variable} antialiased`}>
+      <body className={` ${roboto.variable}`}>
         <Suspense fallback={<Loading />}>
           <Header />
           {children}

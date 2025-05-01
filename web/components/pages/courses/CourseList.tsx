@@ -1,31 +1,28 @@
 import Loading from '@/app/loading'
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@radix-ui/react-dropdown-menu'
+import { Card, CardContent } from '@/components/ui/card'
+import Image from 'next/image'
 import React, { Suspense } from 'react'
 
 const courseCard = () => {
-  return <div>
-    <Card className="w-[350px] border-primary">
-      <CardHeader>
-        <CardTitle>Create project</CardTitle>
-        <CardDescription>Deploy your new project in one-click.</CardDescription>
-      </CardHeader>
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="name">Name</Label>
-              <Input id="name" placeholder="Name of your project" />
-            </div>
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Framework</Label>
-            </div>
-          </div>
-        </form>
-      </CardContent>
-</Card>
-</div>
+  return (
+    <div>
+      <Card className="w-[300px] h-auto border-primary">
+        <CardContent>
+          <Image
+            src="/images/test1.png"
+            alt="Test Image"
+            width={190}
+            height={71}
+            className="w-full h-24 mb-4"
+          />
+          <strong>
+            [Complete TOEIC] Chiến lược làm bài - Từ vựng - Ngữ pháp - Luyện
+            nghe với Dictation [Tặng khoá TED Talks]
+          </strong>
+        </CardContent>
+      </Card>
+    </div>
+  )
 }
 
 const CourseCard = React.lazy(() => Promise.resolve({ default: courseCard }))
