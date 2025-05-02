@@ -1,4 +1,4 @@
-import { CourseCard } from '@/components/pages/courses/CourseList'
+import { CourseList } from '@/components/pages/courses/CourseList'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -48,7 +48,7 @@ export default function Home() {
       <div className="h-48"></div>
       {/* Course list */}
       <div className="container mx-auto w-full h-[500px] p-4 mt-8">
-        <CourseCard />
+        <CourseList />
       </div>
     </div>
   )

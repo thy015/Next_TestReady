@@ -1,37 +1,111 @@
+'use client'
 import Loading from '@/app/loading'
-import { Card, CardContent } from '@/components/ui/card'
-import Image from 'next/image'
 import React, { Suspense } from 'react'
+import { CardContent } from '@/components/ui/card'
+import { Star } from 'lucide-react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Course } from '@/types/courses'
+import { courses } from './data'
+import {
+  adjustFinalPrice,
+  formatPrice,
+  matchingColor,
+  upperCaseFirstLetter,
+} from '@/utils'
 
-const courseCard = () => {
+interface CourseCardProps {
+  course: Course
+}
+const CourseCard = ({ course }: CourseCardProps) => {
+  const colorMatched = matchingColor(course.type)
+  const [bgColor, borderColor] = colorMatched.split(' ')
+
   return (
-    <div>
-      <Card className="w-[300px] h-auto border-primary">
+    <Link href={`/courses/${course.id}`}>
+      {/* Badge */}
+      <div
+        className={`${bgColor} w-32 text-white items-center flex justify-center rounded-tl-2xl rounded-tr-2xl font-semibold h-8`}
+      >
+        {upperCaseFirstLetter(course.type)}
+      </div>
+      {/* Card */}
+      <div className={`w-[300px] h-auto border-2 ${borderColor}`}>
         <CardContent>
-          <Image
-            src="/images/test1.png"
-            alt="Test Image"
-            width={190}
-            height={71}
-            className="w-full h-24 mb-4"
-          />
+          <div className="relative w-full h-[150px] my-4">
+            <Image
+              src={course.image}
+              alt="Test Image"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
           <strong>
-            [Complete TOEIC] Chiến lược làm bài - Từ vựng - Ngữ pháp - Luyện
-            nghe với Dictation [Tặng khoá TED Talks]
+            [ {course.category.level} ] {course.title}
           </strong>
+          <div className="flex items-center mt-2">
+            <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+            <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+            <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+            <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
+            <Star className="h-5 w-5 text-yellow-400" />
+            <span className="text-sm text-muted-foreground ml-2">(10)</span>
+            <span className="text-sm ml-1">
+              {course.userCourseRate.totalUser} Học viên{' '}
+            </span>
+          </div>
+          <div className="gap-2 flex mt-2 items-center mb-4">
+            <span className="text-primary text-xl font-semibold">
+              {formatPrice(adjustFinalPrice(course.price, course.discount))}
+            </span>
+            <span className="line-through">{formatPrice(course.price)}</span>
+            <span className="bg-destructive rounded-lg text-white text-sm h-6 w-12 font-semibold items-center flex justify-center">
+              -{course.discount}%
+            </span>
+          </div>
         </CardContent>
-      </Card>
-    </div>
+      </div>
+    </Link>
   )
 }
 
-const CourseCard = React.lazy(() => Promise.resolve({ default: courseCard }))
-
 const CourseList = () => {
+  const [sliceCount, setSliceCount] = React.useState(4)
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth
+      if (width < 760) {
+        setSliceCount(2)
+      } else if (width < 1025) {
+        setSliceCount(4)
+      } else if (width < 1280) {
+        setSliceCount(3)
+      } else {
+        setSliceCount(4)
+      }
+    }
+
+    // Set initial value
+    handleResize()
+
+    // Add event listener
+    window.addEventListener('resize', handleResize)
+
+    // Clean up
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
+  const filterCourse = courses
+    .filter((course) => course.isActive)
+    .slice(0, sliceCount)
   return (
-    <div>
+    <div className="flex justify-center flex-col items-center my-8 sm:my-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-2 lg:gap-4">
       <Suspense fallback={<Loading />}>
-        <CourseCard />
+        {filterCourse.map((course) => (
+          <CourseCard key={course.id} course={course} />
+        ))}
       </Suspense>
     </div>
   )
