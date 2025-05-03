@@ -1,4 +1,5 @@
 import { CourseList } from '@/components/pages/courses/CourseList'
+import { TestList } from '@/components/pages/tests/TestList'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -47,8 +48,33 @@ export default function Home() {
       {/* Seperator */}
       <div className="h-48"></div>
       {/* Course list */}
-      <div className="container mx-auto w-full h-[500px] p-4 mt-8">
-        <CourseList />
+      <div className="container mx-auto p-4">
+        <div className="mt-16 sm:mt-0 font-bold text-primary text-xl">
+          Các khóa học online nổi bật
+        </div>
+        <div className="text-lg">
+          Giúp bạn nâng cao kĩ năng và định hướng mục tiêu thông qua các bài
+          giảng trực tuyến
+        </div>
+        <div className="h-auto my-4">
+          <CourseList />
+        </div>
+        <div className="flex justify-center items-center mr-8">
+          <Link href="/courses">
+            <Button variant={'paleorange'} className="w-64 h-10 cursor-pointer">
+              Xem thêm
+            </Button>
+          </Link>
+        </div>
+      </div>
+      {/* Test List */}
+      <div className="container mx-auto p-4">
+        <div className="mt-16 sm:mt-0 font-bold text-primary text-xl">
+          Các bộ đề TOEIC mới nhất
+        </div>
+        <div className="mt-4">
+          <TestList />
+        </div>
       </div>
     </div>
   )
