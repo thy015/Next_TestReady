@@ -1,16 +1,15 @@
-import { IsEmpty, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmpty, IsNotEmpty, IsNotIn, IsNumber, IsString } from "class-validator";
 
 export class CreateTestDto {
 
     @IsString()
+    @IsNotEmpty()
     name:string
 
     @IsNumber()
-    @IsEmpty()
     durations:number
 
     @IsNumber()
-    @IsEmpty()
     max_score:number
 
     @IsNumber()

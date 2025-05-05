@@ -19,7 +19,7 @@ import { PartModule } from './part/part.module';
       port: 3307,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: process.env.DB_NAME,
+      database: "toeic_ready2",
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, 
     }),

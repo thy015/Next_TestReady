@@ -1,15 +1,35 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreatePartDto } from './dto/create-part.dto';
 import { UpdatePartDto } from './dto/update-part.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Part } from './entities/part.entity';
+import { Repository } from 'typeorm';
+import { Test } from 'src/test/entities/test.entity';
 
 @Injectable()
 export class PartService {
-  create(createPartDto: CreatePartDto) {
-    return 'This action adds a new part';
+
+  constructor(
+    @InjectRepository(Part)
+    private partRespo: Repository<Part>,
+    @InjectRepository(Test)
+    private testRespo: Repository<Test>
+  ) { }
+
+  async create(createPartDto: CreatePartDto) {
+    const testExisted = await this.testRespo.findOne({
+      where: { id: createPartDto.test_id }
+    })
+    if(!testExisted){
+      throw new BadRequestException("Không có bài kiểm tra theo id đã cho!")
+    }
+    const partCreated = await this.partRespo.create({...createPartDto,test:testExisted})
+    return await this.partRespo.save(partCreated)
   }
 
-  findAll() {
-    return `This action returns all part`;
+  async findAll() {
+    console.log("[PART] find all")
+    return await this.partRespo.find()
   }
 
   findOne(id: number) {

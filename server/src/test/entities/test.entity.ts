@@ -1,5 +1,6 @@
+import { Part } from "src/part/entities/part.entity";
 import { TestCollection } from "src/test_collection/entities/test_collection.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Test {
@@ -19,4 +20,10 @@ export class Test {
         eager:true
     })
     testCollection:TestCollection
+
+    @OneToMany(()=>Part,part=>part.test,{
+        eager:true
+    })
+    parts:Part[]
+
 }

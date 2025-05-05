@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { TestCollectionService } from './test_collection.service';
 import { CreateTestCollectionDto } from './dto/create-test_collection.dto';
 import { UpdateTestCollectionDto } from './dto/update-test_collection.dto';
@@ -8,7 +8,7 @@ export class TestCollectionController {
   constructor(private readonly testCollectionService: TestCollectionService) {}
 
   @Post("create-test-collection")
-  create(@Body() createTestCollectionDto: CreateTestCollectionDto) {
+  create(@Body(ValidationPipe) createTestCollectionDto: CreateTestCollectionDto) {
     return this.testCollectionService.create(createTestCollectionDto);
   }
 
@@ -17,7 +17,7 @@ export class TestCollectionController {
     return this.testCollectionService.findAll();
   }
 
-  @Get(':id')
+  @Get('test-collection/:id')
   findOne(@Param('id') id: string) {
     return this.testCollectionService.findOne(+id);
   }

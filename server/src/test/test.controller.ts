@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
@@ -8,7 +8,7 @@ export class TestController {
   constructor(private readonly testService: TestService) {}
 
   @Post("create-test")
-  create(@Body() createTestDto: CreateTestDto) {
+  create(@Body(ValidationPipe) createTestDto: CreateTestDto) {
     return this.testService.create(createTestDto);
   }
 
@@ -18,7 +18,7 @@ export class TestController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.testService.findOne(+id);
   }
 

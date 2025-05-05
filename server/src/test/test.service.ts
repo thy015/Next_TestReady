@@ -35,8 +35,8 @@ export class TestService {
     return await this.testRespo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} test`;
+  async findOne(id: number) {
+    return await this.testRespo.findOne({where : {id:id}})
   }
 
   update(id: number, updateTestDto: UpdateTestDto) {
