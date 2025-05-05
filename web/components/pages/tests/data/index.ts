@@ -6,6 +6,8 @@ export const testCollections: TestCollection[] = [
     name: 'TOEIC ETS 2024',
     createdAt: '2024-01-15T08:00:00Z',
     updatedAt: '2024-01-15T08:00:00Z',
+    image: '/images/ets_1.jpg',
+
     test: [
       {
         id: 'test1',
@@ -15,6 +17,7 @@ export const testCollections: TestCollection[] = [
         duration: 120,
         createdAt: '2024-01-10T08:00:00Z',
         updatedAt: '2024-01-10T08:00:00Z',
+        timesUserTest: 12,
       },
       {
         id: 'test2',
@@ -24,14 +27,16 @@ export const testCollections: TestCollection[] = [
         duration: 120,
         createdAt: '2024-01-12T08:00:00Z',
         updatedAt: '2024-01-12T08:00:00Z',
+        timesUserTest: 245,
       },
     ],
   },
   {
     id: 'col2',
-    name: 'TOEIC Preparation 2024',
+    name: 'TOEIC ETS 2023',
     createdAt: '2023-12-20T08:00:00Z',
     updatedAt: '2024-01-05T08:00:00Z',
+    image: '/images/ets_2.png',
     test: [
       {
         id: 'test3',
@@ -41,6 +46,7 @@ export const testCollections: TestCollection[] = [
         duration: 45,
         createdAt: '2023-12-22T08:00:00Z',
         updatedAt: '2024-01-02T08:00:00Z',
+        timesUserTest: 111,
       },
       {
         id: 'test4',
@@ -50,6 +56,7 @@ export const testCollections: TestCollection[] = [
         duration: 75,
         createdAt: '2023-12-25T08:00:00Z',
         updatedAt: '2023-12-25T08:00:00Z',
+        timesUserTest: 120,
       },
     ],
   },
@@ -58,6 +65,7 @@ export const testCollections: TestCollection[] = [
     name: 'Hacker TOEIC 3',
     createdAt: '2024-02-01T08:00:00Z',
     updatedAt: '2024-02-10T08:00:00Z',
+    image: '/images/hacker_1.jpeg',
     test: [
       {
         id: 'test6',
@@ -67,6 +75,7 @@ export const testCollections: TestCollection[] = [
         duration: 45,
         createdAt: '2024-02-05T08:00:00Z',
         updatedAt: '2024-02-05T08:00:00Z',
+        timesUserTest: 1222,
       },
       {
         id: 'test7',
@@ -76,6 +85,7 @@ export const testCollections: TestCollection[] = [
         duration: 75,
         createdAt: '2024-02-05T08:00:00Z',
         updatedAt: '2024-02-05T08:00:00Z',
+        timesUserTest: 8,
       },
       {
         id: 'test8',
@@ -85,14 +95,16 @@ export const testCollections: TestCollection[] = [
         duration: 120,
         createdAt: '2024-02-10T08:00:00Z',
         updatedAt: '2024-02-10T08:00:00Z',
+        timesUserTest: 887,
       },
     ],
   },
   {
     id: 'col4',
-    name: 'Luyện Tập Theo Kỹ Năng',
+    name: 'TOEIC ETS 2022',
     createdAt: '2023-10-01T08:00:00Z',
     updatedAt: '2024-01-20T08:00:00Z',
+    image: '/images/ets_3.webp',
     test: [
       {
         id: 'test9',
@@ -102,6 +114,7 @@ export const testCollections: TestCollection[] = [
         duration: 30,
         createdAt: '2023-10-05T08:00:00Z',
         updatedAt: '2023-12-15T08:00:00Z',
+        timesUserTest: 121,
       },
       {
         id: 'test10',
@@ -111,6 +124,7 @@ export const testCollections: TestCollection[] = [
         duration: 45,
         createdAt: '2023-10-10T08:00:00Z',
         updatedAt: '2023-12-18T08:00:00Z',
+        timesUserTest: 42,
       },
     ],
   },

@@ -3,6 +3,7 @@ export interface TestCollection {
   name: string
   createdAt: string
   updatedAt: string
+  image: string
   test: Test[]
 }
 
@@ -14,4 +15,5 @@ export interface Test {
   duration: number
   createdAt: string
   updatedAt: string
+  timesUserTest: number
 }

@@ -1,5 +1,5 @@
 import { CourseList } from '@/components/pages/courses/CourseList'
-import { TestList } from '@/components/pages/tests/TestList'
+import { CollectionList } from '@/components/pages/tests/CollectionList'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -73,7 +73,7 @@ export default function Home() {
           Các bộ đề TOEIC mới nhất
         </div>
         <div className="mt-4">
-          <TestList />
+          <CollectionList />
         </div>
       </div>
     </div>
