@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 /* // Helper config
 @mixin flexCenter{
@@ -38,6 +38,7 @@
   --color-primary: var(--primary);
   --color-paleorange: var(--paleorange);
   --color-dark-cyan: var(--dark-cyan);
+  --color-light-blue: var(--light-blue);
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
@@ -72,13 +73,14 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-/* edit here */
+  /* edit here */
   --primary: oklch(0.38 0.0618 251.27);
   --primary-foreground: oklch(0.985 0 0);
-  --dark-cyan:oklch(0.64 0.0993 213.55);
+  --dark-cyan: oklch(0.64 0.0993 213.55);
+  --light-blue: oklch(0.59 0.1389 241.97);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --paleorange:oklch(0.8 0.1337 63.41);
+  --paleorange: oklch(0.8 0.1337 63.41);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -111,10 +113,11 @@
   --popover-foreground: oklch(0.985 0 0);
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
+  --light-blue: oklch(0.59 0.1389 241.97);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
-  --dark-cyan:oklch(0.64 0.0993 213.55);
-  --paleorange:oklch(0.8 0.1337 63.41);
+  --dark-cyan: oklch(0.64 0.0993 213.55);
+  --paleorange: oklch(0.8 0.1337 63.41);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
