@@ -36,6 +36,12 @@
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
+  --color-indigo-500: var(--indigo-500);
+  --color-indigo-600: var(--indigo-600);
+  --color-indigo-700: var(--indigo-700);
+  --color-indigo-800: var(--indigo-800);
+  --color-indigo-900: var(--indigo-900);
+  --color-indigo-950: var(--indigo-950);
   --color-paleorange: var(--paleorange);
   --color-dark-cyan: var(--dark-cyan);
   --color-light-blue: var(--light-blue);
@@ -78,9 +84,15 @@
   --primary-foreground: oklch(0.985 0 0);
   --dark-cyan: oklch(0.64 0.0993 213.55);
   --light-blue: oklch(0.59 0.1389 241.97);
+  --indigo-500: oklch(0.585 0.233 277.117);
+  --indigo-600: oklch(0.511 0.262 276.966);
+  --indigo-700: oklch(0.457 0.24 277.023);
+  --indigo-800: oklch(0.398 0.195 277.366);
+  --indigo-900: oklch(0.359 0.144 278.697);
+  --indigo-950: oklch(0.257 0.09 281.288);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --paleorange: oklch(0.8 0.1337 63.41);
+  --paleorange: oklch(0.7 0.1867 47.6);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -114,10 +126,16 @@
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --light-blue: oklch(0.59 0.1389 241.97);
+  --indigo-500: oklch(0.585 0.233 277.117);
+  --indigo-600: oklch(0.511 0.262 276.966);
+  --indigo-700: oklch(0.457 0.24 277.023);
+  --indigo-800: oklch(0.398 0.195 277.366);
+  --indigo-900: oklch(0.359 0.144 278.697);
+  --indigo-950: oklch(0.257 0.09 281.288);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
   --dark-cyan: oklch(0.64 0.0993 213.55);
-  --paleorange: oklch(0.8 0.1337 63.41);
+  --paleorange: oklch(0.7 0.1867 47.6);
   --muted: oklch(0.269 0 0);
   --muted-foreground: oklch(0.708 0 0);
   --accent: oklch(0.269 0 0);
@@ -147,5 +165,7 @@
   }
   body {
     @apply bg-background text-foreground;
+    /* default font */
+    font-family: var(--font-roboto);
   }
 }
