@@ -6,6 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowRight, BookOpen, Dot } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
+import IntroduceSkill from '@/components/pages/not-defined/IntroduceSkill'
 export default function Home() {
   // slide show
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -39,7 +40,7 @@ export default function Home() {
       <div className="relative w-full h-auto md:h-[400px] bg-gradient-to-r from-[#0b4c71] to-[#04669c]">
         <div className="w-full flex flex-col md:grid md:grid-cols-2 h-full ">
           {/* Left side */}
-          <div className="md:col-span-1  mt-8 md:mt-0 flex flex-col items-start justify-center h-full pl-10 lg:pl-20 text-white ">
+          <div className="md:col-span-1  mt-8 md:mt-0 flex flex-col items-start justify-center h-full pl-10 lg:pl-20 xl:pl-30 text-white ">
             <div className="text-lg bg-light-blue text-white w-42 rounded-2xl flex justify-center">
               TOEIC Preparation
             </div>
@@ -117,33 +118,40 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* Introduce skill */}
+      <IntroduceSkill />
       {/* Course list */}
-      <div className="container mx-auto p-4">
-        <div className="mt-16 sm:mt-0 font-bold text-primary text-xl">
-          Các khóa học online nổi bật
+      <div className="container mx-auto p-4 sm:my-10">
+        <div className="flex justify-between items-center mb-10">
+          <div>
+            <div className="font-bold text-primary text-2xl">
+              Các khóa học online nổi bật
+            </div>
+            <div className="text-lg">
+              Giúp bạn nâng cao kĩ năng và định hướng mục tiêu thông qua các bài
+              giảng trực tuyến
+            </div>
+          </div>
+
+          <Button variant={'ghost'} className="w-40 h-10 cursor-pointer">
+            <Link href="/courses">Xem thêm</Link>
+            <ArrowRight />
+          </Button>
         </div>
-        <div className="text-lg">
-          Giúp bạn nâng cao kĩ năng và định hướng mục tiêu thông qua các bài
-          giảng trực tuyến
-        </div>
+
         <div className="h-auto my-4">
           <CourseList />
         </div>
-        <div className="flex justify-center items-center mr-8">
-          <Link href="/courses">
-            <Button variant={'paleorange'} className="w-64 h-10 cursor-pointer">
-              Xem thêm
-            </Button>
-          </Link>
-        </div>
       </div>
-      {/* Test List */}
-      <div className="container mx-auto p-4">
-        <div className="mt-16 sm:mt-0 font-bold text-primary text-xl">
-          Các bộ đề TOEIC mới nhất
-        </div>
-        <div className="mt-4">
-          <CollectionList />
+      {/* Emphasize Free Testing */}
+      <div className="bg-paleorange w-full h-64">
+        <div className="container mx-auto p-4 text-white">
+          {/* left side */}
+          <div>
+            <div className="text-2xl font-bold">
+              Bắt đầu làm bài test miễn phí
+            </div>
+          </div>
         </div>
       </div>
     </div>

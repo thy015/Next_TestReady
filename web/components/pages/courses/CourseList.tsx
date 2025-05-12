@@ -3,6 +3,7 @@ import Loading from '@/app/loading'
 import React, { Suspense } from 'react'
 import { CardContent } from '@/components/ui/card'
 import { Star } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Course } from '@/types/courses'
@@ -13,6 +14,7 @@ import {
   matchingColor,
   upperCaseFirstLetter,
 } from '@/utils'
+import { Button } from '@/components/ui/button'
 
 interface CourseCardProps {
   course: Course
@@ -31,7 +33,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
       </div>
       {/* Card */}
       <div className={`w-[300px] h-auto border-2 ${borderColor}`}>
-        <CardContent>
+        <CardContent className="flex flex-col">
           <div className="relative w-full h-[150px] my-4">
             <Image
               src={course.image}
@@ -41,9 +43,10 @@ const CourseCard = ({ course }: CourseCardProps) => {
               priority
             />
           </div>
-          <strong>
-            [ {course.category.level} ] {course.title}
-          </strong>
+          <Badge className={`${bgColor} text-md mb-2 rounded-3xl`}>
+            {course.category.level}
+          </Badge>
+          <strong>{course.title}</strong>
           <div className="flex items-center mt-2">
             <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
             <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
@@ -59,11 +62,16 @@ const CourseCard = ({ course }: CourseCardProps) => {
             <span className="text-primary text-xl font-semibold">
               {formatPrice(adjustFinalPrice(course.price, course.discount))}
             </span>
-            <span className="line-through">{formatPrice(course.price)}</span>
+            <span className="line-through text-gray-500">
+              {formatPrice(course.price)}
+            </span>
             <span className="bg-destructive rounded-lg text-white text-sm h-6 w-12 font-semibold items-center flex justify-center">
               -{course.discount}%
             </span>
           </div>
+          <Button className={`w-full ${bgColor} text-lg font-[900] mb-8`}>
+            <Link href={`/`}>Mua Ngay</Link>
+          </Button>
         </CardContent>
       </div>
     </Link>
@@ -101,10 +109,12 @@ const CourseList = () => {
     .filter((course) => course.isActive)
     .slice(0, sliceCount)
   return (
-    <div className="flex justify-center flex-col items-center my-8 sm:my-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-2 lg:gap-4">
+    <div className="flex justify-center flex-col items-center sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-2 lg:gap-4">
       <Suspense fallback={<Loading />}>
         {filterCourse.map((course) => (
-          <CourseCard key={course.id} course={course} />
+          <div key={course.id} className="mt-4 sm:mt-0">
+            <CourseCard course={course} />
+          </div>
         ))}
       </Suspense>
     </div>
