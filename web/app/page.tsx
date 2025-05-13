@@ -1,6 +1,5 @@
 'use client'
 import { CourseList } from '@/components/pages/courses/CourseList'
-import { CollectionList } from '@/components/pages/tests/CollectionList'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -144,12 +143,30 @@ export default function Home() {
         </div>
       </div>
       {/* Emphasize Free Testing */}
-      <div className="bg-paleorange w-full h-64">
-        <div className="container mx-auto p-4 text-white">
+      <div className="bg-paleorange w-full h-auto sm:h-64">
+        <div className="container h-full mx-auto p-4 text-white flex flex-col sm:grid sm:grid-cols-2">
           {/* left side */}
-          <div>
-            <div className="text-2xl font-bold">
-              Bắt đầu làm bài test miễn phí
+          <div className="flex flex-col pt-4 items-center justify-center text-justify mb-8 sm:items-start sm:col-span-1 sm:text-left sm:mb-0">
+            <div className="text-2xl font-bold my-2">
+              Sẵn sàng cho bài test TOEIC của bạn chưa ?
+            </div>
+            <div>
+              Tham gia bài kiểm tra đánh giá miễn phí của chúng tôi và khám phá
+              trình độ TOEIC hiện tại của bạn. Nhận các gợi ý cá nhân hóa để cải
+              thiện.
+            </div>
+            <Button
+              variant={'ghost'}
+              className="w-40 h-10 cursor-pointer bg-white text-paleorange font-bold mt-2"
+            >
+              <Link href="/tests">Bắt đầu ngay</Link>
+            </Button>
+          </div>
+          {/* Right side */}
+          <div className="sm:col-span-1 flex items-center justify-center">
+            <div className="font-mogra flex flex-col">
+              <div className="text-4xl transform -rotate-5 mb-3">Ready for</div>
+              <div className="text-7xl">TOEIC ?</div>
             </div>
           </div>
         </div>

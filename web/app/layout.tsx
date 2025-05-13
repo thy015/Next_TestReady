@@ -1,14 +1,20 @@
 import type { Metadata } from 'next'
-import { Roboto } from 'next/font/google'
+import { Roboto, Mogra } from 'next/font/google'
 import '../global.css'
 import { Suspense } from 'react'
 import Loading from './loading'
 import Header from '@/components/partials/header'
+import Footer from '@/components/partials/footer'
 
 // font config
-
 const roboto = Roboto({
   variable: '--font-roboto',
+  weight: '400',
+  subsets: ['latin'],
+})
+
+const mogra = Mogra({
+  variable: '--font-mogra',
   weight: '400',
   subsets: ['latin'],
 })
@@ -28,10 +34,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${roboto.variable}`}>
+      <body className={` ${roboto.variable} ${mogra.variable}`}>
         <Suspense fallback={<Loading />}>
           <Header />
           {children}
+          <Footer />
         </Suspense>
       </body>
     </html>

@@ -24,7 +24,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
   const [bgColor, borderColor] = colorMatched.split(' ')
 
   return (
-    <Link href={`/courses/${course.id}`}>
+    <>
       {/* Badge */}
       <div
         className={`${bgColor} w-32 text-white items-center flex justify-center rounded-tl-2xl rounded-tr-2xl font-semibold h-8`}
@@ -70,11 +70,11 @@ const CourseCard = ({ course }: CourseCardProps) => {
             </span>
           </div>
           <Button className={`w-full ${bgColor} text-lg font-[900] mb-8`}>
-            <Link href={`/`}>Mua Ngay</Link>
+            Mua Ngay
           </Button>
         </CardContent>
       </div>
-    </Link>
+    </>
   )
 }
 
@@ -113,7 +113,9 @@ const CourseList = () => {
       <Suspense fallback={<Loading />}>
         {filterCourse.map((course) => (
           <div key={course.id} className="mt-4 sm:mt-0">
-            <CourseCard course={course} />
+            <Link href={`/courses/${course.id}`}>
+              <CourseCard course={course} />
+            </Link>
           </div>
         ))}
       </Suspense>
