@@ -118,32 +118,36 @@ export default function Home() {
         </div>
       </div>
       {/* Introduce skill */}
-      <IntroduceSkill />
+      <div className="bg-white rounded-b-lg">
+        <IntroduceSkill />
+      </div>
       {/* Course list */}
-      <div className="container mx-auto p-4 sm:my-10">
-        <div className="flex justify-between items-center mb-10">
-          <div>
-            <div className="font-bold text-primary text-2xl">
-              Các khóa học online nổi bật
+      <div className="bg-white rounded-lg">
+        <div className="container mx-auto p-4 sm:my-10">
+          <div className="flex justify-between items-center mb-10">
+            <div>
+              <div className="font-bold text-primary text-2xl">
+                Các khóa học online nổi bật
+              </div>
+              <div className="text-lg">
+                Giúp bạn nâng cao kĩ năng và định hướng mục tiêu thông qua các
+                bài giảng trực tuyến
+              </div>
             </div>
-            <div className="text-lg">
-              Giúp bạn nâng cao kĩ năng và định hướng mục tiêu thông qua các bài
-              giảng trực tuyến
-            </div>
+
+            <Button variant={'ghost'} className="w-40 h-10 cursor-pointer">
+              <Link href="/courses">Xem thêm</Link>
+              <ArrowRight />
+            </Button>
           </div>
 
-          <Button variant={'ghost'} className="w-40 h-10 cursor-pointer">
-            <Link href="/courses">Xem thêm</Link>
-            <ArrowRight />
-          </Button>
-        </div>
-
-        <div className="h-auto my-4">
-          <CourseList />
+          <div className="h-auto my-4">
+            <CourseList />
+          </div>
         </div>
       </div>
       {/* Emphasize Free Testing */}
-      <div className="bg-paleorange w-full h-auto sm:h-64">
+      <div className="bg-paleorange w-full h-auto sm:h-72 rounded-t-lg">
         <div className="container h-full mx-auto p-4 text-white flex flex-col sm:grid sm:grid-cols-2">
           {/* left side */}
           <div className="flex flex-col pt-4 items-center justify-center text-justify mb-8 sm:items-start sm:col-span-1 sm:text-left sm:mb-0">

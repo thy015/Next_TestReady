@@ -5,6 +5,8 @@ import { Suspense } from 'react'
 import Loading from './loading'
 import Header from '@/components/partials/header'
 import Footer from '@/components/partials/footer'
+import { SidebarProvider } from '@/components/ui/sidebar'
+import { AppSidebar } from '@/components/app-sidebar'
 
 // font config
 const roboto = Roboto({
@@ -35,11 +37,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={` ${roboto.variable} ${mogra.variable}`}>
-        <Suspense fallback={<Loading />}>
-          <Header />
-          {children}
-          <Footer />
-        </Suspense>
+        <SidebarProvider defaultOpen={false} className="relative">
+          <AppSidebar />
+          <Suspense fallback={<Loading />}>
+            <main className="w-full h-full">
+              <Header />
+              {children}
+              <Footer />
+            </main>
+          </Suspense>
+        </SidebarProvider>
       </body>
     </html>
   )

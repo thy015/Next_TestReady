@@ -33,7 +33,7 @@ const IntroduceSkill = () => {
     },
   ]
   return (
-    <div className="w-full h-auto bg-[#f9fafb] flex flex-col items-center justify-start text-center  ">
+    <div className="w-full h-auto flex flex-col items-center justify-start text-center  ">
       <div className="my-8">
         <div className="text-3xl font-[900]">
           Làm chủ tất cả các kỹ năng TOEIC

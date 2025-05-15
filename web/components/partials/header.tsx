@@ -10,9 +10,9 @@ import {
 } from '../ui/dropdown-menu'
 const Header = () => {
   return (
-    <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border-b">
+    <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border rounded-tl-4xl">
       {/* 3 - 6 - 3 */}
-      <div className="col-span-6 sm:col-span-3 flex justify-center ">
+      <div className="col-span-6 sm:col-span-3 flex justify-center items-center space-x-2">
         <Image
           src="/icons/logo_2.png"
           alt="Logo"
