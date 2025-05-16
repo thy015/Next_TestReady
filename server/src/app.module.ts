@@ -7,6 +7,9 @@ import { UserModule } from './user/user.module';
 import { TestCollectionModule } from './test_collection/test_collection.module';
 import { TestModule } from './test/test.module';
 import { PartModule } from './part/part.module';
+import { QuestionModule } from './question/question.module';
+import { AuthModule } from './auth/auth.module';
+import { PartResultModule } from './part_result/part_result.module';
 
 @Module({
   imports: [
@@ -26,7 +29,10 @@ import { PartModule } from './part/part.module';
     UserModule,
     TestCollectionModule,
     TestModule,
-    PartModule
+    PartModule,
+    QuestionModule,
+    AuthModule,
+    PartResultModule
   ],
   controllers: [AppController],
   providers: [AppService],

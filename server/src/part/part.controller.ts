@@ -17,7 +17,7 @@ export class PartController {
     return this.partService.findAll();
   }
 
-  @Get('get-one/:id')
+  @Get('/:id')
   findOne(@Param('id') id: string) {
     return this.partService.findOne(+id);
   }

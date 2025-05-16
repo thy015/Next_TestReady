@@ -32,8 +32,8 @@ export class PartService {
     return await this.partRespo.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} part`;
+  async findOne(id: number) {
+    return await this.partRespo.findOne({where: {id}}) ;
   }
 
   update(id: number, updatePartDto: UpdatePartDto) {

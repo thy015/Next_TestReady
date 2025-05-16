@@ -7,6 +7,7 @@ import { Repository } from 'typeorm';
 import { Heart } from './entities/heart.entity';
 import { HeartService } from './service/user.heart.service';
 import { DiamondService } from './service/user.diamond.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UserService {
@@ -21,6 +22,11 @@ export class UserService {
     @InjectRepository(Heart)
     private heartRes: Repository<Heart>,
   ){}
+
+  async hashPassword(password){
+    return await bcrypt.hash(password,12)
+  }
+
   async create(createUserDto: CreateUserDto) {
     try{
       // kiểm tra người dùng đã tạo chưa 
@@ -34,6 +40,8 @@ export class UserService {
         throw new ConflictException('Số điện thoại đã tồn tại!');
       }
 
+      const passwordHash = await this.hashPassword(createUserDto.password)
+
       // tạo bảng tim trước khi tạo bảng user
       const heart = await this.heartService.createAuto()
       
@@ -46,7 +54,7 @@ export class UserService {
         throw new BadRequestException("Tạo bảng diamond không thành công!")
 
       }
-      return  await this.user.save({...createUserDto,heart,diamond}) 
+      return  await this.user.save({...createUserDto,password:passwordHash,heart,diamond}) 
     }catch(err){
       if(err.driverError?.code === "ER_DUP_ENTRY"){
         throw new ConflictException("Trùng id heart")

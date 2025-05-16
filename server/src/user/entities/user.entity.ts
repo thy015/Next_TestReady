@@ -1,6 +1,7 @@
+import { PartResult } from "src/part_result/entities/part_result.entity";
 import { Diamond } from "./diamond.entity";
 import { Heart } from "./heart.entity";
-import { Column, CreateDateColumn, Entity, EntityRepository, JoinColumn, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, EntityRepository, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class User {
@@ -47,4 +48,8 @@ export class User {
     })
     @JoinColumn()
     diamond:Diamond
+
+    @OneToMany(()=>PartResult,(part_result)=> part_result.user)
+    part_results:PartResult[]
+
 }

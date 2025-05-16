@@ -25,8 +25,8 @@ export class TestCollectionService {
     })
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} testCollection`;
+  async findOne(id: number) {
+    return  await this.testRespo.findOne({where : {id}});
   }
 
   update(id: number, updateTestCollectionDto: UpdateTestCollectionDto) {
