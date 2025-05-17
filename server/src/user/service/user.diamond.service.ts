@@ -14,7 +14,7 @@ export class DiamondService{
 
     async createAuto(){
         const diamond: CreateDiamondDto={
-            balance:100,
+            balance:0,
             total_earned:0,
             total_spent:0
         }

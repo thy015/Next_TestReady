@@ -11,16 +11,16 @@ export class PartController {
   create(@Body(ValidationPipe) createPartDto: CreatePartDto) {
     return this.partService.create(createPartDto);
   }
-
+  
   @Get("all-parts")
   findAll() {
     return this.partService.findAll();
   }
 
-  @Get('/:id')
-  findOne(@Param('id') id: string) {
-    return this.partService.findOne(+id);
-  }
+  // @Get('/:id')
+  // findOne(@Param('id') id: string) {
+  //   return this.partService.findOne(+id);
+  // }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updatePartDto: UpdatePartDto) {
