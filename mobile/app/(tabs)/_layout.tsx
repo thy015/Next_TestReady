@@ -17,29 +17,59 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab,
+        tabBarLabelPosition: 'below-icon',
         tabBarBackground: TabBarBackground,
         tabBarStyle: Platform.select({
           ios: {
-            // Use a transparent background on iOS to show the blur effect
             position: 'absolute',
           },
+          android: {
+            position: 'absolute',},
           default: {},
         }),
       }}>
       <Tabs.Screen
-        name="index"
+        name="newfeed/index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          title: 'Đọc báo',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="book.fill" color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="vocabulary/index"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Từ vựng',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="character.book.closed" color={color} />,
         }}
       />
+      
+<Tabs.Screen
+  name="leaderboard/index"
+  options={{
+    title: 'Khó nói',
+    tabBarIcon: ({ color }) => (
+      <IconSymbol name="chart.bar.xaxis" size={28} color={color} />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="premium/index"
+  options={{
+    title: 'Khó nói',
+    tabBarIcon: ({ color }) => (
+      <IconSymbol name="crown.fill" size={28} color={color} />
+    ),
+  }}
+/>
+<Tabs.Screen
+  name="explore"
+  options={{
+    title: 'Cài đặt',
+    tabBarIcon: ({ color }) => (
+      <IconSymbol name="gearshape.fill" size={28} color={color} />
+    ),
+  }}
+/>
     </Tabs>
   );
 }
