@@ -1,177 +1,178 @@
-"use client";
+'use client'
 
-import * as React from "react";
+import * as React from 'react'
 import {
   AudioWaveform,
   BookOpen,
   Bot,
   Command,
-  Frame,
+  Component,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react";
+  Heart,
+  LibraryBig,
+  Shapes,
+  StepForward,
+} from 'lucide-react'
 
-import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
-import { NavUser } from "@/components/nav-user";
+import { NavMain } from '@/components/nav-main'
+import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
+  SidebarGroup,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarRail,
   SidebarTrigger,
-} from "@/components/ui/sidebar";
+} from '@/components/ui/sidebar'
+import { NavPersonal } from './nav-personal'
 
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
+    name: 'username',
+    email: 'username@gmail.com',
+    avatar: '/avatars/shadcn.jpg',
   },
   teams: [
     {
-      name: "Acme Inc",
+      name: 'Acme Inc',
       logo: GalleryVerticalEnd,
-      plan: "Enterprise",
+      plan: 'Enterprise',
     },
     {
-      name: "Acme Corp.",
+      name: 'Acme Corp.',
       logo: AudioWaveform,
-      plan: "Startup",
+      plan: 'Startup',
     },
     {
-      name: "Evil Corp.",
+      name: 'Evil Corp.',
       logo: Command,
-      plan: "Free",
+      plan: 'Free',
     },
   ],
   navMain: [
     {
-      title: "Orc Warrior Ground",
-      url: "#",
-      icon: SquareTerminal,
+      title: 'Phân bổ đề thi',
+      url: '#',
+      icon: Shapes,
       isActive: true,
       items: [
         {
-          title: "History",
-          url: "#",
+          title: 'Listening',
+          url: '#',
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
+          title: 'Reading',
+          url: '#',
         },
       ],
     },
     {
-      title: "Models",
-      url: "#",
+      title: 'Xác định lộ trình',
+      url: '#',
       icon: Bot,
       items: [
         {
-          title: "Genesis",
-          url: "#",
+          title: 'Test đầu vào',
+          url: '#',
         },
         {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
+          title: 'Bắt đầu từ đâu',
+          url: '#',
         },
       ],
     },
     {
-      title: "Documentation",
-      url: "#",
+      title: 'Tài liệu',
+      url: '#',
+      icon: LibraryBig,
+      items: [
+        {
+          title: 'Tài liệu tự học',
+          url: '#',
+        },
+        {
+          title: 'Luyện đề',
+          url: '#',
+        },
+        {
+          title: 'Tips luyện đề',
+          url: '#',
+        },
+      ],
+    },
+    {
+      title: 'Khóa học',
+      url: '#',
       icon: BookOpen,
       items: [
         {
-          title: "Introduction",
-          url: "#",
+          title: 'TOEIC Vỡ lòng',
+          url: '#',
         },
         {
-          title: "Get Started",
-          url: "#",
+          title: '450-550+',
+          url: '#',
         },
         {
-          title: "Tutorials",
-          url: "#",
+          title: '600-650+',
+          url: '#',
         },
         {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
+          title: '750-850+',
+          url: '#',
         },
         {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
+          title: '900+',
+          url: '#',
         },
       ],
     },
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
+      name: 'Từ vựng của tôi',
+      url: '#',
+      icon: Heart,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
+      name: 'Lộ trình của tôi',
+      url: '#',
+      icon: StepForward,
     },
     {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      name: 'Nhóm Flashcard',
+      url: '#',
+      icon: Component,
     },
   ],
-};
+}
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar className='z-20' variant='inset' collapsible="icon" {...props}>
-      <SidebarHeader>
-        <div>
-          <SidebarTrigger />
-        </div>
+    <Sidebar className="z-20" variant="inset" collapsible="icon" {...props}>
+      <SidebarHeader className="flex flex-row items-center mt-5">
+        <SidebarTrigger />
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-white font-mogra mt-2 text-2xl flex relative">
+            <div className="absolute inset-0 text-light-blue select-none transform translate-x-1.5 translate-y-0.5">
+              TOEIC Ready
+            </div>
+            <div className="relative text-white">TOEIC Ready</div>
+          </SidebarGroupLabel>
+        </SidebarGroup>
       </SidebarHeader>
       <SidebarContent>
+        <div className="h-36"></div>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <NavPersonal projects={data.projects} />
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  );
+  )
 }

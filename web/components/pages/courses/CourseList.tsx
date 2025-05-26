@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Course } from '@/types/courses'
-import { courses } from './data'
+import { courses } from '../../../localData/course'
 import {
   adjustFinalPrice,
   formatPrice,
@@ -32,7 +32,7 @@ const CourseCard = ({ course }: CourseCardProps) => {
         {upperCaseFirstLetter(course.type)}
       </div>
       {/* Card */}
-      <div className={`w-[300px] h-auto border-2 ${borderColor}`}>
+      <div className={`w-auto h-auto border-2 ${borderColor}`}>
         <CardContent className="flex flex-col">
           <div className="relative w-full h-[150px] my-4">
             <Image

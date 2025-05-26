@@ -10,7 +10,7 @@ import {
 } from '../ui/dropdown-menu'
 const Header = () => {
   return (
-    <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border rounded-tl-4xl">
+    <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border ">
       {/* 3 - 6 - 3 */}
       <div className="col-span-6 sm:col-span-3 flex justify-center items-center space-x-2">
         <Image
@@ -23,8 +23,8 @@ const Header = () => {
       </div>
       <div className="hidden sm:col-span-6 sm:flex items-center justify-center">
         <div className="hidden sm:flex items-center justify-center gap-6 text-primary md:text-lg">
-          {' '}
-          <Link href="/">Đề thi TOEIC</Link>
+          {/* TODO: add icon nav and dropdown menu */}
+          <Link href="/tests">Đề thi TOEIC</Link>
           <Link href="/">TOEIC Tips</Link>
           <Link href="/">Luyện từ vựng</Link>
           <Link href="/">Các Khóa Học</Link>
@@ -33,8 +33,12 @@ const Header = () => {
       </div>
       <div className="hidden md:col-span-3 md:flex items-center justify-center">
         <div className="hidden md:flex items-center justify-center gap-3 text-primary text-lg">
-          <Link href="/">Đăng Ký</Link>
-          <Link href="/">Đăng Nhập</Link>
+          <Button variant="outline">
+            <Link href="/">Đăng Ký</Link>
+          </Button>
+          <Button variant="default">
+            <Link href="/">Đăng Nhập</Link>
+          </Button>
         </div>
       </div>
       <div className="col-span-6 sm:col-span-2 md:hidden flex items-center space-x-3">

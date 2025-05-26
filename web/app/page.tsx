@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ArrowRight, BookOpen, Dot } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import IntroduceSkill from '@/components/pages/not-defined/IntroduceSkill'
+import { AppBreadcrumb } from '@/components/app-breadcrumb'
 export default function Home() {
   // slide show
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -36,7 +37,8 @@ export default function Home() {
       {/* Seperator */}
       <div className="h-[96px]"></div>
       {/* Image background with slideshow*/}
-      <div className="relative w-full h-auto md:h-[400px] bg-gradient-to-r from-[#0b4c71] to-[#04669c]">
+      <div className="relative w-full h-auto md:h-[400px] md:mt-3">
+        <AppBreadcrumb />
         <div className="w-full flex flex-col md:grid md:grid-cols-2 h-full ">
           {/* Left side */}
           <div className="md:col-span-1  mt-8 md:mt-0 flex flex-col items-start justify-center h-full pl-10 lg:pl-20 xl:pl-30 text-white ">
@@ -55,11 +57,11 @@ export default function Home() {
               hôm nay.
             </div>
             <div className="flex justify-center items-center mt-4 gap-4">
-              <Button variant={'paleorange'} className="text-white">
+              <Button variant={'paleorange'} className="text-white" size={'lg'}>
                 <Link href="/"> Bắt đầu ngay</Link>
                 <ArrowRight></ArrowRight>
               </Button>
-              <Button>
+              <Button size={'lg'}>
                 <Link href="/courses">Khám phá khóa học</Link>
                 <BookOpen />
               </Button>
@@ -95,22 +97,22 @@ export default function Home() {
         </div>
       </div>
       {/* Gradient Ratio */}
-      <div className="h-48 w-full bg-gradient-to-r from-[#0b4c71] to-[#04669c] flex items-center justify-center">
-        <div className="bg-gradient-to-r from-[#245e80] to-[#1e77a8] h-[40%] w-[86%] flex items-center justify-center rounded-2xl">
-          <div className="grid grid-cols-4 w-full">
-            <div className="col-span-1 text-white flex flex-col items-center justify-center">
+      <div className="h-48 w-full flex items-center justify-center">
+        <div className="bg-white h-[40%] w-[86%] flex items-center justify-center rounded-2xl">
+          <div className="grid grid-cols-4 w-full text-sky-800">
+            <div className="col-span-1 flex flex-col items-center justify-center">
               <div className="text-2xl font-bold">1000+</div>
               <div className="text-md">Học viên</div>
             </div>
-            <div className="col-span-1 text-white flex flex-col items-center justify-center">
+            <div className="col-span-1 flex flex-col items-center justify-center">
               <div className="text-2xl font-bold">95%</div>
               <div className="text-md">Tỉ lệ đạt Aim</div>
             </div>
-            <div className="col-span-1 text-white flex flex-col items-center justify-center">
+            <div className="col-span-1 flex flex-col items-center justify-center">
               <div className="text-2xl font-bold">200+</div>
               <div className="text-md">Bài test</div>
             </div>
-            <div className="col-span-1 text-white flex flex-col items-center justify-center">
+            <div className="col-span-1 flex flex-col items-center justify-center">
               <div className="text-2xl font-bold">4.8</div>
               <div className="text-md">Đánh giá</div>
             </div>

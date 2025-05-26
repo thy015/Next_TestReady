@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Roboto, Mogra } from 'next/font/google'
+import { Roboto, Mogra, Lexend } from 'next/font/google'
 import '../global.css'
 import { Suspense } from 'react'
 import Loading from './loading'
@@ -21,6 +21,11 @@ const mogra = Mogra({
   subsets: ['latin'],
 })
 
+const lexend = Lexend({
+  variable: '--font-lexend',
+  weight: '400',
+  subsets: ['latin'],
+})
 export const metadata: Metadata = {
   title: 'TOEIC Ready',
   description: 'An TOEIC testing website',
@@ -36,7 +41,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={` ${roboto.variable} ${mogra.variable}`}>
+      <body
+        className={` ${roboto.variable} ${mogra.variable} ${lexend.variable}`}
+      >
         <SidebarProvider defaultOpen={false} className="relative">
           <AppSidebar />
           <Suspense fallback={<Loading />}>

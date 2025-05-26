@@ -3,7 +3,7 @@ import React, { Suspense } from 'react'
 import Image from 'next/image'
 import { MessageSquareText, SquarePen } from 'lucide-react'
 import { TestCollection } from '@/types/tests'
-import { testCollections } from './data'
+import { testCollections } from '../../../localData/tests'
 
 interface TestCardProps {
   collection: TestCollection

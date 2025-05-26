@@ -20,10 +20,13 @@
 .flex-between {
   @include flexBetween;
 } */
-
+.sidebar-inset-gradient {
+  background: linear-gradient(to bottom, #1d2335, #1c3b4f, #1e254c) !important;
+}
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-lexend: var(--font-lexend);
   --font-roboto: var(--font-roboto);
   --font-mogra: var(--font-mogra);
   --radius-sm: calc(var(--radius) - 4px);
@@ -49,6 +52,7 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
+  --color-navy: var(--navy);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
@@ -81,6 +85,7 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
   /* edit here */
+
   --primary: oklch(0.38 0.0618 251.27);
   --primary-foreground: oklch(0.985 0 0);
   --dark-cyan: oklch(0.64 0.0993 213.55);
@@ -93,6 +98,7 @@
   --indigo-950: oklch(0.257 0.09 281.288);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
+  --navy:oklch(0.4422 0.1021 254.51);
   --paleorange: oklch(0.7 0.1867 47.6);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
@@ -107,7 +113,7 @@
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: var(--primary);
+  --sidebar: oklch(0.33 0.0499 240.63);
   --sidebar-foreground: oklch(1 0 242.4);
   --sidebar-primary: oklch(0.86 0.0099 265.56);
   --sidebar-primary-foreground: oklch(0.86 0.0099 265.56);
@@ -128,6 +134,7 @@
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --light-blue: oklch(0.59 0.1389 241.97);
+--navy:oklch(0.4422 0.1021 254.51);
   --indigo-500: oklch(0.585 0.233 277.117);
   --indigo-600: oklch(0.511 0.262 276.966);
   --indigo-700: oklch(0.457 0.24 277.023);
