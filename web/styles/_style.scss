@@ -1,0 +1,38 @@
+//helper
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  @include flexCenter;
+}
+.flex-between {
+  @include flexBetween;
+}
+
+.arrow-card {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  &:hover {
+    
+  }
+  &::after {
+    content: '↑';
+    position: absolute;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    opacity: 1;
+  }
+}

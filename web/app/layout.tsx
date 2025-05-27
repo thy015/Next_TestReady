@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Roboto, Mogra, Lexend } from 'next/font/google'
 import '../global.css'
+import '../styles/_style.scss'
 import { Suspense } from 'react'
 import Loading from './loading'
 import Header from '@/components/partials/header'

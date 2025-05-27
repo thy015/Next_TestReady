@@ -13,13 +13,15 @@ const Header = () => {
     <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border ">
       {/* 3 - 6 - 3 */}
       <div className="col-span-6 sm:col-span-3 flex justify-center items-center space-x-2">
-        <Image
-          src="/icons/logo_2.png"
-          alt="Logo"
-          width={242}
-          height={110}
-          className="w-40 md:mt-0"
-        />
+        <Link href="/">
+          <Image
+            src="/icons/logo_2.png"
+            alt="Logo"
+            width={242}
+            height={110}
+            className="w-40 md:mt-0"
+          />
+        </Link>
       </div>
       <div className="hidden sm:col-span-6 sm:flex items-center justify-center">
         <div className="hidden sm:flex items-center justify-center gap-6 text-primary md:text-lg">

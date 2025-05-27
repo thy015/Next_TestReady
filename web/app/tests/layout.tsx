@@ -2,7 +2,7 @@ import { AppBreadcrumb } from '@/components/app-breadcrumb'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ArrowDownWideNarrow, Search } from 'lucide-react'
-import { TabsList, TabsTrigger, Tabs } from '@/components/ui/tabs'
+import AppTabContent from '@/components/app-tab-content'
 
 export default function TestLayout({
   children,
@@ -46,17 +46,9 @@ export default function TestLayout({
       <div className="h-full w-full flex items-center justify-center">
         <div className="border w-[90%] h-full p-4">
           <div className="grid grid-cols-12 h-full w-full">
-            <div className="col-span-9">
-              <Tabs defaultValue="all" className="h-12">
-                <TabsList>
-                  <TabsTrigger value="all">All tests</TabsTrigger>
-                  <TabsTrigger value="ets">ETS</TabsTrigger>
-                  <TabsTrigger value="hacker">Hacker</TabsTrigger>
-                  <TabsTrigger value="preparation">
-                    TOEIC Preparation
-                  </TabsTrigger>
-                </TabsList>
-              </Tabs>
+            <div className="col-span-9 mr-8">
+              <AppTabContent />
+
               {children}
             </div>
             <div className="col-span-3 h-full w-full bg-gradient-to-b from-[#F5EEDC] via-[#FFF7E3]  to-[#F5EEDC] rounded-2xl p-4">

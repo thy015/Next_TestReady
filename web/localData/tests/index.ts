@@ -6,14 +6,13 @@ export const testCollections: TestCollection[] = [
     name: 'TOEIC ETS 2024',
     createdAt: '2024-01-15T08:00:00Z',
     updatedAt: '2024-01-15T08:00:00Z',
-    image: '/images/ets_1.jpg',
 
     test: [
       {
         id: 'test1',
         isActive: true,
         title: 'TOEIC Practice Test 1',
-        image: '/images/toeic-test-1.jpg',
+
         duration: 120,
         createdAt: '2024-01-10T08:00:00Z',
         updatedAt: '2024-01-10T08:00:00Z',
@@ -23,7 +22,7 @@ export const testCollections: TestCollection[] = [
         id: 'test2',
         isActive: true,
         title: 'TOEIC Practice Test 2',
-        image: '/images/toeic-test-2.jpg',
+
         duration: 120,
         createdAt: '2024-01-12T08:00:00Z',
         updatedAt: '2024-01-12T08:00:00Z',
@@ -36,13 +35,13 @@ export const testCollections: TestCollection[] = [
     name: 'TOEIC ETS 2023',
     createdAt: '2023-12-20T08:00:00Z',
     updatedAt: '2024-01-05T08:00:00Z',
-    image: '/images/ets_2.png',
+
     test: [
       {
         id: 'test3',
         isActive: true,
         title: 'Listening Practice',
-        image: '/images/listening-practice.jpg',
+
         duration: 45,
         createdAt: '2023-12-22T08:00:00Z',
         updatedAt: '2024-01-02T08:00:00Z',
@@ -52,7 +51,7 @@ export const testCollections: TestCollection[] = [
         id: 'test4',
         isActive: false,
         title: 'Reading Practice (Coming Soon)',
-        image: '/images/reading-practice.jpg',
+
         duration: 75,
         createdAt: '2023-12-25T08:00:00Z',
         updatedAt: '2023-12-25T08:00:00Z',
@@ -65,13 +64,13 @@ export const testCollections: TestCollection[] = [
     name: 'Hacker TOEIC 3',
     createdAt: '2024-02-01T08:00:00Z',
     updatedAt: '2024-02-10T08:00:00Z',
-    image: '/images/hacker_1.jpeg',
+
     test: [
       {
         id: 'test6',
         isActive: true,
         title: 'Hacker TOEIC 3 - Test 1 (Nghe)',
-        image: '/images/hacker-3-listening.jpg',
+
         duration: 45,
         createdAt: '2024-02-05T08:00:00Z',
         updatedAt: '2024-02-05T08:00:00Z',
@@ -81,7 +80,7 @@ export const testCollections: TestCollection[] = [
         id: 'test7',
         isActive: true,
         title: 'Hacker TOEIC 3 - Test 1 (Đọc)',
-        image: '/images/hacker-3-reading.jpg',
+
         duration: 75,
         createdAt: '2024-02-05T08:00:00Z',
         updatedAt: '2024-02-05T08:00:00Z',
@@ -91,7 +90,7 @@ export const testCollections: TestCollection[] = [
         id: 'test8',
         isActive: false,
         title: 'Hacker TOEIC 3 - Test 2 (Full)',
-        image: '/images/hacker-3-full.jpg',
+
         duration: 120,
         createdAt: '2024-02-10T08:00:00Z',
         updatedAt: '2024-02-10T08:00:00Z',
@@ -104,13 +103,12 @@ export const testCollections: TestCollection[] = [
     name: 'TOEIC ETS 2022',
     createdAt: '2023-10-01T08:00:00Z',
     updatedAt: '2024-01-20T08:00:00Z',
-    image: '/images/ets_3.webp',
+
     test: [
       {
         id: 'test9',
         isActive: true,
         title: 'Luyện Nghe Part 1-2',
-        image: '/images/listening-part1-2.jpg',
         duration: 30,
         createdAt: '2023-10-05T08:00:00Z',
         updatedAt: '2023-12-15T08:00:00Z',
@@ -120,7 +118,6 @@ export const testCollections: TestCollection[] = [
         id: 'test10',
         isActive: true,
         title: 'Luyện Nghe Part 3-4',
-        image: '/images/listening-part3-4.jpg',
         duration: 45,
         createdAt: '2023-10-10T08:00:00Z',
         updatedAt: '2023-12-18T08:00:00Z',

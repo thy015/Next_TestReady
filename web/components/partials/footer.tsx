@@ -98,7 +98,7 @@ export default function Footer() {
       </div>
 
       <div className="bg-[#111827] w-full h-20 border-t border-gray-400">
-        <div className="flex items-center justify-center text-lg h-full w-full mx-auto p-4 text-gray-400">
+        <div className="flex-center text-lg h-full w-full mx-auto p-4 text-gray-400">
           <div>© 2025 TOEIC Ready. All rights reserved.</div>
         </div>
       </div>

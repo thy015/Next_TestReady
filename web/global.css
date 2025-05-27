@@ -1,25 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-/* // Helper config
-@mixin flexCenter{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-@mixin flexBetween{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.flex-center {
-  @include flexCenter;
-}
-.flex-between {
-  @include flexBetween;
-} */
 .sidebar-inset-gradient {
   background: linear-gradient(to bottom, #1d2335, #1c3b4f, #1e254c) !important;
 }

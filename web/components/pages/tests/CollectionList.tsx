@@ -1,57 +1,70 @@
-import Loading from '@/app/loading'
-import React, { Suspense } from 'react'
-import Image from 'next/image'
-import { MessageSquareText, SquarePen } from 'lucide-react'
+import { Badge } from '@/components/ui/badge'
 import { TestCollection } from '@/types/tests'
-import { testCollections } from '../../../localData/tests'
 
-interface TestCardProps {
+interface TestCollectionListProps {
+  collections: TestCollection[]
+}
+
+interface TestCollectionCardProps {
   collection: TestCollection
 }
-const CollectionCard = ({ collection }: TestCardProps) => {
-  const totalTestAttemps = collection.test.reduce(
-    (sum, test) => sum + (test.timesUserTest || 0),
-    0
-  )
+
+const TestCollectionList = ({ collections }: TestCollectionListProps) => {
+  if (collections.length === 0) {
+    return (
+      <div className="text-center py-8 text-muted-foreground">
+        No tests available
+      </div>
+    )
+  }
+
   return (
-    <div className="w-64 h-48 flex flex-col">
-      <div className="relative w-full h-48 overflow-hidden">
-        <Image
-          src={collection.image}
-          alt={collection.name}
-          fill
-          className="object-cover object-center"
-          priority
-          quality={85}
-        />
-      </div>
-      <div className="mt-2 flex items-center justify-center font-medium text-xl text-primary">
-        {collection.name}
-      </div>
-      <div className="flex items-center justify-center gap-2">
-        <SquarePen className="text-muted-foreground" />{' '}
-        <div>{totalTestAttemps}</div>
-        <div className="text-muted-foreground"> | </div>
-        <MessageSquareText className="titletext-muted-foreground" />{' '}
-        <div>123</div>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 cursor-pointer gap-6 w-full">
+      {collections.map((collection) => (
+        <TestCollectionCard key={collection.id} collection={collection} />
+      ))}
+    </div>
+  )
+}
+
+const TestCollectionCard = ({ collection }: TestCollectionCardProps) => {
+  return (
+    <div className="flex flex-col h-full">
+      <div className="arrow-card rounded-lg border bg-card text-card-foreground shadow-sm hover:shadow-lg transition-shadow flex-1 flex flex-col">
+        <div className="h-3 bg-navy/70 rounded-t-lg"></div>
+        <div className="p-6 flex-1">
+          <div className="flex justify-between items-center mb-4">
+            <div className="text-xl font-lexend font-semibold">
+              {collection.name}
+            </div>
+            <Badge variant={'navy'}>
+              {collection.test.length} {''}
+              {collection.test.length > 1 ? 'tests' : 'test'}
+            </Badge>
+          </div>
+          {collection.test && collection.test.length > 0 && (
+            <div className="space-y-2">
+              <div className="flex flex-wrap gap-2">
+                {collection.test.slice(0, 3).map((test) => (
+                  <span
+                    key={test.id}
+                    className="text-sm px-3 py-1 bg-gray-100 rounded-xl "
+                  >
+                    {test.title}
+                  </span>
+                ))}
+                {collection.test.length > 3 && (
+                  <span className="text-xs px-2 py-1 bg-gray-100 rounded-full">
+                    +{collection.test.length - 3} more
+                  </span>
+                )}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   )
 }
 
-const CollectionList = () => {
-  const activeCollections = testCollections
-    .filter((collection) => collection.id)
-    .slice(0, 4)
-  return (
-    <div className="flex justify-center flex-col items-center my-8 sm:my-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:gap-2 lg:gap-4">
-      <Suspense fallback={<Loading />}>
-        {activeCollections.map((c) => (
-          <CollectionCard collection={c} key={c.id} />
-        ))}
-      </Suspense>
-    </div>
-  )
-}
-
-export { CollectionCard, CollectionList }
+export { TestCollectionCard, TestCollectionList }
