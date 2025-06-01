@@ -1,9 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 
-.sidebar-inset-gradient {
-  background: linear-gradient(to bottom, #1d2335, #1c3b4f, #1e254c) !important;
-}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -28,6 +26,7 @@
   --color-indigo-900: var(--indigo-900);
   --color-indigo-950: var(--indigo-950);
   --color-paleorange: var(--paleorange);
+  --color-buff: var(--buff);
   --color-dark-cyan: var(--dark-cyan);
   --color-light-blue: var(--light-blue);
   --color-primary-foreground: var(--primary-foreground);
@@ -79,8 +78,9 @@
   --indigo-950: oklch(0.257 0.09 281.288);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
-  --navy:oklch(0.4422 0.1021 254.51);
+  --navy: oklch(0.4422 0.1021 254.51);
   --paleorange: oklch(0.7 0.1867 47.6);
+  --buff: oklch(0.9771 0.0276 88.75);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
   --accent: oklch(0.97 0 0);
@@ -98,7 +98,7 @@
   --sidebar-foreground: oklch(1 0 242.4);
   --sidebar-primary: oklch(0.86 0.0099 265.56);
   --sidebar-primary-foreground: oklch(0.86 0.0099 265.56);
-/* hover bg */
+  /* hover bg */
   --sidebar-accent: oklch(0.95 0.0099 324.53);
   --sidebar-accent-foreground: oklch(0.36 0.145 210.5);
   --sidebar-border: oklch(0.95 0.0099 324.53);
@@ -115,7 +115,8 @@
   --primary: oklch(0.922 0 0);
   --primary-foreground: oklch(0.205 0 0);
   --light-blue: oklch(0.59 0.1389 241.97);
---navy:oklch(0.4422 0.1021 254.51);
+  --navy: oklch(0.4422 0.1021 254.51);
+  --buff: oklch(0.9771 0.0276 88.75);
   --indigo-500: oklch(0.585 0.233 277.117);
   --indigo-600: oklch(0.511 0.262 276.966);
   --indigo-700: oklch(0.457 0.24 277.023);

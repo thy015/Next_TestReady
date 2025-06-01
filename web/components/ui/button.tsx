@@ -22,7 +22,10 @@ const buttonVariants = cva(
         link: 'text-primary underline-offset-4 hover:underline cursor-pointer hover:scale-105',
         paleorange:
           'bg-paleorange text-secondary-foreground shadow-xs hover:bg-[#f5b26b] cursor-pointer hover:scale-105',
+        buff: 'neumorphic-side-card text-black hover:bg-buff/80 cursor-pointer hover:scale-105',
+        navy: 'navy-button text-primary-foreground font-bold hover:bg-[#4f6a87] cursor-pointer hover:scale-105',
       },
+
       size: {
         default: 'h-9 px-4 py-2 has-[>svg]:px-3',
         sm: 'h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5',

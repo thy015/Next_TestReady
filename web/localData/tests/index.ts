@@ -1,4 +1,4 @@
-import { TestCollection } from '@/types/tests'
+import { PartType, TestCollection } from '@/types/tests'
 
 export const testCollections: TestCollection[] = [
   {
@@ -11,19 +11,90 @@ export const testCollections: TestCollection[] = [
       {
         id: 'test1',
         isActive: true,
-        title: 'TOEIC Practice Test 1',
-
-        duration: 120,
+        name: 'Test 1',
         createdAt: '2024-01-10T08:00:00Z',
         updatedAt: '2024-01-10T08:00:00Z',
         timesUserTest: 12,
+        parts: [
+          {
+            id: 'part1',
+            name: 'Part 1',
+            type: 'listening' as PartType,
+            total_question: 6,
+            duration: 30,
+          },
+          {
+            id: 'part2',
+            name: 'Part 2',
+            type: 'listening' as PartType,
+            total_question: 25,
+            duration: 30,
+          },
+          {
+            id: 'part3',
+            name: 'Part 3',
+            type: 'listening' as PartType,
+            total_question: 39,
+            duration: 30,
+          },
+          {
+            id: 'part4',
+            name: 'Part 4',
+            type: 'listening' as PartType,
+            total_question: 30,
+            duration: 30,
+          },
+          {
+            id: 'part5',
+            name: 'Part 5',
+            type: 'reading' as PartType,
+            total_question: 30,
+            duration: 30,
+          },
+          {
+            id: 'part6',
+            name: 'Part 6',
+            type: 'reading' as PartType,
+            total_question: 16,
+            duration: 30,
+          },
+          {
+            id: 'part7',
+            name: 'Part 7',
+            type: 'reading' as PartType,
+            total_question: 54,
+            duration: 30,
+          },
+        ],
       },
       {
         id: 'test2',
         isActive: true,
-        title: 'TOEIC Practice Test 2',
-
-        duration: 120,
+        name: 'Test 2',
+        createdAt: '2024-01-12T08:00:00Z',
+        updatedAt: '2024-01-12T08:00:00Z',
+        timesUserTest: 245,
+      },
+      {
+        id: 'ni',
+        isActive: true,
+        name: 'Test 3',
+        createdAt: '2024-01-12T08:00:00Z',
+        updatedAt: '2024-01-12T08:00:00Z',
+        timesUserTest: 245,
+      },
+      {
+        id: 'nihon',
+        isActive: true,
+        name: 'Test 4',
+        createdAt: '2024-01-12T08:00:00Z',
+        updatedAt: '2024-01-12T08:00:00Z',
+        timesUserTest: 245,
+      },
+      {
+        id: 'nihongo',
+        isActive: true,
+        name: 'Test 5',
         createdAt: '2024-01-12T08:00:00Z',
         updatedAt: '2024-01-12T08:00:00Z',
         timesUserTest: 245,
@@ -40,19 +111,15 @@ export const testCollections: TestCollection[] = [
       {
         id: 'test3',
         isActive: true,
-        title: 'Listening Practice',
-
-        duration: 45,
+        name: 'Test 1',
         createdAt: '2023-12-22T08:00:00Z',
         updatedAt: '2024-01-02T08:00:00Z',
         timesUserTest: 111,
       },
       {
         id: 'test4',
-        isActive: false,
-        title: 'Reading Practice (Coming Soon)',
-
-        duration: 75,
+        isActive: true,
+        name: 'Test 2',
         createdAt: '2023-12-25T08:00:00Z',
         updatedAt: '2023-12-25T08:00:00Z',
         timesUserTest: 120,
@@ -69,9 +136,7 @@ export const testCollections: TestCollection[] = [
       {
         id: 'test6',
         isActive: true,
-        title: 'Hacker TOEIC 3 - Test 1 (Nghe)',
-
-        duration: 45,
+        name: 'Test 1',
         createdAt: '2024-02-05T08:00:00Z',
         updatedAt: '2024-02-05T08:00:00Z',
         timesUserTest: 1222,
@@ -79,19 +144,15 @@ export const testCollections: TestCollection[] = [
       {
         id: 'test7',
         isActive: true,
-        title: 'Hacker TOEIC 3 - Test 1 (Đọc)',
-
-        duration: 75,
+        name: 'Test 2',
         createdAt: '2024-02-05T08:00:00Z',
         updatedAt: '2024-02-05T08:00:00Z',
         timesUserTest: 8,
       },
       {
         id: 'test8',
-        isActive: false,
-        title: 'Hacker TOEIC 3 - Test 2 (Full)',
-
-        duration: 120,
+        isActive: true,
+        name: 'Test 3',
         createdAt: '2024-02-10T08:00:00Z',
         updatedAt: '2024-02-10T08:00:00Z',
         timesUserTest: 887,
@@ -108,8 +169,7 @@ export const testCollections: TestCollection[] = [
       {
         id: 'test9',
         isActive: true,
-        title: 'Luyện Nghe Part 1-2',
-        duration: 30,
+        name: 'Test 1',
         createdAt: '2023-10-05T08:00:00Z',
         updatedAt: '2023-12-15T08:00:00Z',
         timesUserTest: 121,
@@ -117,8 +177,7 @@ export const testCollections: TestCollection[] = [
       {
         id: 'test10',
         isActive: true,
-        title: 'Luyện Nghe Part 3-4',
-        duration: 45,
+        name: 'Test 2',
         createdAt: '2023-10-10T08:00:00Z',
         updatedAt: '2023-12-18T08:00:00Z',
         timesUserTest: 42,

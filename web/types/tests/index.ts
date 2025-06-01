@@ -9,9 +9,23 @@ export interface TestCollection {
 export interface Test {
   id: string
   isActive: boolean
-  title: string
-  duration: number
+  name: string
+  duration?: number
   createdAt: string
   updatedAt: string
   timesUserTest: number
+  parts?: Part[]
+}
+
+export enum PartType {
+  Listening = 'listening',
+  Reading = 'reading',
+}
+
+export interface Part {
+  id: string
+  name: string
+  type: PartType
+  total_question: number
+  duration?: number
 }

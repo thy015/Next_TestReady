@@ -24,3 +24,9 @@ export const upperCaseFirstLetter = (str: string) => {
 export const adjustFinalPrice = (price: number, bonus: number) => {
   return price - (price * bonus) / 100
 }
+export const convertToLinkName = (orgName: string) => {
+  return orgName
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9\-]/g, '')
+}

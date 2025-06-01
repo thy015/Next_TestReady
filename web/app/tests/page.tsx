@@ -1,7 +1,8 @@
+import AppTabContent from '@/components/app-tab-content'
 import React from 'react'
 
-const page = () => {
-  return <div className="hidden">hi</div>
+const TestPage = () => {
+  return <AppTabContent/>
 }
 
-export default page
+export default TestPage

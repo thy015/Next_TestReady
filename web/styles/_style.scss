@@ -18,21 +18,19 @@
   @include flexBetween;
 }
 
-.arrow-card {
-  cursor: pointer;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-  &:hover {
-    
-  }
-  &::after {
-    content: '↑';
-    position: absolute;
-    left: 50%;
-    top: 90%;
-    transform: translate(-50%, -50%);
-    font-size: 2rem;
-    opacity: 1;
-  }
+//styling here 
+.sidebar-inset-gradient {
+  background: linear-gradient(to bottom, #1d2335, #1c3b4f, #1e254c) !important;
+}
+.navy-button {
+  background: linear-gradient(180deg, var(--navy), var(--primary));
+}
+.neumorphic-card {
+  box-shadow: 8px 8px 15px #b2c4ec, -8px -8px 15px #ffff;
+}
+.neumorphic-side-card {
+  box-shadow: inset 6px 6px 10px #c8c2b3, inset -6px -6px 10px #c8c2b3;
+}
+.neumorphic-button {
+  box-shadow: 1px 1px 5px #bebebe;
 }
