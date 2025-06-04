@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards } from '@nestjs/common';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
+import { AdminGuard } from 'src/guards/admin.guards';
 
 @Controller('test/part')
 export class QuestionController {
   constructor(private readonly questionService: QuestionService) {}
 
   @Post("create-question")
+  @UseGuards(AdminGuard)
   create(@Body(ValidationPipe) createQuestionDto: CreateQuestionDto) {
     return this.questionService.create(createQuestionDto);
   }

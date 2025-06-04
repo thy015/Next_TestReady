@@ -6,10 +6,11 @@ import { Test } from 'src/test/entities/test.entity';
 import { Part } from './entities/part.entity';
 import { Question } from 'src/question/entities/question.entity';
 import { PartResult } from 'src/part_result/entities/part_result.entity';
+import { AdminGuard } from 'src/guards/admin.guards';
 
 @Module({
   imports:[TypeOrmModule.forFeature([Test,Part,Question,PartResult])],
   controllers: [PartController],
-  providers: [PartService],
+  providers: [PartService,AdminGuard],
 })
 export class PartModule {}

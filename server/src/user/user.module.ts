@@ -12,10 +12,11 @@ import { PassportModule } from '@nestjs/passport';
 import { AuthController } from 'src/auth/auth.controller';
 import { AuthService } from 'src/auth/auth.service';
 import { PartResult } from 'src/part_result/entities/part_result.entity';
+import { UserLesson } from 'src/user_lesson/entities/user_lesson.entity';
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([User,Heart,Diamond,PartResult]),
+    TypeOrmModule.forFeature([User,Heart,Diamond,PartResult,UserLesson]),
     PassportModule.register({session:false})
   ],
   controllers: [UserController],

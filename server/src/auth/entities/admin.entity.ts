@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn,Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
-export class Auth {
+export class Admin {
 
     @PrimaryGeneratedColumn()
     id:number

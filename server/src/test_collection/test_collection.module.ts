@@ -4,10 +4,11 @@ import { TestCollectionController } from './test_collection.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Test } from 'src/test/entities/test.entity';
 import { TestCollection } from './entities/test_collection.entity';
+import { AdminGuard } from 'src/guards/admin.guards';
 
 @Module({
   imports: [TypeOrmModule.forFeature([TestCollection,Test])],
   controllers: [TestCollectionController],
-  providers: [TestCollectionService],
+  providers: [TestCollectionService,AdminGuard],
 })
 export class TestCollectionModule {}
