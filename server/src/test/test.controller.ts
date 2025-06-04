@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards } from '@nestjs/common';
 import { TestService } from './test.service';
 import { CreateTestDto } from './dto/create-test.dto';
 import { UpdateTestDto } from './dto/update-test.dto';
+import { AdminGuard } from 'src/guards/admin.guards';
 
 @Controller('test')
 export class TestController {
   constructor(private readonly testService: TestService) {}
 
   @Post("create-test")
+  @UseGuards(AdminGuard)
   create(@Body(ValidationPipe) createTestDto: CreateTestDto) {
     return this.testService.create(createTestDto);
   }

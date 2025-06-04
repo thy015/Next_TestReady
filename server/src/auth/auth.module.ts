@@ -8,10 +8,12 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
+import { Admin } from './entities/admin.entity';
+import { AdminStrategy } from './strategies/admin.strategy';
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User,Admin]),
     JwtModule.register({
       secret:"khongaibenem",
       signOptions:{expiresIn:"30d"}
@@ -19,6 +21,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
     PassportModule.register({session:false})
   ],
   controllers: [AuthController],
-  providers: [AuthService,LocalStrategy,JwtStrategy],
+  providers: [AuthService,LocalStrategy,JwtStrategy,AdminStrategy],
 })
 export class AuthModule {}

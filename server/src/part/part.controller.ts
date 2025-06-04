@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards } from '@nestjs/common';
 import { PartService } from './part.service';
 import { CreatePartDto } from './dto/create-part.dto';
 import { UpdatePartDto } from './dto/update-part.dto';
+import { AdminGuard } from 'src/guards/admin.guards';
 
 @Controller('test/part')
 export class PartController {
   constructor(private readonly partService: PartService) {}
 
   @Post("create-part")
+  @UseGuards(AdminGuard)
   create(@Body(ValidationPipe) createPartDto: CreatePartDto) {
     return this.partService.create(createPartDto);
   }

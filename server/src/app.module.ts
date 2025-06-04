@@ -10,6 +10,11 @@ import { PartModule } from './part/part.module';
 import { QuestionModule } from './question/question.module';
 import { AuthModule } from './auth/auth.module';
 import { PartResultModule } from './part_result/part_result.module';
+import { CategoryCourseModule } from './category_course/category_course.module';
+import { CourseModule } from './course/course.module';
+import { CourseSectionModule } from './course_section/course_section.module';
+import { LessonModule } from './lesson/lesson.module';
+import { UserLessonModule } from './user_lesson/user_lesson.module';
 
 @Module({
   imports: [
@@ -32,7 +37,12 @@ import { PartResultModule } from './part_result/part_result.module';
     PartModule,
     QuestionModule,
     AuthModule,
-    PartResultModule
+    PartResultModule,
+    CategoryCourseModule,
+    CourseModule,
+    CourseSectionModule,
+    LessonModule,
+    UserLessonModule
   ],
   controllers: [AppController],
   providers: [AppService],

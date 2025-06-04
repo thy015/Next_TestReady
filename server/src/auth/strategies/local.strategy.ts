@@ -11,7 +11,7 @@ export  class LocalStrategy extends PassportStrategy(Strategy){
     }
 
     async validate(email:string, password :string) {
-        console.log("Local strategy")
+       
         const acess_token = await this.authService.validateUser({email,password})
         if(!acess_token) throw new UnauthorizedException("Email hoặc mật khẩu không đúng !");
         return acess_token
