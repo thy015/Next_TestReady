@@ -6,7 +6,7 @@ import Link from 'next/link'
 import { ArrowRight, BookOpen, Dot } from 'lucide-react'
 import { useEffect, useMemo, useState } from 'react'
 import IntroduceSkill from '@/components/pages/not-defined/IntroduceSkill'
-import { AppBreadcrumb } from '@/components/app-breadcrumb'
+
 export default function Home() {
   // slide show
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -35,10 +35,8 @@ export default function Home() {
   return (
     <div>
       {/* Seperator */}
-      <div className="h-[96px]"></div>
       {/* Image background with slideshow*/}
-      <div className="relative w-full h-auto md:h-[400px] md:mt-3">
-        <AppBreadcrumb />
+      <div className="bg-gradient-to-r from-navy to-primary relative w-full h-auto md:h-[400px] md:mt-3">
         <div className="w-full flex flex-col md:grid md:grid-cols-2 h-full ">
           {/* Left side */}
           <div className="md:col-span-1  mt-8 md:mt-0 flex flex-col items-start justify-center h-full pl-10 lg:pl-20 xl:pl-30 text-white ">
@@ -58,7 +56,7 @@ export default function Home() {
             </div>
             <div className="flex justify-center items-center mt-4 gap-4">
               <Button variant={'paleorange'} className="text-white" size={'lg'}>
-                <Link href="/"> Bắt đầu ngay</Link>
+                <Link href="/tests"> Bắt đầu ngay</Link>
                 <ArrowRight></ArrowRight>
               </Button>
               <Button size={'lg'}>
@@ -97,7 +95,7 @@ export default function Home() {
         </div>
       </div>
       {/* Gradient Ratio */}
-      <div className="h-48 w-full flex items-center justify-center">
+      <div className="h-48 w-full flex items-center justify-center bg-gradient-to-r from-navy to-primary">
         <div className="bg-white h-[40%] w-[86%] flex items-center justify-center rounded-2xl">
           <div className="grid grid-cols-4 w-full text-sky-800">
             <div className="col-span-1 flex flex-col items-center justify-center">

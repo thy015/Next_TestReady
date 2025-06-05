@@ -2,15 +2,14 @@ import { AppBreadcrumb } from '@/components/app-breadcrumb'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { ArrowDownWideNarrow, Search } from 'lucide-react'
-import Image from 'next/image'
 
-export default function TestLayout({
+export default function CollectionLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <div className="pb-6 flex overflow-y-auto min-h-screen flex-col mt-24 justify-center bg-white">
+    <div className="pb-6 flex overflow-y-auto flex-col min-h-screen justify-center bg-white">
       {/* Searchbar */}
       <div className="h-auto w-full flex items-center justify-center">
         <div className="w-[90%] h-full p-4">
@@ -47,13 +46,8 @@ export default function TestLayout({
         <div className="border w-[90%] h-full max-h-[1000px] overflow-y-auto p-6">
           <div className="flex flex-col lg:grid grid-cols-12 h-full w-full ">
             <div className="lg:col-span-9 mr-8">{children}</div>
-            <div className="neumorphic-side-card mt-10 lg:mt-0 lg:col-span-3 h-[600px] w-full bg-buff rounded-2xl p-6">
-              <Image
-                alt="toeic image"
-                width={480}
-                height={300}
-                src="/images/toeic_real_pic.webp"
-              ></Image>
+            <div className="neumorphic-side-card mt-10 lg:mt-0 lg:col-span-3 h-[600px] w-full p-6">
+              <div className="w-full h-36"></div>
             </div>
           </div>
         </div>

@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -11,11 +12,16 @@ import {
 } from '@/components/ui/dialog'
 import { Test } from '@/types/tests'
 import PartList from './pages/tests/parts/PartList'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { convertToLinkName } from '@/utils'
 interface AppTestDialog {
   test: Test
   parts: Test['parts']
 }
 export function AppTestDialog({ test, parts }: AppTestDialog) {
+  const pathName = usePathname()
+  const testLinkName = convertToLinkName(test.name)
   return (
     <Dialog>
       <form>
@@ -40,9 +46,11 @@ export function AppTestDialog({ test, parts }: AppTestDialog) {
             <DialogClose asChild>
               <Button variant="secondary">Quay lại</Button>
             </DialogClose>
-            <Button variant="navy" type="submit">
-              Bắt đầu
-            </Button>
+            <Link href={`${pathName}/${testLinkName}`}>
+              <Button variant="navy" type="submit">
+                Bắt đầu
+              </Button>
+            </Link>
           </DialogFooter>
         </DialogContent>
       </form>

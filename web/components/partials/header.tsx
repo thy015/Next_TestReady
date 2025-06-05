@@ -8,6 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
+
 const Header = () => {
   return (
     <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border ">
@@ -24,7 +25,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="hidden sm:col-span-6 sm:flex items-center justify-center">
-        <div className="hidden sm:flex items-center justify-center gap-6 text-primary md:text-lg">
+        <div className="hidden sm:flex items-center justify-center gap-4 text-primary md:text-lg flex-wrap">
           {/* TODO: add icon nav and dropdown menu */}
           <Link href="/tests">Đề thi TOEIC</Link>
           <Link href="/">TOEIC Tips</Link>
