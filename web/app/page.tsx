@@ -33,10 +33,16 @@ export default function Home() {
   }, [imageSlideShowLink])
 
   return (
-    <div>
-      {/* Seperator */}
+    <div
+      style={{
+        backgroundImage: "url('/images/banner.png')",
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       {/* Image background with slideshow*/}
-      <div className="bg-gradient-to-r from-navy to-primary relative w-full h-auto md:h-[400px] md:mt-3">
+
+      <div className="relative w-full h-auto flex-center flex-col pt-20 md:pt-30">
         <div className="w-full flex flex-col md:grid md:grid-cols-2 h-full ">
           {/* Left side */}
           <div className="md:col-span-1  mt-8 md:mt-0 flex flex-col items-start justify-center h-full pl-10 lg:pl-20 xl:pl-30 text-white ">
@@ -93,30 +99,31 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </div>
-      {/* Gradient Ratio */}
-      <div className="h-48 w-full flex items-center justify-center bg-gradient-to-r from-navy to-primary">
-        <div className="bg-white h-[40%] w-[86%] flex items-center justify-center rounded-2xl">
-          <div className="grid grid-cols-4 w-full text-sky-800">
-            <div className="col-span-1 flex flex-col items-center justify-center">
-              <div className="text-2xl font-bold">1000+</div>
-              <div className="text-md">Học viên</div>
-            </div>
-            <div className="col-span-1 flex flex-col items-center justify-center">
-              <div className="text-2xl font-bold">95%</div>
-              <div className="text-md">Tỉ lệ đạt Aim</div>
-            </div>
-            <div className="col-span-1 flex flex-col items-center justify-center">
-              <div className="text-2xl font-bold">200+</div>
-              <div className="text-md">Bài test</div>
-            </div>
-            <div className="col-span-1 flex flex-col items-center justify-center">
-              <div className="text-2xl font-bold">4.8</div>
-              <div className="text-md">Đánh giá</div>
+        {/* Gradient Ratio */}
+        <div className="py-12 h-[40%] w-[86%] ">
+          <div className="p-2 bg-white flex items-center justify-center rounded-2xl">
+            <div className="grid grid-cols-4 w-full text-sky-800">
+              <div className="col-span-1 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold">1000+</div>
+                <div className="text-md">Học viên</div>
+              </div>
+              <div className="col-span-1 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold">95%</div>
+                <div className="text-md">Tỉ lệ đạt Aim</div>
+              </div>
+              <div className="col-span-1 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold">200+</div>
+                <div className="text-md">Bài test</div>
+              </div>
+              <div className="col-span-1 flex flex-col items-center justify-center">
+                <div className="text-2xl font-bold">4.8</div>
+                <div className="text-md">Đánh giá</div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       {/* Introduce skill */}
       <div className="bg-white rounded-b-lg">
         <IntroduceSkill />

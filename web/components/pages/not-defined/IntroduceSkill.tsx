@@ -54,8 +54,10 @@ const IntroduceSkill = () => {
             {/* each elements */}
             <div className="w-full h-auto min-h-[230px] flex flex-col p-6 items-start justify-start">
               <div>{item.icon}</div>
-              <div className="text-2xl font-[800] my-2">{item.title}</div>
-              <div className="text-gray-500 text-left">{item.description}</div>
+              <div className="text-xl font-[800] my-2">{item.title}</div>
+              <div className="text-gray-500 text-left text-sm">
+                {item.description}
+              </div>
             </div>
           </div>
         ))}

@@ -48,7 +48,6 @@ export default function RootLayout({
         <Suspense fallback={<Loading />}>
           {/* <main className="w-full h-full"> */}
           <Header />
-          <div className="h-[80px]"></div>
           {children}
           <Footer />
           {/* </main> */}

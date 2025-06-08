@@ -1,3 +1,4 @@
+'use client'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Button } from '../ui/button'
@@ -8,10 +9,25 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '../ui/dropdown-menu'
+import { useEffect, useState } from 'react'
 
 const Header = () => {
+  const [onScroll, setOnScroll] = useState('bg-transparent')
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setOnScroll('bg-primary')
+      } else {
+        setOnScroll('bg-transparent')
+      }
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
   return (
-    <div className="h-24 w-full bg-white grid grid-cols-12 fixed z-10 border ">
+    <div className={`h-24 w-full ${onScroll} grid grid-cols-12 fixed z-10 `}>
       {/* 3 - 6 - 3 */}
       <div className="col-span-6 sm:col-span-3 flex justify-center items-center space-x-2">
         <Link href="/">
@@ -25,7 +41,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="hidden sm:col-span-6 sm:flex items-center justify-center">
-        <div className="hidden sm:flex items-center justify-center gap-4 text-primary md:text-lg flex-wrap">
+        <div className="hidden sm:flex items-center justify-center gap-4 text-white md:text-lg flex-wrap">
           {/* TODO: add icon nav and dropdown menu */}
           <Link href="/tests">Đề thi TOEIC</Link>
           <Link href="/">TOEIC Tips</Link>
@@ -39,7 +55,7 @@ const Header = () => {
           <Button variant="outline">
             <Link href="/">Đăng Ký</Link>
           </Button>
-          <Button variant="default">
+          <Button variant="paleorange">
             <Link href="/">Đăng Nhập</Link>
           </Button>
         </div>

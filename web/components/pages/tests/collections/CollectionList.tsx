@@ -41,7 +41,7 @@ const TestCollectionCard = ({ collection }: TestCollectionCardProps) => {
         <div className="h-3 bg-navy/70 rounded-t-lg"></div>
         <div className="p-6 flex-1">
           <div className="flex justify-between items-center mb-4">
-            <div className="text-xl font-lexend font-semibold ">
+            <div className="text-lg font-lexend font-semibold ">
               {collection.name}
             </div>
             <Badge variant={'navy'}>

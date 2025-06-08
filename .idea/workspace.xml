@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="29391407-958e-4644-942b-5497e6cd52ba" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/web/app/(testLayout)/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/(testLayout)/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/tests/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/tests/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/tests/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/tests/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/components/pages/not-defined/IntroduceSkill.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/not-defined/IntroduceSkill.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/components/pages/tests/collections/CollectionList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/tests/collections/CollectionList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/components/partials/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/partials/header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/ui/button.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2yB0vCjEmKk0JvOqOd2yNGAzcgz" />
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-6a121458b545-JavaScript-WS-251.25410.117" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="29391407-958e-4644-942b-5497e6cd52ba" name="Changes" comment="" />
+      <created>1749292890286</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749292890286</updated>
+      <workItem from="1749292893079" duration="1000" />
+    </task>
+    <servers />
+  </component>
+</project>
