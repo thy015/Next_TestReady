@@ -10,9 +10,8 @@ export interface Test {
   id: string
   isActive: boolean
   name: string
+  testCollectionId: string
   duration?: number
-  createdAt: string
-  updatedAt: string
   timesUserTest: number
   parts?: Part[]
 }

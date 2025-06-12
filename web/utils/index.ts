@@ -30,3 +30,14 @@ export const convertToLinkName = (orgName: string) => {
     .replace(/\s+/g, '-')
     .replace(/[^a-z0-9\-]/g, '')
 }
+export const convertLinkToNormalName=(name:string)=>{
+  return name
+    .split('-')
+    .join(' ')
+}
+
+export const convertImageToImageLink=(buffer:string)=>{
+  const base64 = Buffer.from(buffer).toString('base64')
+  const imageSrc = `data:image/png;base64,${base64}`
+  return imageSrc
+}

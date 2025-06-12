@@ -2,7 +2,7 @@
 import React from 'react'
 import { Boxes, ClockFading } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import TestAudio from '@/components/test-audio'
+import TestAudio from '@/components/pages/tests/TestAudio'
 import { useScrollToTop } from '@/hooks/use-scroll-to-top'
 import { useAudioLoadingStore } from '@/store/loading-store'
 

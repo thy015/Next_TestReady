@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { Button } from './ui/button'
+import { Button } from '../../ui/button'
 import { useAudioLoadingStore } from '@/store/loading-store'
 
 export default function TestAudio() {
@@ -28,18 +28,13 @@ export default function TestAudio() {
       setShowExitModal(true)
     }
 
-    //load
-    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
-      e.preventDefault()
-      e.returnValue = 'hi'
-    }
 
     window.addEventListener('popstate', handlePopstate)
-    window.addEventListener('beforeunload', handleBeforeUnload)
+
 
     return () => {
       window.removeEventListener('popstate', handlePopstate)
-      window.removeEventListener('beforeunload', handleBeforeUnload)
+
     }
   }, [])
 
