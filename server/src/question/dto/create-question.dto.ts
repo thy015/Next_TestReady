@@ -7,10 +7,9 @@ export class CreateQuestionDto {
     question:string
 
     @IsString()
-    @IsNotEmpty()
     questions_text:string
 
-    @IsEnum(["listening","reading"])
+    @IsEnum(["listening","reading","direction"])
     @IsNotEmpty()
     questions_type:string
 

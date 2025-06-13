@@ -15,6 +15,7 @@ import { CourseModule } from './course/course.module';
 import { CourseSectionModule } from './course_section/course_section.module';
 import { LessonModule } from './lesson/lesson.module';
 import { UserLessonModule } from './user_lesson/user_lesson.module';
+import { NewspaperModule } from './newspaper/newspaper.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { UserLessonModule } from './user_lesson/user_lesson.module';
     CourseModule,
     CourseSectionModule,
     LessonModule,
-    UserLessonModule
+    UserLessonModule,
+    NewspaperModule
   ],
   controllers: [AppController],
   providers: [AppService],
