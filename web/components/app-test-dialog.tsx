@@ -11,7 +11,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog'
 import { Test } from '@/types/tests'
-import PartList from './pages/tests/parts/PartList'
+import { PartList } from './pages/tests/parts/PartList'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { convertToLinkName } from '@/utils'

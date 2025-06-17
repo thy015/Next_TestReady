@@ -11,6 +11,7 @@ const PartInstruction = ({ part }: PartProps) => {
   switch (part.name) {
     case 'Part 1':
       //dynamic part 1 img here
+
       break
     case 'Part 2':
       imageSrc = '/images/instruction/part2.png'

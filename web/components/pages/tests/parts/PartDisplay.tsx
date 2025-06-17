@@ -1,16 +1,13 @@
+"use client"
 import React from 'react'
 import { TestRadio } from '@/components/pages/tests/TestRadio'
-import { TestApi } from '@/apis/tests'
-import { convertImageToImageLink } from '@/utils'
-import { Test } from '@/types/tests'
-interface PartDisplayProps{
+import { Part, Test } from '@/types/tests'
+// the part display in test page -- display image src for testing purpose
+interface TestProps {
   test?:Test
+  imageSrc:string
 }
-const PartDisplay = async({test}:PartDisplayProps) => {
-  // image handle
-  const testApi = new TestApi()
-  const buffer = await testApi.getPart1Image()
-  const imageSrc=convertImageToImageLink(buffer)
+const PartDisplay = ({test,imageSrc}:TestProps) => {
   return (
     <div className="grid grid-cols-2">
       {/*Ques*/}
@@ -27,4 +24,15 @@ const PartDisplay = async({test}:PartDisplayProps) => {
     </div>
   )
 }
-export default PartDisplay
+// the part card display in test categories
+interface PartCardProps {
+  part: Part
+}
+const PartCard = ({ part }: PartCardProps) => {
+  return (
+    <div className="neumorphic-button rounded-md w-[32%] sm:w-[30%] lg:w-[24%] h-10 text-primary font-semibold font-lexend flex items-center justify-center">
+      {part.name ?? 'No name'}
+    </div>
+  )
+}
+export { PartCard , PartDisplay}

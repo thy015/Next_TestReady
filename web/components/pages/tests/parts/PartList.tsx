@@ -1,10 +1,25 @@
-import { Part, Test } from '@/types/tests'
+import { Test } from '@/types/tests'
 import React from 'react'
+import { PartCard, PartDisplay } from '@/components/pages/tests/parts/PartDisplay'
+import { convertImageToImageLink } from '@/utils'
+import { TestApi } from '@/apis/tests'
+// the part fetch in test page
+interface PartProps{
+  test?:Test
+}
+const PartFetchServer=async({test}:PartProps)=>{
+  if(!test){
+    return 'No test, server error in partfetchserver'
+  }
+  // image handle
+  const testApi = new TestApi()
+  const buffer = await testApi.getPart1Image()
+  const imageSrc=convertImageToImageLink(buffer)
+  return <PartDisplay imageSrc={imageSrc} test={test} />
+}
+// the part card fetch in test categories
 interface PartListProps {
   parts: Test['parts']
-}
-interface PartCardProps {
-  part: Part
 }
 const PartList = ({ parts }: PartListProps) => {
   if (!parts) {
@@ -19,12 +34,6 @@ const PartList = ({ parts }: PartListProps) => {
   )
 }
 
-const PartCard = ({ part }: PartCardProps) => {
-  return (
-    <div className="neumorphic-button  rounded-md w-[32%] sm:w-[30%] lg:w-[24%] h-10 text-primary font-semibold font-lexend flex items-center justify-center">
-      {part.name ?? 'No name'}
-    </div>
-  )
-}
 
-export default PartList
+
+export {PartList,PartFetchServer}

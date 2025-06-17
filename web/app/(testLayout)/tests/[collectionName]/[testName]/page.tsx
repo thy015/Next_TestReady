@@ -1,44 +1,30 @@
+import { testCollections } from "@/localData/tests";
+import { convertLinkToNormalName } from "@/utils";
+import { PartFetchServer } from '@/components/pages/tests/parts/PartList'
 
-import React from 'react'
-import { testCollections } from '@/localData/tests'
-import PartDisplay from '@/components/pages/tests/parts/PartDisplay'
-import { convertLinkToNormalName } from '@/utils'
-
-
-interface Props {
-  params:{
-    collectionName:string
-    testName:string
-  }
+interface PageProps {
+  params: { collectionName: string; testName: string };
 }
 
-const TestPage = ({ params }: Props) => {
-  // test handle - local first
-  const {collectionName,testName} = params
-
-  const convertedCollectionName=convertLinkToNormalName(collectionName)
-  const convertedTestName=convertLinkToNormalName(testName)
+export default async function TestPage({ params }: PageProps) {
+  const convertedCollectionName = convertLinkToNormalName(params.collectionName);
+  const convertedTestName = convertLinkToNormalName(params.testName);
 
   const collection = testCollections.find(
     (c) => c.name.toLowerCase() === convertedCollectionName
   );
 
   if (!collection) {
-    console.error('Collection not found in test page');
+    return <p>Collection not found</p>;
   }
 
-  const test = collection?.test.find(
+  const test = collection.test.find(
     (t) => t.name.toLowerCase() === convertedTestName
   );
 
   if (!test) {
-    console.error('Test not found in test page');
+    return <p>Test not found</p>;
   }
-  console.log('found test and col',collection,test)
 
-  return (
-    <PartDisplay test={test}/>
-  )
+  return <PartFetchServer test={test} />;
 }
-
-export default TestPage
