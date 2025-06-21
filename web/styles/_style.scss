@@ -1,0 +1,36 @@
+//helper
+@mixin flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-center {
+  @include flexCenter;
+}
+.flex-between {
+  @include flexBetween;
+}
+
+//styling here
+.sidebar-inset-gradient {
+  background: linear-gradient(to bottom, #1d2335, #1c3b4f, #1e254c) !important;
+}
+.navy-button {
+  background: linear-gradient(180deg, var(--navy), var(--primary));
+}
+.neumorphic-card {
+  box-shadow: 8px 8px 15px #b2c4ec, -8px -8px 15px #ffff;
+}
+.neumorphic-side-card {
+  box-shadow: inset 6px 6px 10px #e7ebee, inset -6px -6px 10px #e7ebee;
+}
+.neumorphic-button {
+  box-shadow: 1px 1px 5px #bebebe;
+}
