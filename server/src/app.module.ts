@@ -15,6 +15,11 @@ import { CourseModule } from './course/course.module';
 import { CourseSectionModule } from './course_section/course_section.module';
 import { LessonModule } from './lesson/lesson.module';
 import { UserLessonModule } from './user_lesson/user_lesson.module';
+import { NewspaperModule } from './newspaper/newspaper.module';
+import { WordModule } from './word/word.module';
+import { TopicModule } from './topic/topic.module';
+import { RelatedWordModule } from './related_word/related_word.module';
+import { RelatedVerbModule } from './related_verb/related_verb.module';
 
 @Module({
   imports: [
@@ -42,7 +47,12 @@ import { UserLessonModule } from './user_lesson/user_lesson.module';
     CourseModule,
     CourseSectionModule,
     LessonModule,
-    UserLessonModule
+    UserLessonModule,
+    NewspaperModule,
+    WordModule,
+    TopicModule,
+    RelatedWordModule,
+    RelatedVerbModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -12,7 +12,7 @@ export class Question {
     @Column({type:"nvarchar",length:1500})
     questions_text:string
 
-    @Column({type:"enum",enum:["listening","reading"]})
+    @Column({type:"enum",enum:["listening","reading",'direction']})
     questions_type:string
 
     @Column({default:5})
@@ -33,6 +33,7 @@ export class Question {
     @Column()
     img:string
 
+    
     @Column()
     audio:string
 

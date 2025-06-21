@@ -1,4 +1,4 @@
-import { IsEmpty, IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
+import { IsEmpty, IsEnum, IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator";
 
 export class CreatePartDto {
 
@@ -18,6 +18,10 @@ export class CreatePartDto {
     @IsNumber()
     durations:number
     
+    @IsString()
+    @IsOptional()
+    directions_img:string
+
     @IsNotEmpty()
     @IsNumber()
     test_id:number

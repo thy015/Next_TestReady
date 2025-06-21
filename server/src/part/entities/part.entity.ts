@@ -14,6 +14,8 @@ export class Part {
     @Column({type:'enum',enum:["listening","reading"]})
     type:string 
 
+    @Column({type:"text"})
+    directions_img:string
 
     @Column()
     total_question:number
