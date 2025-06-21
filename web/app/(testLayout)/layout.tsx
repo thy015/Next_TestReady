@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import TestAudio from '@/components/pages/tests/TestAudio'
 import { useScrollToTop } from '@/hooks/use-scroll-to-top'
 import { useAudioLoadingStore } from '@/store/loading-store'
+import TestHeader from '@/components/partials/test-header'
 
 export default function TestLayout({
   children,
@@ -16,21 +17,22 @@ export default function TestLayout({
 
   return (
     <main ref={scroll}>
+      <TestHeader />
       <div className="pt-[80px]"></div>
       <div className="min-h-screen bg-gray-50 flex flex-col overflow-hidden">
         {/* Header bar */}
         {!isAudioLoading && (
           <header className="bg-white border-b top-0">
-            <div className="container mx-auto py-4 px-6">
+            <div className="mb-4 mx-auto px-6">
               <div className="flex items-center justify-between">
-                <Button variant="buff" size="lg" className="gap-2">
+                <Button variant="buff" size="sm" className="gap-2">
                   <Boxes />
                 </Button>
                 <div className="flex items-center gap-4 font-bold font-lexend">
-                  <TestAudio />
+                  <TestAudio onAudioComplete={() => {}} />
                   <Button
                     variant="buff"
-                    size="lg"
+                    size="sm"
                     className="opacity-100 pointer-events-none"
                   >
                     <ClockFading></ClockFading>
@@ -39,7 +41,7 @@ export default function TestLayout({
                   <Button
                     variant="paleorange"
                     className="text-white "
-                    size="lg"
+                    size="sm"
                   >
                     Nộp bài
                   </Button>
@@ -50,11 +52,11 @@ export default function TestLayout({
         )}
 
         {/* Main Content */}
-        <main className="flex-1 container mx-auto py-6 px-6">
+        <div className="flex-1 w-[90%] mx-auto py-6">
           <div className="bg-white rounded-lg shadow-sm p-6">{children}</div>
-        </main>
+        </div>
       </div>{' '}
-      {isAudioLoading && <TestAudio />}
+      {isAudioLoading && <TestAudio onAudioComplete={() => {}} />}
     </main>
   )
 }

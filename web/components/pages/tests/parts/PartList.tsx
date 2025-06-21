@@ -1,22 +1,21 @@
 import { Test } from '@/types/tests'
 import React from 'react'
-import { PartCard, PartDisplay } from '@/components/pages/tests/parts/PartDisplay'
-import { convertImageToImageLink } from '@/utils'
-import { TestApi } from '@/apis/tests'
+import { PartCard } from '@/components/pages/tests/parts/PartDisplay'
+import PartRunner from '@/components/pages/tests/parts/PartRunner'
+
 // the part fetch in test page
-interface PartProps{
-  test?:Test
+interface PartProps {
+  test?: Test
 }
-const PartFetchServer=async({test}:PartProps)=>{
-  if(!test){
+const PartFetchServer = async ({ test }: PartProps) => {
+  if (!test || !test.parts || test.parts.length === 0) {
     return 'No test, server error in partfetchserver'
   }
-  // image handle
-  const testApi = new TestApi()
-  const buffer = await testApi.getPart1Image()
-  const imageSrc=convertImageToImageLink(buffer)
-  return <PartDisplay imageSrc={imageSrc} test={test} />
+  const parts = test.parts
+  console.log('Parts fetched:', parts)
+  return <PartRunner parts={parts}></PartRunner>
 }
+
 // the part card fetch in test categories
 interface PartListProps {
   parts: Test['parts']
@@ -34,6 +33,4 @@ const PartList = ({ parts }: PartListProps) => {
   )
 }
 
-
-
-export {PartList,PartFetchServer}
+export { PartList, PartFetchServer }

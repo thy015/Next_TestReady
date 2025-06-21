@@ -12,7 +12,7 @@ import {
 import { useEffect, useState } from 'react'
 import clsx from 'clsx'
 
-const Header = () => {
+const TestHeader = () => {
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -29,7 +29,7 @@ const Header = () => {
       className={clsx(
         'h-24 w-full grid grid-cols-12 fixed z-10 transition-all duration-300',
         scrolled
-          ? 'bg-rgba(255,255,255,0.3) backdrop-blur-[50px] text-black'
+          ? 'bg-rgba(255,255,255,0.3) backdrop-blur-[50px]'
           : 'bg-transparent text-white'
       )}
     >
@@ -37,7 +37,7 @@ const Header = () => {
       <div className="col-span-6 sm:col-span-3 flex justify-center items-center space-x-2">
         <Link href="/">
           <Image
-            src="/images/test-ready-transparent-logo.png"
+            src="/images/test-ready-dark-transparent-logo.png"
             alt="Logo"
             width={242}
             height={80}
@@ -46,7 +46,7 @@ const Header = () => {
         </Link>
       </div>
       <div className="hidden sm:col-span-6 sm:flex items-center justify-center">
-        <div className="hidden sm:flex items-center justify-center gap-4 md:text-lg flex-wrap">
+        <div className="hidden sm:flex items-center justify-center gap-4 text-black md:text-lg flex-wrap">
           {/* TODO: add icon nav and dropdown menu */}
           <Link href="/tests">Đề thi TOEIC</Link>
           <Link href="/">TOEIC Tips</Link>
@@ -96,4 +96,4 @@ const Header = () => {
   )
 }
 
-export default Header
+export default TestHeader

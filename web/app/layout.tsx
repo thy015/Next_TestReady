@@ -4,7 +4,6 @@ import '../global.css'
 import '../styles/_style.scss'
 import { Suspense } from 'react'
 import Loading from './loading'
-import Header from '@/components/partials/header'
 import Footer from '@/components/partials/footer'
 
 // font config
@@ -26,8 +25,8 @@ const lexend = Lexend({
   subsets: ['latin'],
 })
 export const metadata: Metadata = {
-  title: 'TOEIC Ready',
-  description: 'An TOEIC testing website',
+  title: 'TEST Ready',
+  description: 'An english, japanese,... testing website',
   icons: {
     icon: '/icons/logo.png',
   },
@@ -47,7 +46,6 @@ export default function RootLayout({
           <AppSidebar /> */}
         <Suspense fallback={<Loading />}>
           {/* <main className="w-full h-full"> */}
-          <Header />
           {children}
           <Footer />
           {/* </main> */}

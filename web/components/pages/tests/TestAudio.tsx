@@ -12,7 +12,10 @@ import {
 import { Button } from '../../ui/button'
 import { useAudioLoadingStore } from '@/store/loading-store'
 
-export default function TestAudio() {
+interface TestAudioProps {
+  onAudioComplete: () => void
+}
+export default function TestAudio({ onAudioComplete }: TestAudioProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [volume, setVolume] = useState(1)
   const [loaded, setLoaded] = useState(false)
@@ -22,21 +25,15 @@ export default function TestAudio() {
   useEffect(() => {
     // Push a dummy state to intercept back navigation
     window.history.pushState({ preventBack: true }, '', window.location.href)
-
     //back
     const handlePopstate = () => {
       setShowExitModal(true)
     }
-
-
     window.addEventListener('popstate', handlePopstate)
-
-
     return () => {
       window.removeEventListener('popstate', handlePopstate)
-
     }
-  }, [])
+  }, [onAudioComplete])
 
   //load audio
   const handleLoadedMetadata = () => {
@@ -49,6 +46,7 @@ export default function TestAudio() {
       setAudioLoading(false)
 
       const interval = setInterval(() => {
+        //first instruction
         if (audio.currentTime >= 98) {
           audio.pause()
           clearInterval(interval)
@@ -86,7 +84,7 @@ export default function TestAudio() {
         >
           <DialogContent className="max-w-md">
             <DialogHeader>
-              <DialogTitle>TOEIC READY</DialogTitle>
+              <DialogTitle>TEST READY</DialogTitle>
               <DialogDescription>
                 Bạn có chắc muốn rời khỏi bài test? Tiến trình của bạn sẽ không
                 được lưu.
@@ -113,6 +111,7 @@ export default function TestAudio() {
         />
         <span>🔈</span>
         <input
+          className="w-32"
           type="range"
           min={0}
           max={1}

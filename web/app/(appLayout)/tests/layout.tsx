@@ -22,7 +22,7 @@ export default function CollectionLayout({
               Danh mục đề thi
             </div>
             <div className="font-lexend text-lg text-gray-500 mb-8">
-              TOEIC Ready luôn đảm bảo các bài test và cách test giống đến 90%
+              TEST Ready luôn đảm bảo các bài test và cách test giống đến 90%
               thi thật
             </div>
 

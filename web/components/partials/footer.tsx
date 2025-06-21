@@ -34,7 +34,7 @@ export default function Footer() {
             <div className="flex items-center space-x-2 my-4">
               {/* TODO: need image logo */}
               <Smile />
-              <div className="text-2xl font-bold">TOEIC Ready</div>
+              <div className="text-2xl font-bold">TEST Ready</div>
             </div>
 
             <p className="text-gray-400">
@@ -99,7 +99,7 @@ export default function Footer() {
 
       <div className="bg-[#111827] w-full h-20 border-t border-gray-400">
         <div className="flex-center text-lg h-full w-full mx-auto p-4 text-gray-400">
-          <div>© 2025 TOEIC Ready. All rights reserved.</div>
+          <div>© 2025 TEST Ready. All rights reserved.</div>
         </div>
       </div>
     </>

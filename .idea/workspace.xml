@@ -4,13 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="29391407-958e-4644-942b-5497e6cd52ba" name="Changes" comment="feat: implement test API for fetching images and display components for test parts">
+    <list default="true" id="29391407-958e-4644-942b-5497e6cd52ba" name="Changes" comment="feat: implement PartFetchServer and update PartDisplay for image handling in test components">
+      <change afterPath="$PROJECT_DIR$/web/public/images/instruction/part1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/(testLayout)/tests/[collectionName]/[testName]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/(testLayout)/tests/[collectionName]/[testName]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/components/app-test-dialog.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/app-test-dialog.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/components/pages/tests/parts/PartDisplay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/tests/parts/PartDisplay.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/web/components/pages/tests/parts/PartInstruction.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/tests/parts/PartInstruction.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/components/pages/tests/parts/PartList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/tests/parts/PartList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/localData/tests/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/web/localData/tests/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/store/loading-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/web/store/loading-store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,27 +32,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feat/SAV-14&quot;,
-    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/web/public/images/instruction&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/server/node_modules/prettier&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/mobile/node_modules/typescript/lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "feat/SAV-14",
+    "ignore_missing_gitignore": "true",
+    "last_opened_file_path": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/web/public/images/instruction",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/server/node_modules/prettier",
+    "settings.editor.selected.configurable": "preferences.editor",
+    "ts.external.directory.path": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/mobile/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
-      &quot;TypeScript&quot;
+  "keyToStringList": {
+    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
+      "TypeScript"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/web/public/images/instruction" />
@@ -85,7 +86,9 @@
       <workItem from="1749726863410" duration="4510000" />
       <workItem from="1749794054335" duration="888000" />
       <workItem from="1749999231724" duration="9000" />
-      <workItem from="1750168751972" duration="5469000" />
+      <workItem from="1750168751972" duration="6402000" />
+      <workItem from="1750393708479" duration="2168000" />
+      <workItem from="1750421104775" duration="3578000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement test API for fetching images and display components for test parts">
       <option name="closed" value="true" />
@@ -95,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1749747701631</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: implement PartFetchServer and update PartDisplay for image handling in test components">
+      <option name="closed" value="true" />
+      <created>1750175328705</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1750175328705</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,6 +125,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: implement test API for fetching images and display components for test parts" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: implement test API for fetching images and display components for test parts" />
+    <MESSAGE value="feat: implement PartFetchServer and update PartDisplay for image handling in test components" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement PartFetchServer and update PartDisplay for image handling in test components" />
   </component>
 </project>

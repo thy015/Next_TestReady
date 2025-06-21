@@ -158,9 +158,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarGroup>
           <SidebarGroupLabel className="text-white font-mogra mt-2 text-2xl flex relative">
             <div className="absolute inset-0 text-light-blue select-none transform translate-x-1.5 translate-y-0.5">
-              TOEIC Ready
+              TEST Ready
             </div>
-            <div className="relative text-white">TOEIC Ready</div>
+            <div className="relative text-white">TEST Ready</div>
           </SidebarGroupLabel>
         </SidebarGroup>
       </SidebarHeader>
