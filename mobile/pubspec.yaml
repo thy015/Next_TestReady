@@ -1,0 +1,36 @@
+name: mobile
+description: "A new Flutter project."
+publish_to: "none"
+version: 0.1.0
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  velocity_x: ^4.3.1
+  styled_widget: ^0.4.1
+  flutter_native_splash: ^2.4.6
+  animated_bottom_navigation_bar: ^1.4.0
+  introduction_screen: ^3.1.17
+  ionicons: ^0.2.2
+  lottie: ^3.3.1
+  shared_preferences: ^2.5.3
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/assets/animations/onboarding1.json
+    - lib/assets/animations/onboarding2.json
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: lib/assets/images/vjp.png
+  android: true
+  ios: true
