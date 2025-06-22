@@ -27,4 +27,18 @@ export interface Part {
   type: PartType
   total_question: number
   duration?: number
+  questions?: Question[]
+}
+type CorrectAnswer = 'a' | 'b' | 'c' | 'd'
+
+export interface Question {
+  id: string
+  testId: string
+  partId: string
+  content: string
+  imgSrc: string
+  explanation: string
+  correctAnswer: CorrectAnswer
+  answers: string
+  score: number
 }

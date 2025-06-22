@@ -20,6 +20,41 @@ export const testCollections: TestCollection[] = [
             type: 'listening' as PartType,
             total_question: 6,
             duration: 30,
+            questions: [
+              {
+                id: 'q1_p1_1',
+                testId: 'test1',
+                partId: 'part1',
+                content: 'What is the man doing in the picture?',
+                imgSrc:
+                  'https://res.cloudinary.com/dqe8linji/image/upload/v1749198572/Screenshot_2025-06-06_152711_vslnt8.png',
+                explanation: 'The man is opening the car.',
+                correctAnswer: 'a',
+                answers: JSON.stringify({
+                  a: 'He is opening the car',
+                  b: 'He is reading a book',
+                  c: 'He is cooking food',
+                  d: 'He is washing dishes',
+                }),
+                score: 5,
+              },
+              {
+                id: 'q1_p1_2',
+                testId: 'test1',
+                partId: 'part1',
+                content: 'Where is the woman standing?',
+                imgSrc: '/images/toeic/part1/q2.jpg',
+                explanation: 'The woman is standing next to a car.',
+                correctAnswer: 'b',
+                answers: JSON.stringify({
+                  a: 'In front of a building',
+                  b: 'Next to a car',
+                  c: 'Behind a tree',
+                  d: 'On a bridge',
+                }),
+                score: 5,
+              },
+            ],
           },
           {
             id: 'part2',

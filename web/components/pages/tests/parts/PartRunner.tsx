@@ -3,8 +3,8 @@ import React from 'react'
 import PartInstruction from './PartInstruction'
 import { PartDisplay } from './PartDisplay'
 import { Part } from '@/types/tests'
-import { useTestStore } from '@/store/loading-store'
 import { Button } from '@/components/ui/button'
+import { useTestStore } from '@/store/test-store'
 
 interface TestPartRunnerProps {
   parts: Part[]
