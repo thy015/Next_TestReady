@@ -34,6 +34,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: PageView.builder(
           controller: _controller,
@@ -61,7 +62,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       child: LinearProgressIndicator(
                         value: (index + 1) / onboardingPages.length,
                         color: Color(0xFF251C91),
-                        backgroundColor: Colors.grey[300],
+                        backgroundColor: Colors.grey,
                         minHeight: 10,
                         borderRadius: BorderRadius.circular(5),
                       ),
