@@ -41,4 +41,5 @@ export interface Question {
   correctAnswer: CorrectAnswer
   answers: string
   score: number
+  start_time: number
 }

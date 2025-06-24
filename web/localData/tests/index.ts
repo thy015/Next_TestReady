@@ -37,6 +37,7 @@ export const testCollections: TestCollection[] = [
                   d: 'He is washing dishes',
                 }),
                 score: 5,
+                start_time: 1.37,
               },
               {
                 id: 'q1_p1_2',
@@ -53,6 +54,7 @@ export const testCollections: TestCollection[] = [
                   d: 'On a bridge',
                 }),
                 score: 5,
+                start_time: 2.04,
               },
             ],
           },

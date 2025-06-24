@@ -1,5 +1,4 @@
 'use client'
-import Loading from '@/app/loading'
 import React, { useEffect, useRef, useState } from 'react'
 import {
   Dialog,
@@ -13,56 +12,113 @@ import { Button } from '../../ui/button'
 import { useAudioLoadingStore } from '@/store/loading-store'
 
 interface TestAudioProps {
-  onAudioComplete: () => void
+  questionStartTimes: number[]
+  onQuestionChange: (index: number) => void
+  onAudioReady: (audioRef: React.RefObject<HTMLAudioElement>) => void
 }
-export default function TestAudio({ onAudioComplete }: TestAudioProps) {
+
+export default function TestAudio({
+  questionStartTimes,
+  onQuestionChange,
+  onAudioReady,
+}: TestAudioProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [volume, setVolume] = useState(1)
-  const [loaded, setLoaded] = useState(false)
   const [showExitModal, setShowExitModal] = useState(false)
+  const [isAudioReady, setIsAudioReady] = useState(false)
   const { isAudioLoading, setAudioLoading } = useAudioLoadingStore()
 
+  // Initialize loading state and browser navigation handling
   useEffect(() => {
-    // Push a dummy state to intercept back navigation
+    setAudioLoading(true)
     window.history.pushState({ preventBack: true }, '', window.location.href)
-    //back
-    const handlePopstate = () => {
-      setShowExitModal(true)
-    }
+    const handlePopstate = () => setShowExitModal(true)
     window.addEventListener('popstate', handlePopstate)
     return () => {
       window.removeEventListener('popstate', handlePopstate)
     }
-  }, [onAudioComplete])
+  }, [setAudioLoading])
 
-  //load audio
-  const handleLoadedMetadata = () => {
+  // Handle when audio is fully ready to play
+  const handleCanPlayThrough = () => {
     const audio = audioRef.current
-    if (audio) {
+    if (audio && !isAudioReady) {
+      console.log('Audio fully loaded and ready to play')
       audio.currentTime = 9
       audio.volume = volume
-      audio.play().catch(() => {})
-      setLoaded(true)
+      
+      setIsAudioReady(true)
       setAudioLoading(false)
+      onAudioReady(audioRef)
+
+      audio.play().catch((error) => {
+        console.error('Audio play failed:', error)
+        setAudioLoading(false)
+      })
 
       const interval = setInterval(() => {
-        //first instruction
         if (audio.currentTime >= 98) {
           audio.pause()
           clearInterval(interval)
         }
       }, 1000)
-
-      return () => clearInterval(interval)
     }
   }
 
+  // Handle audio loading progress
+  const handleProgress = () => {
+    const audio = audioRef.current
+    if (audio) {
+      const buffered = audio.buffered
+      if (buffered.length > 0) {
+        const loadedPercentage = (buffered.end(0) / audio.duration) * 100
+        console.log(`Audio loading progress: ${loadedPercentage.toFixed(1)}%`)
+      }
+    }
+  }
+
+  // Fallback timeout for slow connections
   useEffect(() => {
-    const fallback = setTimeout(() => {
-      if (!loaded) setAudioLoading(false)
-    }, 1000)
-    return () => clearTimeout(fallback)
-  }, [loaded, setAudioLoading])
+    const fallbackTimeout = setTimeout(() => {
+      if (isAudioLoading && !isAudioReady) {
+        console.warn('Audio load timeout - attempting fallback')
+        const audio = audioRef.current
+        if (audio && audio.readyState >= 2) {
+          handleCanPlayThrough()
+        } else {
+          setAudioLoading(false)
+          console.error('Audio failed to load within timeout period')
+        }
+      }
+    }, 15000) // 15s
+
+    return () => clearTimeout(fallbackTimeout)
+  }, [isAudioLoading, isAudioReady, setAudioLoading])
+
+  // Audio time tracking for question changes
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio || !isAudioReady || questionStartTimes.length === 0) return
+
+    let currentQuestion = 0
+    console.log('Question start times:', questionStartTimes)
+
+    const interval = setInterval(() => {
+      const time = audio.currentTime
+      
+      if (currentQuestion < questionStartTimes.length - 1) {
+        const nextStart = questionStartTimes[currentQuestion + 1]
+ 
+        if (time >= (nextStart - 0.5)) {
+          currentQuestion++
+          console.log(`Switching to question ${currentQuestion} at time ${time}`)
+          onQuestionChange(currentQuestion)
+        }
+      }
+    }, 500) 
+    
+    return () => clearInterval(interval)
+  }, [questionStartTimes, onQuestionChange, isAudioReady])
 
   const handleExitConfirm = () => {
     setShowExitModal(false)
@@ -75,8 +131,6 @@ export default function TestAudio({ onAudioComplete }: TestAudioProps) {
 
   return (
     <>
-      {isAudioLoading && <Loading />}
-
       {showExitModal && (
         <Dialog
           open={showExitModal}
@@ -107,7 +161,15 @@ export default function TestAudio({ onAudioComplete }: TestAudioProps) {
           ref={audioRef}
           src="/audios/ETS2024_Test1.mp3"
           preload="auto"
-          onLoadedMetadata={handleLoadedMetadata}
+          onCanPlayThrough={handleCanPlayThrough}
+          onProgress={handleProgress}
+          onLoadedMetadata={() => console.log('Audio metadata loaded')}
+          onError={(e) => {
+            console.error('Audio loading error:', e)
+            setAudioLoading(false)
+            setIsAudioReady(false)
+          }}
+          onStalled={() => console.warn('Audio loading stalled')}
         />
         <span>🔈</span>
         <input
