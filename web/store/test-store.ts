@@ -3,23 +3,18 @@ import { create } from 'zustand/react'
 interface TestState {
   currentPartIndex: number
   isShowingInstruction: boolean
-  setCurrentPartIndex: (index: number) => void
   setIsShowingInstruction: (show: boolean) => void
-  goToNextPart: () => void
+  isUserClickedNextInstruction: boolean
+  setIsUserClickedNextInstruction: (clicked: boolean) => void
 }
 
-const useTestStore = create<TestState>((set, get) => ({
+const useTestStore = create<TestState>((set) => ({
   currentPartIndex: 0,
   isShowingInstruction: true,
-  setCurrentPartIndex: (index) => set({ currentPartIndex: index }),
   setIsShowingInstruction: (show) => set({ isShowingInstruction: show }),
-  goToNextPart: () => {
-    const { currentPartIndex } = get()
-    set({
-      currentPartIndex: currentPartIndex + 1,
-      isShowingInstruction: true,
-    })
-  },
+  isUserClickedNextInstruction: false,
+  setIsUserClickedNextInstruction: (clicked) =>
+    set({ isUserClickedNextInstruction: clicked }),
 }))
 
 interface QuestionState {

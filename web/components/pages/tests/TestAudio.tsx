@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '../../ui/button'
 import { useAudioLoadingStore } from '@/store/loading-store'
+import { useTestStore } from '@/store/test-store'
 
 interface TestAudioProps {
   questionStartTimes: number[]
@@ -25,10 +26,13 @@ export default function TestAudio({
   const audioRef = useRef<HTMLAudioElement>(null)
   const [volume, setVolume] = useState(1)
   const [showExitModal, setShowExitModal] = useState(false)
-  const [isAudioReady, setIsAudioReady] = useState(false)
-  const { isAudioLoading, setAudioLoading } = useAudioLoadingStore()
 
-  // Initialize loading state and browser navigation handling
+  const { isAudioLoading, setAudioLoading, isAudioReady, setIsAudioReady } =
+    useAudioLoadingStore()
+
+  const {isUserClickedNextInstruction} = useTestStore()
+
+  // Browser navigation handling
   useEffect(() => {
     setAudioLoading(true)
     window.history.pushState({ preventBack: true }, '', window.location.href)
@@ -40,30 +44,24 @@ export default function TestAudio({
   }, [setAudioLoading])
 
   // Handle when audio is fully ready to play
-  const handleCanPlayThrough = () => {
-    const audio = audioRef.current
-    if (audio && !isAudioReady) {
-      console.log('Audio fully loaded and ready to play')
-      audio.currentTime = 9
-      audio.volume = volume
-      
-      setIsAudioReady(true)
+const handleCanPlayThrough = useCallback(() => {
+  const audio = audioRef.current
+  if (audio && !isAudioReady) {
+    console.log('Audio fully loaded and ready to play')
+    audio.currentTime = 9
+    audio.volume = volume
+
+    setIsAudioReady(true)
+    setAudioLoading(false)
+    onAudioReady(audioRef)
+
+    audio.play().catch((error) => {
+      console.error('Audio play failed:', error)
       setAudioLoading(false)
-      onAudioReady(audioRef)
-
-      audio.play().catch((error) => {
-        console.error('Audio play failed:', error)
-        setAudioLoading(false)
-      })
-
-      const interval = setInterval(() => {
-        if (audio.currentTime >= 98) {
-          audio.pause()
-          clearInterval(interval)
-        }
-      }, 1000)
-    }
+    })
   }
+}, [isAudioReady, volume, onAudioReady, setAudioLoading, setIsAudioReady])
+
 
   // Handle audio loading progress
   const handleProgress = () => {
@@ -77,23 +75,15 @@ export default function TestAudio({
     }
   }
 
-  // Fallback timeout for slow connections
-  useEffect(() => {
-    const fallbackTimeout = setTimeout(() => {
-      if (isAudioLoading && !isAudioReady) {
-        console.warn('Audio load timeout - attempting fallback')
-        const audio = audioRef.current
-        if (audio && audio.readyState >= 2) {
-          handleCanPlayThrough()
-        } else {
-          setAudioLoading(false)
-          console.error('Audio failed to load within timeout period')
-        }
-      }
-    }, 15000) // 15s
+// Check if audio is ready on mount
+ useEffect(() => {
+  const audio = audioRef.current
+  if (audio && audio.readyState >= 2 && !isAudioReady) {
+    console.log('Audio was already ready on mount')
+    handleCanPlayThrough()
+  }
+}, [isAudioReady, handleCanPlayThrough])
 
-    return () => clearTimeout(fallbackTimeout)
-  }, [isAudioLoading, isAudioReady, setAudioLoading])
 
   // Audio time tracking for question changes
   useEffect(() => {
@@ -105,18 +95,20 @@ export default function TestAudio({
 
     const interval = setInterval(() => {
       const time = audio.currentTime
-      
+
       if (currentQuestion < questionStartTimes.length - 1) {
         const nextStart = questionStartTimes[currentQuestion + 1]
- 
-        if (time >= (nextStart - 0.5)) {
+
+        if (time >= nextStart - 0.5) {
           currentQuestion++
-          console.log(`Switching to question ${currentQuestion} at time ${time}`)
+          console.log(
+            `Switching to question ${currentQuestion} at time ${time}`
+          )
           onQuestionChange(currentQuestion)
         }
       }
-    }, 500) 
-    
+    }, 500)
+
     return () => clearInterval(interval)
   }, [questionStartTimes, onQuestionChange, isAudioReady])
 
