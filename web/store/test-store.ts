@@ -2,19 +2,20 @@ import { create } from 'zustand/react'
 
 interface TestState {
   currentPartIndex: number
+  setCurrentPartIndex: (index: number) => void
   isShowingInstruction: boolean
   setIsShowingInstruction: (show: boolean) => void
-  isUserClickedNextInstruction: boolean
-  setIsUserClickedNextInstruction: (clicked: boolean) => void
+  isTestCompleted: boolean
+  setIsTestCompleted: (completed: boolean) => void
 }
 
 const useTestStore = create<TestState>((set) => ({
   currentPartIndex: 0,
+  setCurrentPartIndex: (index) => set({ currentPartIndex: index }),
   isShowingInstruction: true,
   setIsShowingInstruction: (show) => set({ isShowingInstruction: show }),
-  isUserClickedNextInstruction: false,
-  setIsUserClickedNextInstruction: (clicked) =>
-    set({ isUserClickedNextInstruction: clicked }),
+  isTestCompleted: false,
+  setIsTestCompleted: (completed) => set({ isTestCompleted: completed }),
 }))
 
 interface QuestionState {

@@ -10,27 +10,35 @@ import {
 } from '@/components/ui/dialog'
 import { Button } from '../../ui/button'
 import { useAudioLoadingStore } from '@/store/loading-store'
-import { useTestStore } from '@/store/test-store'
-
+import { useQuestionStore, useTestStore } from '@/store/test-store'
+import { Alert } from '@/components/ui/alert'
 interface TestAudioProps {
   questionStartTimes: number[]
-  onQuestionChange: (index: number) => void
   onAudioReady: (audioRef: React.RefObject<HTMLAudioElement>) => void
+  partEndTimes: number
 }
 
 export default function TestAudio({
   questionStartTimes,
-  onQuestionChange,
   onAudioReady,
+  partEndTimes,
 }: TestAudioProps) {
   const audioRef = useRef<HTMLAudioElement>(null)
   const [volume, setVolume] = useState(1)
   const [showExitModal, setShowExitModal] = useState(false)
 
-  const { isAudioLoading, setAudioLoading, isAudioReady, setIsAudioReady } =
+  const { setAudioLoading, isAudioReady, setIsAudioReady } =
     useAudioLoadingStore()
 
-  const {isUserClickedNextInstruction} = useTestStore()
+  const {
+    currentPartIndex,
+    setIsShowingInstruction,
+    setCurrentPartIndex,
+    isTestCompleted,
+    setIsTestCompleted,
+  } = useTestStore()
+
+  const { setCurrentQuestionIndex } = useQuestionStore()
 
   // Browser navigation handling
   useEffect(() => {
@@ -44,24 +52,23 @@ export default function TestAudio({
   }, [setAudioLoading])
 
   // Handle when audio is fully ready to play
-const handleCanPlayThrough = useCallback(() => {
-  const audio = audioRef.current
-  if (audio && !isAudioReady) {
-    console.log('Audio fully loaded and ready to play')
-    audio.currentTime = 9
-    audio.volume = volume
+  const handleCanPlayThrough = useCallback(() => {
+    const audio = audioRef.current
+    if (audio && !isAudioReady) {
+      console.log('Audio fully loaded and ready to play')
+      audio.currentTime = 9
+      audio.volume = volume
 
-    setIsAudioReady(true)
-    setAudioLoading(false)
-    onAudioReady(audioRef)
-
-    audio.play().catch((error) => {
-      console.error('Audio play failed:', error)
+      setIsAudioReady(true)
       setAudioLoading(false)
-    })
-  }
-}, [isAudioReady, volume, onAudioReady, setAudioLoading, setIsAudioReady])
+      onAudioReady(audioRef)
 
+      audio.play().catch((error) => {
+        console.error('Audio play failed:', error)
+        setAudioLoading(false)
+      })
+    }
+  }, [isAudioReady, volume, onAudioReady, setAudioLoading, setIsAudioReady])
 
   // Handle audio loading progress
   const handleProgress = () => {
@@ -75,15 +82,14 @@ const handleCanPlayThrough = useCallback(() => {
     }
   }
 
-// Check if audio is ready on mount
- useEffect(() => {
-  const audio = audioRef.current
-  if (audio && audio.readyState >= 2 && !isAudioReady) {
-    console.log('Audio was already ready on mount')
-    handleCanPlayThrough()
-  }
-}, [isAudioReady, handleCanPlayThrough])
-
+  // Check if audio is ready on mount
+  useEffect(() => {
+    const audio = audioRef.current
+    if (audio && audio.readyState >= 2 && !isAudioReady) {
+      console.log('Audio was already ready on mount')
+      handleCanPlayThrough()
+    }
+  }, [isAudioReady, handleCanPlayThrough])
 
   // Audio time tracking for question changes
   useEffect(() => {
@@ -94,23 +100,57 @@ const handleCanPlayThrough = useCallback(() => {
     console.log('Question start times:', questionStartTimes)
 
     const interval = setInterval(() => {
+
       const time = audio.currentTime
+      // Hide instruction once audio reaches the first question
+      if (questionStartTimes[0] && time >= questionStartTimes[0] - 0.5) {
+        setIsShowingInstruction(false)
+      }
 
       if (currentQuestion < questionStartTimes.length - 1) {
         const nextStart = questionStartTimes[currentQuestion + 1]
 
+        // Move to the next question if reached the next start time
         if (time >= nextStart - 0.5) {
           currentQuestion++
           console.log(
             `Switching to question ${currentQuestion} at time ${time}`
           )
-          onQuestionChange(currentQuestion)
+          setCurrentQuestionIndex(currentQuestion)
+        }
+      } else if (
+        currentQuestion === questionStartTimes.length - 1 &&
+        partEndTimes !== null &&
+        time >= partEndTimes - 0.5
+      ) {
+        // Last question of the current part
+        const nextIndex = currentPartIndex + 1
+
+        if (nextIndex < 7) {
+          setIsShowingInstruction(true)
+          setCurrentPartIndex(nextIndex)
+          setCurrentQuestionIndex(0)
+        } else {
+          // Test is completed
+          setIsTestCompleted(true)
+          audio.pause()
+          setIsShowingInstruction(false)
+          clearInterval(interval)
         }
       }
     }, 500)
 
     return () => clearInterval(interval)
-  }, [questionStartTimes, onQuestionChange, isAudioReady])
+  }, [
+    questionStartTimes,
+    setCurrentQuestionIndex,
+    isAudioReady,
+    setIsShowingInstruction,
+    setCurrentPartIndex,
+    setIsTestCompleted,
+    currentPartIndex,
+    partEndTimes,
+  ])
 
   const handleExitConfirm = () => {
     setShowExitModal(false)
@@ -181,6 +221,7 @@ const handleCanPlayThrough = useCallback(() => {
         />
         <span>🔊</span>
       </div>
+      {isTestCompleted && <Alert variant="default">Test completed!</Alert>}
     </>
   )
 }

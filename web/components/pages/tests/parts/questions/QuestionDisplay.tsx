@@ -1,3 +1,4 @@
+
 import { TestRadio } from '../../TestRadio'
 import Image from 'next/image'
 
@@ -17,7 +18,8 @@ const QuestionDisplay = ({ imageSrc }: QuestProps) => {
         <div className="p-4">
           <TestRadio />
         </div>
-      </div>{' '}
+      </div>
+
     </div>
   )
 }

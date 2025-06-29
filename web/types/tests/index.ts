@@ -26,7 +26,7 @@ export interface Part {
   name: string
   type: PartType
   total_question: number
-  duration?: number
+  end_time: number
   questions?: Question[]
 }
 type CorrectAnswer = 'a' | 'b' | 'c' | 'd'

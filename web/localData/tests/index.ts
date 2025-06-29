@@ -18,8 +18,8 @@ export const testCollections: TestCollection[] = [
             id: 'part1',
             name: 'p1',
             type: 'listening' as PartType,
-            total_question: 6,
-            duration: 30,
+            total_question: 2,
+            end_time: 2.28,
             questions: [
               {
                 id: 'q1_p1_1',
@@ -44,7 +44,8 @@ export const testCollections: TestCollection[] = [
                 testId: 'test1',
                 partId: 'part1',
                 content: 'Where is the woman standing?',
-                imgSrc: '/images/toeic/part1/q2.jpg',
+                imgSrc:
+                  'https://res.cloudinary.com/dqe8linji/image/upload/v1749198568/Screenshot_2025-06-06_152718_yiegff.png',
                 explanation: 'The woman is standing next to a car.',
                 correctAnswer: 'b',
                 answers: JSON.stringify({
@@ -63,42 +64,62 @@ export const testCollections: TestCollection[] = [
             name: 'p2',
             type: 'listening' as PartType,
             total_question: 25,
-            duration: 30,
+            end_time: 30.0,
+            questions: [
+              {
+                id: 'q1_p2_1',
+                testId: 'test1',
+                partId: 'part2',
+                content: 'What is the main topic of the conversation?',
+                imgSrc: '',
+                explanation: 'The main topic is about a project deadline.',
+                correctAnswer: 'c',
+                answers: JSON.stringify({
+                  a: 'A personal issue',
+                  b: 'A vacation plan',
+                  c: 'A project deadline',
+                  d: 'A meeting schedule',
+                }),
+                score: 5,
+                start_time: 3.02,
+              },
+              // Add more questions as needed
+            ],
           },
           {
             id: 'part3',
             name: 'p3',
             type: 'listening' as PartType,
             total_question: 39,
-            duration: 30,
+            end_time: 45.0,
           },
           {
             id: 'part4',
             name: 'p4',
             type: 'listening' as PartType,
             total_question: 30,
-            duration: 30,
+            end_time: 30.0,
           },
           {
             id: 'part5',
             name: 'p5',
             type: 'reading' as PartType,
             total_question: 30,
-            duration: 30,
+            end_time: 30.0,
           },
           {
             id: 'part6',
             name: 'p6',
             type: 'reading' as PartType,
             total_question: 16,
-            duration: 30,
+            end_time: 20.0,
           },
           {
             id: 'part7',
             name: 'p7',
             type: 'reading' as PartType,
             total_question: 54,
-            duration: 30,
+            end_time: 55.0,
           },
         ],
       },
@@ -137,7 +158,6 @@ export const testCollections: TestCollection[] = [
     name: 'TOEIC ETS 2023',
     createdAt: '2023-12-20T08:00:00Z',
     updatedAt: '2024-01-05T08:00:00Z',
-
     test: [
       {
         id: 'test3',
