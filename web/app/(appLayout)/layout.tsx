@@ -3,10 +3,11 @@ import React from 'react'
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body>
-<TestHeader/>
-{children}</body>
-    </html>
+    <div>
+      <div>
+        <TestHeader />
+        {children}
+      </div>
+    </div>
   )
 }
