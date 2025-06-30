@@ -16,10 +16,7 @@ export interface Test {
   parts?: Part[]
 }
 
-export enum PartType {
-  Listening = 'listening',
-  Reading = 'reading',
-}
+export type PartType = 'listening' | 'reading' | 'speaking' | 'writing'
 
 export interface Part {
   id: string

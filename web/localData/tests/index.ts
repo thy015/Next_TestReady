@@ -1,4 +1,4 @@
-import { PartType, TestCollection } from '@/types/tests'
+import { TestCollection } from '@/types/tests'
 
 export const testCollections: TestCollection[] = [
   {
@@ -17,7 +17,7 @@ export const testCollections: TestCollection[] = [
           {
             id: 'part1',
             name: 'p1',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 2,
             end_time: 2.28,
             questions: [
@@ -62,7 +62,7 @@ export const testCollections: TestCollection[] = [
           {
             id: 'part2',
             name: 'p2',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 25,
             end_time: 30.0,
             questions: [
@@ -89,35 +89,35 @@ export const testCollections: TestCollection[] = [
           {
             id: 'part3',
             name: 'p3',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 39,
             end_time: 45.0,
           },
           {
             id: 'part4',
             name: 'p4',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 30,
             end_time: 30.0,
           },
           {
             id: 'part5',
             name: 'p5',
-            type: 'reading' as PartType,
+            type: 'reading',
             total_question: 30,
             end_time: 30.0,
           },
           {
             id: 'part6',
             name: 'p6',
-            type: 'reading' as PartType,
+            type: 'reading',
             total_question: 16,
             end_time: 20.0,
           },
           {
             id: 'part7',
             name: 'p7',
-            type: 'reading' as PartType,
+            type: 'reading' ,
             total_question: 54,
             end_time: 55.0,
           },
