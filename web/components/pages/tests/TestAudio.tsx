@@ -27,8 +27,7 @@ export default function TestAudio({
   const [volume, setVolume] = useState(1)
   const [showExitModal, setShowExitModal] = useState(false)
 
-  const { setAudioLoading, isAudioReady, setIsAudioReady } =
-    useAudioLoadingStore()
+  const { isAudioReady, setIsAudioReady } = useAudioLoadingStore()
 
   const {
     currentPartIndex,
@@ -42,34 +41,31 @@ export default function TestAudio({
 
   // Browser navigation handling
   useEffect(() => {
-    setAudioLoading(true)
     window.history.pushState({ preventBack: true }, '', window.location.href)
     const handlePopstate = () => setShowExitModal(true)
     window.addEventListener('popstate', handlePopstate)
     return () => {
       window.removeEventListener('popstate', handlePopstate)
     }
-  }, [setAudioLoading])
+  }, [])
 
   // Handle when audio is fully ready to play
   const handleCanPlayThrough = useCallback(() => {
     const audio = audioRef.current
     if (audio && !isAudioReady) {
       console.log('Audio fully loaded and ready to play')
+
       audio.currentTime = 9
       audio.volume = volume
 
       setIsAudioReady(true)
-      setAudioLoading(false)
-      onAudioReady(audioRef)
+      onAudioReady(audioRef as React.RefObject<HTMLAudioElement>)
 
       audio.play().catch((error) => {
         console.error('Audio play failed:', error)
-        setAudioLoading(false)
       })
     }
-  }, [isAudioReady, volume, onAudioReady, setAudioLoading, setIsAudioReady])
-
+  }, [isAudioReady, volume, onAudioReady, setIsAudioReady])
   // Handle audio loading progress
   const handleProgress = () => {
     const audio = audioRef.current
@@ -100,7 +96,6 @@ export default function TestAudio({
     console.log('Question start times:', questionStartTimes)
 
     const interval = setInterval(() => {
-
       const time = audio.currentTime
       // Hide instruction once audio reaches the first question
       if (questionStartTimes[0] && time >= questionStartTimes[0] - 0.5) {
@@ -198,7 +193,6 @@ export default function TestAudio({
           onLoadedMetadata={() => console.log('Audio metadata loaded')}
           onError={(e) => {
             console.error('Audio loading error:', e)
-            setAudioLoading(false)
             setIsAudioReady(false)
           }}
           onStalled={() => console.warn('Audio loading stalled')}

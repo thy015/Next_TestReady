@@ -28,9 +28,7 @@ const TestHeader = () => {
     <div
       className={clsx(
         'h-24 w-full grid grid-cols-12 fixed z-10 transition-all duration-300',
-        scrolled
-          ? 'bg-rgba(255,255,255,0.3) backdrop-blur-[50px]'
-          : 'bg-transparent text-white'
+        scrolled ? 'bg-rgba(255,255,255,0.3) backdrop-blur-[50px]' : 'bg-white '
       )}
     >
       {/* 3 - 6 - 3 */}
