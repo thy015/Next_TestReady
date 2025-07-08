@@ -23,6 +23,9 @@ export class Part {
     @Column({default:30})
     durations:number
 
+    @Column()
+    end_time:number
+
     @ManyToOne(()=>Test,(test)=>test.parts)
     test:Test
 

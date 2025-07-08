@@ -6,6 +6,7 @@ import { UserLesson } from "src/user_lesson/entities/user_lesson.entity";
 
 @Entity()
 export class User {
+    
     @PrimaryGeneratedColumn()
     id:number
 

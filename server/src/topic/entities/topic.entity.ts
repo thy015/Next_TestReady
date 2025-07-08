@@ -1,5 +1,6 @@
+import { CourseMobile } from "src/course_mobile/entities/course_mobile.entity";
 import { Word } from "src/word/entities/word.entity";
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Topic {
@@ -20,4 +21,9 @@ export class Topic {
     @ManyToMany(()=>Word,(word)=>word.topics)
     @JoinTable()
     words: Word[];
+
+    @ManyToOne(()=>CourseMobile, (courseMobile) => courseMobile.topics, {
+        nullable: true
+    })
+    courseMobile: CourseMobile;
 }

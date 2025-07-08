@@ -19,14 +19,14 @@ export class Question {
     score:number
 
     @Column({type:"enum",enum:["a","b","c","d"]})
-    corret_ans:string
+    correct_ans:string
 
     @Column({type:"nvarchar",length:1000})
     explanation:string
 
     @Column()
-    isFlag:boolean
-
+    start_time:number
+    
     @Column({type:"json"})
     answer:any
     
