@@ -7,5 +7,6 @@ async function bootstrap() {
         .then(()=>{
           console.log("Server running on PORT:"+process.env.PORT)
         })
+        app.enableCors();
 }
 bootstrap();

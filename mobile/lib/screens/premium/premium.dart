@@ -15,10 +15,6 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-        ),
         title: Text(
           'Goo Plus Plans',
           style: TextStyle(
@@ -71,7 +67,7 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
                     price: '1,499,000 VND',
                     monthlyPrice: '',
                     discount: '99%',
-                    discountLabel: 'Bỏ đi',
+                    discountLabel: 'Bao họccc',
                     isLifetime: true,
                   ),
                   SizedBox(height: 30),
@@ -202,29 +198,29 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
                 ],
               ),
             ),
-            if (isPopular)
-              Positioned(
-                top: 0,
-                left: 0,
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  decoration: BoxDecoration(
-                    color: Color(0xFF4285F4),
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(16),
-                      bottomRight: Radius.circular(16),
-                    ),
-                  ),
-                  child: Text(
-                    'Phổ biến',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-              ),
+            // if (isPopular)
+            //   Positioned(
+            //     top: 0,
+            //     left: 0,
+            //     child: Container(
+            //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            //       decoration: BoxDecoration(
+            //         color: Color(0xFF4285F4),
+            //         borderRadius: BorderRadius.only(
+            //           topLeft: Radius.circular(16),
+            //           bottomRight: Radius.circular(16),
+            //         ),
+            //       ),
+            //       child: Text(
+            //         'Phổ biến',
+            //         style: TextStyle(
+            //           color: Colors.white,
+            //           fontSize: 12,
+            //           fontWeight: FontWeight.w600,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
           ],
         ),
       ),

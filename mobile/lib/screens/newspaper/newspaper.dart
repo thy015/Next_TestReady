@@ -1,204 +1,199 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/screens/newspaper/detailpaper.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../providers/newspaper_provider.dart';
+import 'detailpaper.dart';
+import 'package:intl/intl.dart';
 
-class Newspaper extends StatelessWidget {
+class Newspaper extends ConsumerWidget {
   const Newspaper({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      padding: const EdgeInsets.only(bottom: 16, top: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 10, right: 16),
-              child: Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: Colors.black),
-                ),
-                child: const Text('Sort'),
-              ),
-            ),
-          ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final newsAsync = ref.watch(newsListProvider);
 
-          Container(
-            margin: const EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Stack(
-                  children: [
-                    AspectRatio(
-                      aspectRatio: 16 / 9,
-                      child: Image.network(
-                        'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      ),
+    return newsAsync.when(
+      loading: () => const Center(child: CircularProgressIndicator()),
+      error: (error, _) => Center(child: Text('Lỗi: $error')),
+      data: (articles) {
+        if (articles.isEmpty) {
+          return const Center(child: Text('Không có bài báo nào.'));
+        }
+
+        final firstArticle = articles.first;
+        final otherArticles = articles.skip(1).toList();
+
+        return SingleChildScrollView(
+          padding: const EdgeInsets.only(bottom: 16, top: 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                alignment: Alignment.topRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, right: 16),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
                     ),
-                    Positioned(
-                      top: 8,
-                      left: 8,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 8,
-                          vertical: 4,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.6),
-                          borderRadius: BorderRadius.circular(6),
-                        ),
-                        child: const Text(
-                          'CNN',
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        ),
-                      ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(100),
+                      border: Border.all(color: Colors.black),
                     ),
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    "Trump's trade war will hit US prosperity hard, IMF warns",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    child: const Text('Lọc báo'),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              ),
+
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailPaper(article: firstArticle),
+                    ),
+                  );
+                },
+                child: Container(
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text('2 min'),
-                      Text('👀 319'),
-                      Text('4/25/25 - 7:30 PM'),
+                      AspectRatio(
+                        aspectRatio: 16 / 9,
+                        child: Image.network(
+                          firstArticle.img,
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Text(
+                          firstArticle.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Tác giả: ${firstArticle.author}'),
+                            Text(
+                              DateFormat(
+                                'dd/MM/yyyy - HH:mm',
+                              ).format(firstArticle.createdAt),
+                              style: const TextStyle(color: Colors.grey),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
                     ],
                   ),
                 ),
-              ],
-            ),
-          ),
+              ),
 
-          const Padding(
-            padding: EdgeInsets.only(left: 16, top: 16),
-            child: Text(
-              'Hôm nay có gì',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ),
-
-          ...List.generate(3, (index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DetailPaper()),
-                );
-              },
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border(
-                    bottom: BorderSide(color: Colors.black.withOpacity(0.2)),
-                  ),
+              const Padding(
+                padding: EdgeInsets.only(left: 16, top: 16),
+                child: Text(
+                  'Hôm nay có gì',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                child: Column(
-                  children: [
-                    Row(
+              ),
+
+              ...otherArticles.map((article) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DetailPaper(article: article),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: Colors.black.withOpacity(0.2),
+                        ),
+                      ),
+                    ),
+                    child: Row(
                       children: [
-                        Expanded(
-                          flex: 4,
-                          child: Stack(
-                            children: [
-                              AspectRatio(
-                                aspectRatio: 4 / 3,
-                                child: Image.network(
-                                  'https://letsenhance.io/static/73136da51c245e80edc6ccfe44888a99/1015f/MainBefore.jpg',
-                                  fit: BoxFit.cover,
-                                  width: double.infinity,
-                                ),
-                              ),
-                              Positioned(
-                                top: 8,
-                                left: 8,
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(6),
-                                  ),
-                                  child: const Text(
-                                    'CNN',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
+                        Container(
+                          width: 120,
+                          height: 90,
+                          margin: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            image: DecorationImage(
+                              image: NetworkImage(article.img),
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
+
                         Expanded(
-                          flex: 6,
                           child: Padding(
-                            padding: const EdgeInsets.all(8.0),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 8.0,
+                            ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: const [
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 4),
-                                  child: Text(
-                                    "Trump's trade war will hit US prosperity hard, IMF warns",
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 14,
-                                    ),
+                              children: [
+                                Text(
+                                  article.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'Tác giả: ${article.author}',
+                                  style: const TextStyle(fontSize: 12),
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  DateFormat(
+                                    'dd/MM/yyyy - HH:mm',
+                                  ).format(article.createdAt),
+                                  style: const TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 12,
                                   ),
                                 ),
-                                Text("Author: Capuccino"),
                               ],
                             ),
                           ),
                         ),
                       ],
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(8),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('👀 319', style: TextStyle(color: Colors.grey)),
-                          Text(
-                            '4/25/25 - 7:30 PM',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }),
-        ],
-      ),
+                  ),
+                );
+              }).toList(),
+            ],
+          ),
+        );
+      },
     );
   }
 }

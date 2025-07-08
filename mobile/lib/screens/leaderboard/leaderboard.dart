@@ -18,7 +18,7 @@ class Leaderboard extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     const Text(
-                      'Leaderboard',
+                      'Bảng xếp hạng',
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 28,
@@ -45,7 +45,7 @@ class Leaderboard extends StatelessWidget {
                       top: 40,
                       child: _buildWinnerAvatar(
                         'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
-                        'Jane Smith',
+                        'trình',
                         1,
                       ),
                     ),
@@ -55,7 +55,7 @@ class Leaderboard extends StatelessWidget {
                       top: 120,
                       child: _buildPodiumAvatar(
                         'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
-                        'Sam Black',
+                        'ối giồi ôi',
                         2,
                         const Color(0xFF06B6D4),
                       ),
@@ -66,7 +66,7 @@ class Leaderboard extends StatelessWidget {
                       top: 120,
                       child: _buildPodiumAvatar(
                         'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
-                        'Jessica Cher',
+                        'khó nói',
                         3,
                         const Color(0xFFEC4899),
                       ),
@@ -90,7 +90,7 @@ class Leaderboard extends StatelessWidget {
                 child: Row(
                   children: [
                     const Text(
-                      'You Currently Rank',
+                      'Vị trí của bạn',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16,
@@ -136,25 +136,25 @@ class Leaderboard extends StatelessWidget {
                       _buildRankingItem(
                         4,
                         'https://images.unsplash.com/photo-1544725176-7c40e5a71c5e?w=100&h=100&fit=crop&crop=face',
-                        'Darlene Robertson',
+                        'a bộ pc',
                         true,
                       ),
                       _buildRankingItem(
                         5,
                         'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
-                        'Theresa Webb',
+                        'hẹ hẹ hẹ',
                         false,
                       ),
                       _buildRankingItem(
                         6,
                         'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&h=100&fit=crop&crop=face',
-                        'Floyd Miles',
+                        'california',
                         true,
                       ),
                       _buildRankingItem(
                         7,
                         'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
-                        'Annette Black',
+                        'guay xiao ma',
                         true,
                       ),
                     ],

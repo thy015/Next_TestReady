@@ -1,45 +1,107 @@
-# Miscellaneous
+# ====================================
+# MISCELLANEOUS
+# ====================================
 *.class
 *.log
 *.pyc
 *.swp
 .DS_Store
 .atom/
-.build/
-.buildlog/
 .history
 .svn/
 .swiftpm/
 migrate_working_dir/
-/node_modules
-# IntelliJ related
+
+# Temp directories
+.temp/
+.tmp/
+
+# Logs & Runtime data
+logs/
+*.pid
+*.seed
+*.pid.lock
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# ====================================
+# NODE (nếu bạn có dùng chung frontend/backend)
+# ====================================
+/node_modules/
+/dist/
+/build/
+.package-lock.json
+
+# ====================================
+# FLUTTER / DART / PUB
+# ====================================
+.dart_tool/
+.packages
+.pub-cache/
+.pub/
+.flutter-plugins
+.flutter-plugins-dependencies
+.flutter-versions
+.melos_tool/
+
+# Flutter build
+/build/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+
+# Symbolication & obfuscation
+app.*.symbols
+app.*.map.json
+
+# Android Studio build artifacts
+/android/app/debug
+/android/app/profile
+/android/app/release
+
+# iOS & macOS build artifacts
+ios/Flutter/Flutter.framework
+ios/Flutter/Flutter.podspec
+ios/.symlinks/
+ios/Pods/
+ios/Runner.xcworkspace/
+macos/Flutter/ephemeral/
+windows/Flutter/ephemeral/
+linux/Flutter/ephemeral/
+flutter_assets/
+
+# ====================================
+# IDE / EDITORS
+# ====================================
+
+# IntelliJ / Android Studio
 *.iml
 *.ipr
 *.iws
 .idea/
-.package-lock.json
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/build/
+# VSCode
+.vscode/
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
 
-# Symbolication related
-app.*.symbols
+# Eclipse
+.project
+.classpath
+.settings/
 
-# Obfuscation related
-app.*.map.json
+# Sublime
+*.sublime-workspace
 
-# Android Studio will place build artifacts here
-/android/app/debug
-/android/app/profile
-/android/app/release
+# ====================================
+# ENVIRONMENT VARIABLES
+# ====================================
+.env
+.env.*
+!.env.example
+
+# ====================================
+# COVERAGE / TESTS
+# ====================================
+coverage/
+.nyc_output/

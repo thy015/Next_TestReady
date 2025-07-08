@@ -29,10 +29,10 @@ import { RelatedVerbModule } from './related_verb/related_verb.module';
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
-      port: 3307,
+      port: 3306,
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
-      database: "toeic_ready2",
+      database: "toeic_ready",
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true, 
     }),
