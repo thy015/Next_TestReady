@@ -1,6 +1,6 @@
 import { RelatedVerb } from "src/related_verb/entities/related_verb.entity";
 import { Topic } from "src/topic/entities/topic.entity";
-import { Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Word {
@@ -37,8 +37,8 @@ export class Word {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @ManyToMany(()=>Topic,(topic)=>topic.words)
-    topics: Topic[];
+    @ManyToOne(()=>Topic,(topic)=>topic.words)
+    topic: Topic;
 
     @OneToMany(()=>RelatedVerb,(relatedVerb)=>relatedVerb.word)
     related_verbs: RelatedVerb[];

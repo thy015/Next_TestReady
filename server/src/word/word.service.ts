@@ -26,7 +26,7 @@ export class WordService {
       },
     });
 
-    const word = this.wordRepo.create({ ...createWordDto, topics: [topic ?? {}] });
+    const word = this.wordRepo.create({ ...createWordDto, topic: topic ?? {} });
     return await this.wordRepo.save(word);
   }
 
@@ -69,11 +69,11 @@ export class WordService {
   async findByTopicId(topicId: number) {
     return await this.wordRepo.find({
       where: {
-        topics: {
+        topic: {
           id: topicId,
         },
       },
-      relations: ['topics'],
+      relations: ['topic'],
     });
   }
 
