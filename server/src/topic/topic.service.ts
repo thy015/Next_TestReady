@@ -22,12 +22,16 @@ export class TopicService {
     return await this.topicRepo.save(topic);
   }
 
-  findAll() {
-    return `This action returns all topic`;
+  async findAll() {
+    return await this.topicRepo.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} topic`;
+  async findOne(id: number) {
+    return await this.topicRepo.findOne({
+      where: {
+        id: id,
+      },
+    });
   }
 
   update(id: number, updateTopicDto: UpdateTopicDto) {

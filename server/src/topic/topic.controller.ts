@@ -27,7 +27,7 @@ export class TopicController {
     return this.topicService.create(createTopicDto);
   }
 
-  @Get()
+  @Get("get-all")
   @ApiOperation({ 
     summary: 'Lấy danh sách tất cả chủ đề',
     description: 'Lấy danh sách tất cả chủ đề từ vựng trong hệ thống'

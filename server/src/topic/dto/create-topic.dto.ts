@@ -9,12 +9,28 @@ export class CreateTopicDto {
     @IsString()
     name: string;
 
+     @ApiProperty({
+        example: "Kinh doanh",
+        description: "Tên chủ đề ( Tiếng việt )"
+    })
+    @IsString()
+    nameVN: string;   
+
+    @ApiProperty({
+        example: "https://example.com/image.jpg",
+        description: "URL hình ảnh"
+    })
+    @IsString()
+    img:string;
+
+
+
     @ApiProperty({
         example: "TOEIC",
         description: "Danh mục chủ đề",
-        enum: ['TOEIC', 'IELTS']
+        enum: ['TOEIC CƠ BẢN',"IELT CƠ BẢN"]
     })
-    @IsEnum(['TOEIC', 'IELTS'])
+    @IsEnum(['TOEIC CƠ BẢN',"IELT CƠ BẢN"])
     category: string;
           
     @IsString()
