@@ -1,102 +1,31 @@
 import 'package:flutter/material.dart';
-import '../data/vocabulary.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:mobile/data/models/word_model.dart';
 
-class FlashcardWidget extends StatefulWidget {
-  final Vocabulary vocab;
+class FlashcardWidget extends StatelessWidget {
+  final WordModel vocab;
   final VoidCallback? onSpeak;
 
   const FlashcardWidget({super.key, required this.vocab, this.onSpeak});
 
   @override
-  State<FlashcardWidget> createState() => _FlashcardWidgetState();
-}
-
-class _FlashcardWidgetState extends State<FlashcardWidget>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-  bool _isFlipped = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: const Duration(milliseconds: 600),
-      vsync: this,
-    );
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _flipCard() {
-    if (!_isFlipped) {
-      _controller.forward();
-    } else {
-      _controller.reverse();
-    }
-    setState(() {
-      _isFlipped = !_isFlipped;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _flipCard,
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (context, child) {
-          final isFront = _animation.value < 0.5;
-          return Transform(
-            alignment: Alignment.center,
-            transform:
-                Matrix4.identity()
-                  ..setEntry(3, 2, 0.001)
-                  ..rotateY(_animation.value * 3.14159),
-            child: Container(
-              width: 300,
-              height: 400,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.1),
-                    blurRadius: 10,
-                    offset: const Offset(0, 5),
-                  ),
-                ],
-              ),
-              child:
-                  isFront
-                      ? _buildFrontCard()
-                      : Transform(
-                        alignment: Alignment.center,
-                        transform: Matrix4.identity()..rotateY(3.14159),
-                        child: _buildBackCard(),
-                      ),
-            ),
-          );
-        },
-      ),
+    return FlipCard(
+      direction: FlipDirection.HORIZONTAL,
+      front: frontCard(),
+      back: backCard(),
     );
   }
 
-  Widget _buildFrontCard() {
-    final v = widget.vocab;
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
+  Widget frontCard() {
+    final v = vocab;
+    return cardContainer(
+      Column(
         children: [
           const SizedBox(height: 20),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [_iconButton(Icons.volume_up, widget.onSpeak)],
+            children: [iconButton(Icons.volume_up, onSpeak)],
           ),
           const SizedBox(height: 40),
           Text(
@@ -104,28 +33,14 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
             style: const TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 30),
-          RichText(
+          Text(
+            v.def,
             textAlign: TextAlign.center,
-            text: TextSpan(
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.grey[700],
-                height: 1.5,
-              ),
-              children: [
-                const TextSpan(text: 'People find it hard to '),
-                TextSpan(
-                  text: v.word,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                const TextSpan(
-                  text:
-                      ' their accustomed food preferences and try something new.',
-                ),
-              ],
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Colors.grey[700],
+              height: 1.5,
             ),
           ),
           const Spacer(),
@@ -134,11 +49,10 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
     );
   }
 
-  Widget _buildBackCard() {
-    final v = widget.vocab;
-    return Padding(
-      padding: const EdgeInsets.all(20),
-      child: Column(
+  Widget backCard() {
+    final v = vocab;
+    return cardContainer(
+      Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
@@ -147,7 +61,7 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
           ),
           const SizedBox(height: 20),
           Text(
-            v.pronunciation,
+            v.phonetic,
             style: TextStyle(
               fontSize: 18,
               fontStyle: FontStyle.italic,
@@ -173,7 +87,7 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  v.meaning,
+                  v.vieDef,
                   textAlign: TextAlign.center,
                   style: const TextStyle(fontSize: 18, height: 1.4),
                 ),
@@ -182,7 +96,7 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
           ),
           const SizedBox(height: 20),
           Text(
-            'Ví dụ: ${v.exampleVI}',
+            'Ví dụ: ${v.examples}',
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 14,
@@ -195,7 +109,27 @@ class _FlashcardWidgetState extends State<FlashcardWidget>
     );
   }
 
-  Widget _iconButton(IconData icon, VoidCallback? onTap) {
+  Widget cardContainer(Widget child) {
+    return Container(
+      width: 300,
+      height: 400,
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            offset: const Offset(0, 5),
+          ),
+        ],
+      ),
+      child: child,
+    );
+  }
+
+  Widget iconButton(IconData icon, VoidCallback? onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Container(

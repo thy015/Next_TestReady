@@ -44,7 +44,7 @@ class Leaderboard extends StatelessWidget {
                     Positioned(
                       top: 40,
                       child: _buildWinnerAvatar(
-                        'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face',
+                        'https://i.ytimg.com/vi/7kO_ALcwNAw/sddefault.jpg?v=672b7503',
                         'trình',
                         1,
                       ),
@@ -54,7 +54,7 @@ class Leaderboard extends StatelessWidget {
                       left: 40,
                       top: 120,
                       child: _buildPodiumAvatar(
-                        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJ9ay7YcdmBKg6C5hleJdD3kQQrYgYp8AO0Q&s',
                         'ối giồi ôi',
                         2,
                         const Color(0xFF06B6D4),

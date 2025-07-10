@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
+import '../../data/vocabulary_data.dart';
 import '../../widgets/flashcard_widget.dart';
 import "../../providers/course_provider.dart";
-import "../../data/models/step_model.dart";
-import '../../data/models/word_model.dart';
 
-int totalArticles = 0;
+int _totalArticles = 0;
 
 class FlashcardPage extends ConsumerStatefulWidget {
   final int? topicId;
@@ -17,21 +16,9 @@ class FlashcardPage extends ConsumerStatefulWidget {
 }
 
 class _FlashcardPageState extends ConsumerState<FlashcardPage> {
-  final PageController pageController = PageController();
+  final PageController _pageController = PageController();
   final FlutterTts _flutterTts = FlutterTts();
-  int crtPage = 0;
-  List<LearningStep> steps = [];
-
-  void stepList(List<WordModel> words) {
-    steps.clear();
-    for (var word in words) {
-      steps.add(LearningStep(phaseType: PhaseType.flashcard, word: word));
-    }
-    for (var word in words) {
-      steps.add(LearningStep(phaseType: PhaseType.listening, word: word));
-      steps.add(LearningStep(phaseType: PhaseType.fillInTheBlank, word: word));
-    }
-  }
+  int _currentIndex = 0;
 
   @override
   void initState() {
@@ -40,34 +27,29 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
     _flutterTts.setSpeechRate(0.5);
   }
 
-  void goToNextCard() {
-    if (crtPage < steps.length - 1) {
-      pageController.nextPage(
+  void _goToNextCard() {
+    if (_currentIndex < _totalArticles - 1) {
+      _pageController.nextPage(
         duration: const Duration(milliseconds: 300),
         curve: Curves.easeInOut,
       );
-      crtPage++;
     }
   }
 
-  void speakWord(String word) {
+  void _speakWord(String word) {
     _flutterTts.speak(word);
     print('Đang đọc từ: $word');
   }
 
   @override
   void dispose() {
-    pageController.dispose();
+    _pageController.dispose();
     _flutterTts.stop();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    void goBack() {
-      Navigator.pop(context);
-    }
-
     final wordList = ref.watch(wordsByTopicProvider(widget.topicId ?? 0));
     return wordList.when(
       loading: () => const Center(child: CircularProgressIndicator()),
@@ -76,9 +58,8 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
         if (articles.isEmpty) {
           return const Center(child: Text('Không có từ vựng nào.'));
         }
-        stepList(wordList.value!);
-        totalArticles = articles.length;
-        final progress = (crtPage + 1) / steps.length;
+        _totalArticles = articles.length;
+        final progress = (_currentIndex + 1) / articles.length;
         return Scaffold(
           backgroundColor: const Color(0xFFF5F5F5),
           body: SafeArea(
@@ -89,7 +70,7 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
                   child: Row(
                     children: [
                       IconButton(
-                        onPressed: () => goBack(),
+                        onPressed: () => Navigator.pop(context),
                         icon: const Icon(Icons.close, color: Colors.grey),
                       ),
                       const SizedBox(width: 8),
@@ -106,7 +87,7 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '${crtPage + 1} / ${steps.length}',
+                              '${_currentIndex + 1} / ${articles.length}',
                               style: TextStyle(
                                 fontSize: 12,
                                 color: Colors.grey[600],
@@ -122,46 +103,20 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
 
                 Expanded(
                   child: PageView.builder(
-                    controller: pageController,
-                    itemCount: steps.length,
+                    controller: _pageController,
+                    itemCount: articles.length,
                     onPageChanged: (index) {
                       setState(() {
-                        crtPage = index;
+                        _currentIndex = index;
                       });
                     },
                     itemBuilder: (context, index) {
-                      final step = steps[index];
-
-                      switch (step.phaseType) {
-                        case PhaseType.flashcard:
-                          return Center(
-                            child: FlashcardWidget(
-                              vocab: step.word,
-                              onSpeak: () => speakWord(step.word.word),
-                            ),
-                          );
-                        case PhaseType.listening:
-                          return Center(
-                            child: FlashcardWidget(
-                              vocab: step.word,
-                              onSpeak: () => speakWord(step.word.word),
-                            ),
-                          );
-                        case PhaseType.fillInTheBlank:
-                          return Center(
-                            child: FlashcardWidget(
-                              vocab: step.word,
-                              onSpeak: () => speakWord(step.word.word),
-                            ),
-                          );
-                        case PhaseType.redo:
-                          return Center(
-                            child: FlashcardWidget(
-                              vocab: step.word,
-                              onSpeak: () => speakWord(step.word.word),
-                            ),
-                          );
-                      }
+                      return Center(
+                        child: FlashcardWidget(
+                          vocab: articles[index],
+                          onSpeak: () => _speakWord(articles[index].word),
+                        ),
+                      );
                     },
                   ),
                 ),
@@ -173,10 +128,7 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
                         width: double.infinity,
                         height: 50,
                         child: ElevatedButton(
-                          onPressed:
-                              crtPage == steps.length - 1
-                                  ? goBack
-                                  : goToNextCard,
+                          onPressed: _goToNextCard,
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Color.fromARGB(255, 3, 64, 156),
                             foregroundColor: Colors.black,
@@ -185,11 +137,9 @@ class _FlashcardPageState extends ConsumerState<FlashcardPage> {
                             ),
                             elevation: 0,
                           ),
-                          child: Text(
-                            crtPage == steps.length - 1
-                                ? 'Hoàn thành'
-                                : 'Tiếp tục',
-                            style: const TextStyle(
+                          child: const Text(
+                            'Tiếp tục',
+                            style: TextStyle(
                               fontSize: 16,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

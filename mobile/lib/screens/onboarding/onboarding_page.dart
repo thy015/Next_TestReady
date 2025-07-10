@@ -16,8 +16,8 @@ class OnboardingPage {
 
 final onboardingPages = [
   OnboardingPage(
-    title: "Chào mừng!",
-    description: "Khám phá ứng dụng tuyệt vời của chúng tôi.",
+    title: "Chào mừng ku!",
+    description: "Cùng nhau khám phá chân trời mới !",
     lottieAsset: "lib/assets/animations/onboarding1.json",
   ),
   OnboardingPage(

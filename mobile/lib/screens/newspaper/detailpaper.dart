@@ -16,13 +16,13 @@ class DetailPaper extends StatefulWidget {
 class _DetailPaperState extends State<DetailPaper> {
   bool isFavorited = false;
 
-  void _toggleFavorite() {
+  void toggleFavorite() {
     setState(() {
       isFavorited = !isFavorited;
     });
   }
 
-  void _onEditPressed() {}
+  void onEditPressed() {}
 
   @override
   Widget build(BuildContext context) {
@@ -33,8 +33,8 @@ class _DetailPaperState extends State<DetailPaper> {
           children: [
             DetailPaperHeader(
               isFavorited: isFavorited,
-              onFavoritePressed: _toggleFavorite,
-              onEditPressed: _onEditPressed,
+              onFavoritePressed: toggleFavorite,
+              onEditPressed: onEditPressed,
               onBackPressed: () => Navigator.pop(context),
             ),
             Expanded(

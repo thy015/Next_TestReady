@@ -23,6 +23,7 @@ dependencies:
   flutter_riverpod: ^2.0.4
   intl: ^0.18.1
   audioplayers: ^6.5.0
+  flip_card: ^0.7.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -34,7 +35,8 @@ flutter:
   assets:
     - lib/assets/animations/onboarding1.json
     - lib/assets/animations/onboarding2.json
-
+    - lib/assets/data/words.json
+    - lib/assets/data/topics.json
 flutter_native_splash:
   color: "#ffffff"
   image: lib/assets/images/vjp.png

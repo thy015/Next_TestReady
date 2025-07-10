@@ -13,24 +13,23 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController pwController = TextEditingController();
   final FocusNode _emailFocusNode = FocusNode();
-  final FocusNode _passwordFocusNode = FocusNode();
-  bool _obscurePassword = true;
-  bool _isLoading = false;
+  final FocusNode pwFocus = FocusNode();
+  bool obscurePw = true;
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
     _emailController.dispose();
-    _passwordController.dispose();
+    pwController.dispose();
     _emailFocusNode.dispose();
-    _passwordFocusNode.dispose();
+    pwFocus.dispose();
     super.dispose();
   }
 
-  InputDecoration _inputDecoration({
+  InputDecoration inputDecoration({
     required String hintText,
     required bool isFocused,
     Widget? suffixIcon,
@@ -55,21 +54,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) return;
-
-    setState(() => _isLoading = true);
-
     final email = _emailController.text.trim();
-    final password = _passwordController.text.trim();
+    final password = pwController.text.trim();
 
     try {
+      print('im gay LOGIN TRC RESPONSE');
       final response = await http.post(
-        Uri.parse('http://localhost:4000/auth/login'),
+        Uri.parse('http://10.21.11.97:4040/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
 
       final data = jsonDecode(response.body);
-
+      print('im gay LOGIN');
       if (response.statusCode == 201 && data['access_token'] != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', data['access_token']);
@@ -82,9 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
         _showError(data['message'] ?? 'Đăng nhập thất bại');
       }
     } catch (e) {
-      _showError('Đã xảy ra lỗi. Vui lòng thử lại.');
-    } finally {
-      setState(() => _isLoading = false);
+      _showError('Đã xảy ra lỗi. Vui lòng thử lại.' + e.toString());
     }
   }
 
@@ -138,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   focusNode: _emailFocusNode,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: _inputDecoration(
+                  decoration: inputDecoration(
                     hintText: 'Email',
                     isFocused: _emailFocusNode.hasFocus,
                   ),
@@ -150,23 +145,18 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 TextFormField(
-                  controller: _passwordController,
-                  focusNode: _passwordFocusNode,
-                  obscureText: _obscurePassword,
-                  decoration: _inputDecoration(
+                  controller: pwController,
+                  focusNode: pwFocus,
+                  obscureText: obscurePw,
+                  decoration: inputDecoration(
                     hintText: 'Mật khẩu',
-                    isFocused: _passwordFocusNode.hasFocus,
+                    isFocused: pwFocus.hasFocus,
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
+                        obscurePw ? Icons.visibility_off : Icons.visibility,
                         color: const Color(0xFF94A3B8),
                       ),
-                      onPressed:
-                          () => setState(
-                            () => _obscurePassword = !_obscurePassword,
-                          ),
+                      onPressed: () => setState(() => obscurePw = !obscurePw),
                     ),
                   ),
                   validator:
@@ -192,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 ElevatedButton(
-                  onPressed: _isLoading ? null : _login,
+                  onPressed: _login,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF2B5CE6),
                     foregroundColor: Colors.white,
@@ -202,16 +192,10 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     elevation: 0,
                   ),
-                  child:
-                      _isLoading
-                          ? const CircularProgressIndicator(color: Colors.white)
-                          : const Text(
-                            'Đăng Nhập',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
+                  child: const Text(
+                    'Đăng Nhập',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
                 ),
                 const SizedBox(height: 24),
                 TextButton(

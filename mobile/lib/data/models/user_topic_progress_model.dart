@@ -1,25 +1,35 @@
-class UserTopicProgress {
-  final int userId;
-  final int topicId;
-  final List<int> wordProgress;
+class UserWordProgress {
+  final String id;
+  final String userId;
+  final String wordId;
+  final bool isWordDone;
+  final String? completedAt;
 
-  UserTopicProgress({
+  UserWordProgress({
+    required this.id,
     required this.userId,
-    required this.topicId,
-    required this.wordProgress,
+    required this.wordId,
+    required this.isWordDone,
+    this.completedAt,
   });
 
-  factory UserTopicProgress.fromJson(Map<String, dynamic> json) {
-    return UserTopicProgress(
+  factory UserWordProgress.fromJson(Map<String, dynamic> json) {
+    return UserWordProgress(
+      id: json['id'],
       userId: json['user_id'],
-      topicId: json['topic_id'],
-      wordProgress: List<int>.from(json['word_progress']),
+      wordId: json['word_id'],
+      isWordDone: json['is_word_done'],
+      completedAt: json['completed_at'],
     );
   }
 
-  Map<String, dynamic> toJson() => {
-    'user_id': userId,
-    'topic_id': topicId,
-    'word_progress': wordProgress,
-  };
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'user_id': userId,
+      'word_id': wordId,
+      'is_word_done': isWordDone,
+      'completed_at': completedAt,
+    };
+  }
 }

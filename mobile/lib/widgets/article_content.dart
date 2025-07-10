@@ -103,10 +103,7 @@ class SelectableArticleText extends StatelessWidget {
   const SelectableArticleText({Key? key, required this.content})
     : super(key: key);
 
-  Future<void> _fetchAndShowTranslation(
-    BuildContext context,
-    String word,
-  ) async {
+  Future<void> getTranslation(BuildContext context, String word) async {
     final uri = Uri.parse(
       'https://api.dictionaryapi.dev/api/v2/entries/en/$word',
     );
@@ -169,18 +166,16 @@ class SelectableArticleText extends StatelessWidget {
                               tooltip: 'Nghe phát âm',
                               onPressed: () => _playAudio(audioUrl),
                             ),
-                          Spacer(),
-                          if (phonetic.isNotEmpty)
-                            Text(
-                              ' [$phonetic]',
-                              textAlign: TextAlign.end,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
                         ],
                       ),
+                      if (phonetic.isNotEmpty)
+                        Text(
+                          ' [$phonetic]',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey,
+                          ),
+                        ),
                       Padding(
                         padding: const EdgeInsets.symmetric(vertical: 2),
                         child: Row(
@@ -195,7 +190,7 @@ class SelectableArticleText extends StatelessWidget {
                                   partOfSpeech.isNotEmpty
                                       ? Text(
                                         'Nghĩa: ',
-                                        textAlign: TextAlign.justify,
+                                        textAlign: TextAlign.left,
                                         style: const TextStyle(
                                           fontSize: 16,
                                           color: Color.fromARGB(
@@ -213,7 +208,7 @@ class SelectableArticleText extends StatelessWidget {
                               Expanded(
                                 child: Text(
                                   definition,
-                                  textAlign: TextAlign.justify,
+                                  textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontSize: 16,
                                     color: Colors.black87,
@@ -224,13 +219,21 @@ class SelectableArticleText extends StatelessWidget {
                         ),
                       ),
                       if (example.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 8),
-                          child: Text(
-                            'Ví dụ: $example',
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: Colors.black,
+                        SizedBox(
+                          width: 400,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  'Ví dụ: $example',
+                                  style: const TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ),
@@ -272,10 +275,7 @@ class SelectableArticleText extends StatelessWidget {
                   isEnabled: (controller) => controller!.isTextSelected,
                   handler: (controller) {
                     final selectedText = controller!.getSelection()!.text!;
-                    _fetchAndShowTranslation(
-                      context,
-                      selectedText.trim().toLowerCase(),
-                    );
+                    getTranslation(context, selectedText.trim().toLowerCase());
                     return true;
                   },
                 ),

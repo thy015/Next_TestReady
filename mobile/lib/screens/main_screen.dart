@@ -3,7 +3,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 
 import 'newspaper/newspaper.dart' as newspaper;
 import 'settings/settings.dart' as settings;
-import 'vocabulary/vocabulary.dart' as vocabulary;
+import 'vocabulary/course.dart' as vocabulary;
 import 'premium/premium.dart' as premium;
 import 'leaderboard/leaderboard.dart' as leaderboard;
 

@@ -33,7 +33,7 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
               child: ListView(
                 children: [
                   SizedBox(height: 20),
-                  _buildPlanCard(
+                  planCard(
                     index: 0,
                     isPopular: true,
                     duration: '3 Tháng',
@@ -43,7 +43,7 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
                     discountLabel: 'Gói sơ cấp',
                   ),
                   SizedBox(height: 16),
-                  _buildPlanCard(
+                  planCard(
                     index: 1,
                     duration: '1 Năm',
                     price: '259,000 VND',
@@ -52,7 +52,7 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
                     discountLabel: 'Gói trung cấp',
                   ),
                   SizedBox(height: 16),
-                  _buildPlanCard(
+                  planCard(
                     index: 2,
                     duration: '3 Năm',
                     price: '739,000 VND',
@@ -61,7 +61,7 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
                     discountLabel: 'Gói cao cấp',
                   ),
                   SizedBox(height: 16),
-                  _buildPlanCard(
+                  planCard(
                     index: 3,
                     duration: 'Trọn Đời',
                     price: '1,499,000 VND',
@@ -80,11 +80,9 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
               height: 56,
               margin: EdgeInsets.only(bottom: 20),
               child: ElevatedButton(
-                onPressed: () {
-                  print('Selected plan: $selectedPlan');
-                },
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF4285F4),
+                  backgroundColor: Color(0xFF251C91),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -105,7 +103,7 @@ class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
     );
   }
 
-  Widget _buildPlanCard({
+  Widget planCard({
     required int index,
     bool isPopular = false,
     required String duration,

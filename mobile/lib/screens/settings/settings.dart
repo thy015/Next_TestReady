@@ -62,7 +62,7 @@ class Settings extends StatelessWidget {
                   const SizedBox(width: 16),
                   const Expanded(
                     child: Text(
-                      'Đăng nhập',
+                      'Bé Phúc chubby',
                       style: TextStyle(
                         color: Colors.blue,
                         fontSize: 18,
