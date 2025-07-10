@@ -20,6 +20,8 @@ import { WordModule } from './word/word.module';
 import { TopicModule } from './topic/topic.module';
 import { RelatedWordModule } from './related_word/related_word.module';
 import { RelatedVerbModule } from './related_verb/related_verb.module';
+import { CourseMobileModule } from './course_mobile/course_mobile.module';
+import { CateCourseMobileModule } from './cate_course_mobile/cate_course_mobile.module';
 
 @Module({
   imports: [
@@ -52,7 +54,9 @@ import { RelatedVerbModule } from './related_verb/related_verb.module';
     WordModule,
     TopicModule,
     RelatedWordModule,
-    RelatedVerbModule
+    RelatedVerbModule,
+    CourseMobileModule,
+    CateCourseMobileModule
   ],
   controllers: [AppController],
   providers: [AppService],
