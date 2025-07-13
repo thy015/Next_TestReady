@@ -1,4 +1,4 @@
-import { PartType, TestCollection } from '@/types/tests'
+import { TestCollection } from '@/types/tests'
 
 export const testCollections: TestCollection[] = [
   {
@@ -17,51 +17,109 @@ export const testCollections: TestCollection[] = [
           {
             id: 'part1',
             name: 'p1',
-            type: 'listening' as PartType,
-            total_question: 6,
-            duration: 30,
+            type: 'listening',
+            total_question: 2,
+            end_time: 2.28,
+            questions: [
+              {
+                id: 'q1_p1_1',
+                testId: 'test1',
+                partId: 'part1',
+                content: 'What is the man doing in the picture?',
+                imgSrc:
+                  'https://res.cloudinary.com/dqe8linji/image/upload/v1749198572/Screenshot_2025-06-06_152711_vslnt8.png',
+                explanation: 'The man is opening the car.',
+                correctAnswer: 'a',
+                answers: JSON.stringify({
+                  a: 'He is opening the car',
+                  b: 'He is reading a book',
+                  c: 'He is cooking food',
+                  d: 'He is washing dishes',
+                }),
+                score: 5,
+                start_time: 1.37,
+              },
+              {
+                id: 'q1_p1_2',
+                testId: 'test1',
+                partId: 'part1',
+                content: 'Where is the woman standing?',
+                imgSrc:
+                  'https://res.cloudinary.com/dqe8linji/image/upload/v1749198568/Screenshot_2025-06-06_152718_yiegff.png',
+                explanation: 'The woman is standing next to a car.',
+                correctAnswer: 'b',
+                answers: JSON.stringify({
+                  a: 'In front of a building',
+                  b: 'Next to a car',
+                  c: 'Behind a tree',
+                  d: 'On a bridge',
+                }),
+                score: 5,
+                start_time: 2.04,
+              },
+            ],
           },
           {
             id: 'part2',
             name: 'p2',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 25,
-            duration: 30,
+            end_time: 30.0,
+            questions: [
+              {
+                id: 'q1_p2_1',
+                testId: 'test1',
+                partId: 'part2',
+                content: 'What is the main topic of the conversation?',
+                imgSrc: '',
+                explanation: 'The main topic is about a project deadline.',
+                correctAnswer: 'c',
+                answers: JSON.stringify({
+                  a: 'A personal issue',
+                  b: 'A vacation plan',
+                  c: 'A project deadline',
+                  d: 'A meeting schedule',
+                }),
+                score: 5,
+                start_time: 3.02,
+              },
+              // Add more questions as needed
+            ],
           },
           {
             id: 'part3',
             name: 'p3',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 39,
-            duration: 30,
+            end_time: 45.0,
           },
           {
             id: 'part4',
             name: 'p4',
-            type: 'listening' as PartType,
+            type: 'listening',
             total_question: 30,
-            duration: 30,
+            end_time: 30.0,
           },
           {
             id: 'part5',
             name: 'p5',
-            type: 'reading' as PartType,
+            type: 'reading',
             total_question: 30,
-            duration: 30,
+            end_time: 30.0,
           },
           {
             id: 'part6',
             name: 'p6',
-            type: 'reading' as PartType,
+            type: 'reading',
             total_question: 16,
-            duration: 30,
+            end_time: 20.0,
           },
           {
             id: 'part7',
             name: 'p7',
-            type: 'reading' as PartType,
+            type: 'reading' ,
             total_question: 54,
-            duration: 30,
+            end_time: 55.0,
           },
         ],
       },
@@ -100,7 +158,6 @@ export const testCollections: TestCollection[] = [
     name: 'TOEIC ETS 2023',
     createdAt: '2023-12-20T08:00:00Z',
     updatedAt: '2024-01-05T08:00:00Z',
-
     test: [
       {
         id: 'test3',

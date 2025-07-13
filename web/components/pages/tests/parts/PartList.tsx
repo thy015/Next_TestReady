@@ -13,6 +13,7 @@ const PartFetchServer = async ({ test }: PartProps) => {
   }
   const parts = test.parts
   console.log('Parts fetched:', parts)
+
   return <PartRunner parts={parts}></PartRunner>
 }
 

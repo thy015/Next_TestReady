@@ -16,15 +16,27 @@ export interface Test {
   parts?: Part[]
 }
 
-export enum PartType {
-  Listening = 'listening',
-  Reading = 'reading',
-}
+export type PartType = 'listening' | 'reading' | 'speaking' | 'writing'
 
 export interface Part {
   id: string
   name: string
   type: PartType
   total_question: number
-  duration?: number
+  end_time: number
+  questions?: Question[]
+}
+type CorrectAnswer = 'a' | 'b' | 'c' | 'd'
+
+export interface Question {
+  id: string
+  testId: string
+  partId: string
+  content: string
+  imgSrc: string
+  explanation: string
+  correctAnswer: CorrectAnswer
+  answers: string
+  score: number
+  start_time: number
 }
