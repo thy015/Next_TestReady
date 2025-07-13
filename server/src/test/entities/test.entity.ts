@@ -5,25 +5,32 @@ import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "ty
 @Entity()
 export class Test {
     @PrimaryGeneratedColumn()
-    id:number
+    id: number
 
     @Column()
-    name:string
-    
-    @Column({type:"int", default:120})
-    durations:number
+    name: string
 
-    @Column({type:"int",default:990})
-    score:number
+    @Column()
+    timeUserTest: number
 
-    @ManyToOne(()=>TestCollection,(testCollection)=>testCollection.test,{
-        eager:true
+    @Column()
+    isActive: boolean
+
+
+    // @Column({type:"int", default:120})
+    // durations:number
+
+    // @Column({type:"int",default:990})
+    // score:number
+
+    @ManyToOne(() => TestCollection, (testCollection) => testCollection.test, {
+        eager: true
     })
-    testCollection:TestCollection
+    testCollection: TestCollection
 
-    @OneToMany(()=>Part,part=>part.test,{
-        eager:true
+    @OneToMany(() => Part, part => part.test, {
+        eager: true
     })
-    parts:Part[]
+    parts: Part[]
 
 }

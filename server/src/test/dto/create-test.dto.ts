@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmpty, IsNotEmpty, IsNotIn, IsNumber, IsString } from "class-validator";
+import { IsBoolean, IsEmpty, IsNotEmpty, IsNotIn, IsNumber, IsString } from "class-validator";
 
 export class CreateTestDto {
 
@@ -9,21 +9,36 @@ export class CreateTestDto {
     })
     @IsString()
     @IsNotEmpty()
-    name:string
+    name: string
 
     @ApiProperty({
-        example: 7200,
-        description: "Thời lượng bài test (giây)"
+        example: 5,
+        description: "Số lần người dùng làm bài test"
     })
     @IsNumber()
-    durations:number
+    @IsNotEmpty()
+    timesUserTest: number
 
-    @ApiProperty({
-        example: 990,
-        description: "Điểm số tối đa của bài test"
+        @ApiProperty({
+        example: 5,
+        description: "Số lần người dùng làm bài test"
     })
-    @IsNumber()
-    max_score:number
+    @IsBoolean({ each: true })
+    isActive: boolean
+
+    // @ApiProperty({
+    //     example: 7200,
+    //     description: "Thời lượng bài test (giây)"
+    // })
+    // @IsNumber()
+    // durations: number
+
+    // @ApiProperty({
+    //     example: 990,
+    //     description: "Điểm số tối đa của bài test"
+    // })
+    // @IsNumber()
+    // max_score: number
 
     @ApiProperty({
         example: 1,
@@ -31,6 +46,6 @@ export class CreateTestDto {
     })
     @IsNumber()
     @IsNotEmpty()
-    collection_id:number
+    collection_id: number
 
 }

@@ -53,8 +53,8 @@ export class LessonService {
     return lessons
   }
 
-  update(id: number, updateLessonDto: UpdateLessonDto) {
-    return `This action updates a #${id} lesson`;
+ async update(id: number, updateLessonDto: UpdateLessonDto) {
+    return await this.lessonRepo.update(id, updateLessonDto);
   }
 
   remove(id: number) {
