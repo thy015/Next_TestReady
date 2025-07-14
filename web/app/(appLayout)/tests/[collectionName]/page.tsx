@@ -4,9 +4,13 @@ import { testCollections } from '@/localData/tests'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import TestCard from '@/components/pages/tests/TestCard'
+import { use } from 'react'
 
-const CollectionPage = async (props: { params: { collectionName: string } }) => {
-  const { collectionName } = (await props.params)
+interface PageProps {
+  params: Promise<{collectionName:string}>
+}
+const CollectionPage =  ({ params }: PageProps ) => {
+  const { collectionName } = use(params)
   // Decode the URL parameter and match with collection names
   const decodedName = collectionName.replace(/-/g, ' ')
   const collection = testCollections.find((c) =>

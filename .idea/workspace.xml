@@ -5,21 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="29391407-958e-4644-942b-5497e6cd52ba" name="Changes" comment="feat: implement PartFetchServer and update PartDisplay for image handling in test components">
-      <change beforePath="$PROJECT_DIR$/web/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/web/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/components/pages/tests/TestAudio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/tests/TestAudio.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/components/pages/tests/parts/PartRunner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/pages/tests/parts/PartRunner.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/components/partials/test-header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/partials/test-header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/components/ui/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/components/ui/sidebar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/global.css" beforeDir="false" afterPath="$PROJECT_DIR$/web/global.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/web/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/store/loading-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/web/store/loading-store.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/styles/_style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/web/styles/_style.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/web/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/(appLayout)/tests/[collectionName]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/(appLayout)/tests/[collectionName]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/app/(testLayout)/tests/[collectionName]/[testName]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/web/app/(testLayout)/tests/[collectionName]/[testName]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web/store/test-store.ts" beforeDir="false" afterPath="$PROJECT_DIR$/web/store/test-store.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dockerfile" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -41,16 +47,17 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "feature/fe",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "dev",
     "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "/home/maithy/Workplace/js/REACT/takeabreath",
+    "last_opened_file_path": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/server/node_modules/prettier",
     "settings.editor.selected.configurable": "preferences.editor",
-    "ts.external.directory.path": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/mobile/node_modules/typescript/lib",
+    "ts.external.directory.path": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/server/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -61,6 +68,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/web/public/images/instruction" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -95,6 +103,7 @@
       <workItem from="1750393708479" duration="2168000" />
       <workItem from="1750421104775" duration="3578000" />
       <workItem from="1751805254033" duration="37000" />
+      <workItem from="1752485976081" duration="7599000" />
     </task>
     <task id="LOCAL-00001" summary="feat: implement test API for fetching images and display components for test parts">
       <option name="closed" value="true" />
