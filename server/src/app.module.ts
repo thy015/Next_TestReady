@@ -24,17 +24,17 @@ import { RelatedVerbModule } from './related_verb/related_verb.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal:true
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: 'localhost',
-      port: 3307,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: "toeic_ready2",
+      host: 'mysql',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test_ready',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, 
+      synchronize: true,
     }),
     UserModule,
     TestCollectionModule,
@@ -52,7 +52,7 @@ import { RelatedVerbModule } from './related_verb/related_verb.module';
     WordModule,
     TopicModule,
     RelatedWordModule,
-    RelatedVerbModule
+    RelatedVerbModule,
   ],
   controllers: [AppController],
   providers: [AppService],
