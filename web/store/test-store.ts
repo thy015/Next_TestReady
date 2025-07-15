@@ -1,6 +1,12 @@
 import { create } from 'zustand/react'
 
 interface TestState {
+  // For client query
+  testCollectionName:string,
+  setTestCollectionName:(name:string)=>void
+  testName:string,
+  setTestName:(name:string)=>void,
+  // For logic handle
   currentPartIndex: number
   setCurrentPartIndex: (index: number) => void
   isShowingInstruction: boolean
@@ -10,6 +16,10 @@ interface TestState {
 }
 
 const useTestStore = create<TestState>((set) => ({
+  testCollectionName:'',
+  setTestCollectionName:(name)=>set({testCollectionName:name}),
+  testName:'',
+  setTestName:(name)=>set({testName:name}),
   currentPartIndex: 0,
   setCurrentPartIndex: (index) => set({ currentPartIndex: index }),
   isShowingInstruction: true,

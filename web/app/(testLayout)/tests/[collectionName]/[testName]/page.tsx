@@ -1,13 +1,14 @@
 import { testCollections } from '@/localData/tests'
 import { convertLinkToNormalName } from '@/utils'
 import { PartFetchServer } from '@/components/pages/tests/parts/PartList'
+import { use } from 'react'
 
-interface PageProps {
-  params: { collectionName: string; testName: string }
+interface Props {
+  params: Promise<{collectionName:string,testName:string}>
 }
 
-export default async function TestPage({ params }: PageProps) {
-  const { collectionName, testName } = await params
+export default function TestPage({ params }: Props) {
+  const { collectionName, testName } = use(params)
   const convertedCollectionName = convertLinkToNormalName(collectionName)
   const convertedTestName = convertLinkToNormalName(testName)
 

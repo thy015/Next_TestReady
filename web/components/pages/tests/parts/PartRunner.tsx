@@ -12,11 +12,11 @@ import { Button } from '@/components/ui/button'
 import { useQuestionStore, useTestStore } from '@/store/test-store'
 import { QuestionDisplay } from './questions/QuestionDisplay'
 import TestHeader from '@/components/partials/test-header'
-import { List } from 'lucide-react'
 import TestAudio from '../TestAudio'
 import { useAudioLoadingStore } from '@/store/loading-store'
 import Loading from '@/app/loading'
 import CountDownClock from '@/components/count-down-clock'
+import { SidebarTrigger } from '@/components/ui/sidebar'
 
 interface TestPartRunnerProps {
   parts: Part[]
@@ -24,8 +24,7 @@ interface TestPartRunnerProps {
 
 const PartRunner = ({ parts }: TestPartRunnerProps) => {
   const [audioRef, setAudioRef] = useState<RefObject<HTMLAudioElement>>()
-  const { isAudioLoading, isAudioReady, setIsAudioReady } =
-    useAudioLoadingStore()
+  const { isAudioReady, setIsAudioReady } = useAudioLoadingStore()
 
   const { currentQuestionIndex, setCurrentQuestionIndex } = useQuestionStore()
 
@@ -117,62 +116,64 @@ const PartRunner = ({ parts }: TestPartRunnerProps) => {
   return (
     <div className="w-full">
       <TestHeader />
-      <div className="pt-[80px]"></div>
-      {isAudioLoading && <Loading />}
-      <div className="min-h-screen bg-gray-50 flex flex-col overflow-hidden">
-        <header className="bg-white border-b top-0">
-          <div className="mb-4 mx-auto px-6">
-            <div className="flex items-center justify-between">
-              <Button variant="buff" size="sm" className="gap-2">
-                <List />
-              </Button>
-              <div className="flex items-center gap-4 font-bold font-lexend">
-                <TestAudio
-                  questionStartTimes={questionStartTimes}
-                  onAudioReady={handleAudioReady}
-                  partEndTimes={partEndTimes}
-                />
-                <CountDownClock />
-                <Button variant="paleorange" className="text-white" size="sm">
-                  Nộp bài
-                </Button>
-              </div>
-            </div>
-          </div>
-        </header>
+      <div className="pt-[96px]"></div>
+      {!isAudioReady && (
+        <Loading />
+      ) }
+        <div className="min-h-screen bg-gray-50 flex flex-col overflow-hidden">
+          <header className="bg-white border-b top-0">
+            <div className="mb-4 mx-auto px-6">
+              <div className="flex items-center justify-between">
+                <SidebarTrigger></SidebarTrigger>
 
-        <div className="flex-1 w-[90%] mx-auto py-6">
-          <div className="bg-white rounded-lg shadow-sm p-6">
-            {isShowingInstruction ? (
-              <>
-                <PartInstruction part={currentPart} />
-                <div className="flex justify-center mt-4">
-                  <Button
-                    onClick={handleNextPart}
-                    variant="paleorange"
-                    disabled={!isAudioReady && questionStartTimes.length > 0}
-                  >
-                    Next
+                <div className="flex items-center gap-4 font-bold font-lexend">
+                  <TestAudio
+                    questionStartTimes={questionStartTimes}
+                    onAudioReady={handleAudioReady}
+                    partEndTimes={partEndTimes}
+                  />
+                  <CountDownClock />
+                  <Button variant="paleorange" className="text-white" size="sm">
+                    Nộp bài
                   </Button>
                 </div>
-              </>
-            ) : (
-              <div>
-                {currentPart?.questions?.[currentQuestionIndex] && (
-                  <>
-                    <QuestionDisplay
-                      key={currentPart.questions[currentQuestionIndex].id}
-                      imageSrc={
-                        currentPart.questions[currentQuestionIndex].imgSrc
-                      }
-                    />
-                  </>
-                )}
               </div>
-            )}
+            </div>
+          </header>
+
+          <div className="flex-1 w-[90%] mx-auto py-6">
+            <div className="bg-white rounded-lg shadow-sm p-6">
+              {isShowingInstruction ? (
+                <>
+                  <PartInstruction part={currentPart} />
+                  <div className="flex justify-center mt-4">
+                    <Button
+                      onClick={handleNextPart}
+                      variant="paleorange"
+                      disabled={!isAudioReady && questionStartTimes.length > 0}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </>
+              ) : (
+                <div>
+                  {currentPart?.questions?.[currentQuestionIndex] && (
+                    <>
+                      <QuestionDisplay
+                        key={currentPart.questions[currentQuestionIndex].id}
+                        imageSrc={
+                          currentPart.questions[currentQuestionIndex].imgSrc
+                        }
+                      />
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+     
     </div>
   )
 }
