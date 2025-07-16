@@ -42,15 +42,12 @@ export default function RootLayout({
       <body
         className={` ${roboto.variable} ${mogra.variable} ${lexend.variable}`}
       >
-        {/* <SidebarProvider defaultOpen={false} className="relative">
-          <AppSidebar /> */}
         <Suspense fallback={<Loading />}>
-          {/* <main className="w-full h-full"> */}
-          {children}
-          <Footer />
-          {/* </main> */}
+          <main className="w-full h-full">
+            {children}
+            <Footer />
+          </main>
         </Suspense>
-        {/* </SidebarProvider> */}
       </body>
     </html>
   )
