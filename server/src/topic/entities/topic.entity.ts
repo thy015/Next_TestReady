@@ -1,5 +1,5 @@
 import { Word } from "src/word/entities/word.entity";
-import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Topic {
@@ -8,8 +8,14 @@ export class Topic {
     @Column()
     name: string;
 
-    @Column({type:"enum",enum:['TOEIC',"IELTS"],default:'TOEIC'})
+    @Column()
+    nameVN: string;
+
+    @Column({type:"enum",enum:['TOEIC CƠ BẢN',"IELT CƠ BẢN"],default:'TOEIC CƠ BẢN'})
     category: string;
+
+    @Column()
+    img:string;
 
     @CreateDateColumn()
     created_at: Date;
@@ -17,7 +23,6 @@ export class Topic {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @ManyToMany(()=>Word,(word)=>word.topics)
-    @JoinTable()
+    @OneToMany(() => Word, (word) => word.topic)
     words: Word[];
 }
