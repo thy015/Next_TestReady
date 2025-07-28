@@ -8,10 +8,11 @@ import { Topic } from 'src/topic/entities/topic.entity';
 import { AdminGuard } from 'src/guards/admin.guards';
 import { RelatedVerb } from 'src/related_verb/entities/related_verb.entity';
 import { RelatedWord } from 'src/related_word/entities/related_word.entity';
+import { WordUser } from 'src/word_user/entities/word_user.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Word,Topic,RelatedVerb,RelatedWord]),
+    TypeOrmModule.forFeature([Word,Topic,RelatedVerb,RelatedWord,WordUser]),
     HttpModule
   ],
   controllers: [WordController],

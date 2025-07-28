@@ -20,6 +20,8 @@ import { WordModule } from './word/word.module';
 import { TopicModule } from './topic/topic.module';
 import { RelatedWordModule } from './related_word/related_word.module';
 import { RelatedVerbModule } from './related_verb/related_verb.module';
+import { WordUserModule } from './word_user/word_user.module';
+import { TopicUserModule } from './topic_user/topic_user.module';
 
 @Module({
   imports: [
@@ -53,6 +55,8 @@ import { RelatedVerbModule } from './related_verb/related_verb.module';
     TopicModule,
     RelatedWordModule,
     RelatedVerbModule,
+    WordUserModule,
+    TopicUserModule
   ],
   controllers: [AppController],
   providers: [AppService],

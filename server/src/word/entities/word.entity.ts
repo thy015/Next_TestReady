@@ -1,5 +1,6 @@
 import { RelatedVerb } from "src/related_verb/entities/related_verb.entity";
 import { Topic } from "src/topic/entities/topic.entity";
+import { WordUser } from "src/word_user/entities/word_user.entity";
 import { Column, CreateDateColumn, Entity, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
@@ -37,12 +38,15 @@ export class Word {
     @UpdateDateColumn()
     updated_at: Date;
 
-    @ManyToOne(()=>Topic,(topic)=>topic.words)
+    @ManyToOne(() => Topic, (topic) => topic.words)
     topic: Topic;
 
-    @OneToMany(()=>RelatedVerb,(relatedVerb)=>relatedVerb.word)
+    @OneToMany(() => RelatedVerb, (relatedVerb) => relatedVerb.word)
     related_verbs: RelatedVerb[];
 
     @OneToMany(() => RelatedVerb, (relatedVerb) => relatedVerb.word)
     related_words: RelatedVerb[];
+
+    @OneToMany(() => WordUser, (word_user) => word_user.word)
+    users: WordUser[]
 }

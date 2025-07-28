@@ -1,3 +1,4 @@
+import { TopicUser } from "src/topic_user/entities/topic_user.entity";
 import { Word } from "src/word/entities/word.entity";
 import { Column, CreateDateColumn, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
@@ -25,4 +26,7 @@ export class Topic {
 
     @OneToMany(() => Word, (word) => word.topic)
     words: Word[];
+
+    @OneToMany(()=>TopicUser,(topic_user)=>topic_user.user)
+    users:TopicUser[]
 }

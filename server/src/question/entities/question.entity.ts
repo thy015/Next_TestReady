@@ -32,7 +32,6 @@ export class Question {
     
     @Column()
     imgSrc:string
-
     
     @Column()
     audio:string

@@ -13,10 +13,12 @@ import { AuthController } from 'src/auth/auth.controller';
 import { AuthService } from 'src/auth/auth.service';
 import { PartResult } from 'src/part_result/entities/part_result.entity';
 import { UserLesson } from 'src/user_lesson/entities/user_lesson.entity';
+import { WordUser } from 'src/word_user/entities/word_user.entity';
+import { TopicUser } from 'src/topic_user/entities/topic_user.entity';
 
 @Module({
   imports:[
-    TypeOrmModule.forFeature([User,Heart,Diamond,PartResult,UserLesson]),
+    TypeOrmModule.forFeature([User,Heart,Diamond,PartResult,UserLesson,WordUser,TopicUser]),
     PassportModule.register({session:false})
   ],
   controllers: [UserController],
