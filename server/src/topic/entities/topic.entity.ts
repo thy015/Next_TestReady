@@ -12,6 +12,9 @@ export class Topic {
     @Column()
     nameVN: string;
 
+    @Column({default:false})
+    isFree:boolean
+
     @Column({type:"enum",enum:['TOEIC CƠ BẢN',"IELT CƠ BẢN"],default:'TOEIC CƠ BẢN'})
     category: string;
 

@@ -22,6 +22,7 @@ import { RelatedWordModule } from './related_word/related_word.module';
 import { RelatedVerbModule } from './related_verb/related_verb.module';
 import { WordUserModule } from './word_user/word_user.module';
 import { TopicUserModule } from './topic_user/topic_user.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @Module({
   imports: [
@@ -56,7 +57,8 @@ import { TopicUserModule } from './topic_user/topic_user.module';
     RelatedWordModule,
     RelatedVerbModule,
     WordUserModule,
-    TopicUserModule
+    TopicUserModule,
+    CheckoutModule
   ],
   controllers: [AppController],
   providers: [AppService],
