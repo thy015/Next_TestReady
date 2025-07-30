@@ -6,8 +6,9 @@ import { Checkout } from './entities/checkout.entity';
 import { Repository } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { CategoryCourse } from 'src/category_course/entities/category_course.entity';
+require('dotenv').config()
 const dayjs = require("dayjs")
-const stripe = require('stripe')('sk_test_51PxVYpBpaG5M20JqFZ3ejIPwqz5ghKCuVJ3mm2XsC0mtg97l2LzsQPkrHUmHAZ3KTfUTCeJapgLmRWy1tyBYhHES00qv9UQAlz');
+const stripe = require('stripe')(process.env.STRIPE_SKEY);
 
 @Injectable()
 export class CheckoutService {
@@ -87,9 +88,9 @@ export class CheckoutService {
       return { status: false, message: "Chưa mua gói" }
     const now = dayjs()
     const expireDate = dayjs(userPackage.expirePackage)
-    const couterDate = expireDate.diff(now,"day")
+    const couterDate = expireDate.diff(now, "day")
     const isStillValid = expireDate.isAfter(now)
-    return { status: isStillValid , counterDay:couterDate};
+    return { status: isStillValid, counterDay: couterDate };
   }
 
 
