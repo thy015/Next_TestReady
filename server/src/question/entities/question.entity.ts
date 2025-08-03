@@ -10,7 +10,7 @@ export class Question {
     question:string
 
     @Column({type:"nvarchar",length:1500})
-    questions_text:string
+    content:string
 
     @Column({type:"enum",enum:["listening","reading",'direction']})
     questions_type:string
@@ -19,7 +19,7 @@ export class Question {
     score:number
 
     @Column({type:"enum",enum:["a","b","c","d"]})
-    correct_ans:string
+    correctAnswer:string
 
     @Column({type:"nvarchar",length:1000})
     explanation:string
@@ -28,11 +28,10 @@ export class Question {
     start_time:number
     
     @Column({type:"json"})
-    answer:any
+    answers:any
     
     @Column()
-    img:string
-
+    imgSrc:string
     
     @Column()
     audio:string

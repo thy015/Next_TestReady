@@ -6,11 +6,11 @@ export class CreatePartDto {
     @ApiProperty({
         example: 1,
         description: "Số thứ tự của part (1-6)",
-        enum: [1,2,3,4,5,6]
+        enum: [1,2,3,4,5,6,7]
     })
     @IsNumber()
     @IsNotEmpty()
-    @IsEnum([1,2,3,4,5,6])
+    @IsEnum([1,2,3,4,5,6,7])
     name:number
 
     @ApiProperty({

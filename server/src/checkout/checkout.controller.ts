@@ -3,6 +3,7 @@ import { CheckoutService } from './checkout.service';
 import { CreateCheckoutDto } from './dto/create-checkout.dto';
 import { UpdateCheckoutDto } from './dto/update-checkout.dto';
 import { JwtAuthGuard } from 'src/guards/jwt.guards';
+import { ConfirmPaymentDto } from './dto/confirm-payment.dto';
 
 @Controller('checkout')
 
@@ -23,10 +24,11 @@ createPaymentIntent(
   return this.checkoutService.createPaymentIntent(createCheckoutDto, req.user.id);
 }
 
-  @Get("success/:idSession")
-  successfulSession(@Param("idSession") idSession: string, @Query('idCus') idUser: number) {
-    return this.checkoutService.susscessSession(idUser,idSession);
-  }
+@Post('confirm-payment')
+@UseGuards(JwtAuthGuard)
+confirmPayment(@Req() req, @Body() dto: ConfirmPaymentDto) {
+  return this.checkoutService.confirmPayment(req.user.id, dto);
+}
 
   @Get("get-package")
   @UseGuards(JwtAuthGuard)

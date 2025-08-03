@@ -1,13 +1,13 @@
 class WordModel {
-  final String id;
+  final int id;
   final String word;
-  final String def;
+  final List<String> def;
   final String vieDef;
   final String partOfSpeech;
   final String phonetic;
-  final String examples;
-  final String audios;
-  final String imgs;
+  final List<String> examples;
+  final List<String> audios;
+  final List<String> imgs;
   final String createdAt;
   final String updatedAt;
   final int topicId;
@@ -29,18 +29,18 @@ class WordModel {
 
   factory WordModel.fromJson(Map<String, dynamic> json) {
     return WordModel(
-      id: json['id'],
+      id: int.parse(json['id'].toString()),
       word: json['word'],
-      def: json['def'] ?? '',
-      vieDef: json['vie_def'],
-      partOfSpeech: json['part_of_speech'],
-      phonetic: json['phonetic'],
-      examples: json['examples'] ?? '',
-      audios: json['audios'] ?? '',
-      imgs: json['imgs'] ?? '',
-      createdAt: json['created_at'],
-      updatedAt: json['updated_at'],
-      topicId: json['topic_id'],
+      def: List<String>.from(json['def'] ?? []),
+      vieDef: json['vie_def'] ?? '',
+      partOfSpeech: json['part_of_speech'] ?? '',
+      phonetic: json['phonetic'] ?? '',
+      examples: List<String>.from(json['examples'] ?? []),
+      audios: List<String>.from(json['audios'] ?? []),
+      imgs: List<String>.from(json['imgs'] ?? []),
+      createdAt: json['created_at'] ?? '',
+      updatedAt: json['updated_at'] ?? '',
+      topicId: json['topic']?['id'] ?? 0,
     );
   }
 

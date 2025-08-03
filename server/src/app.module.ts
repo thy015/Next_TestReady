@@ -20,21 +20,24 @@ import { WordModule } from './word/word.module';
 import { TopicModule } from './topic/topic.module';
 import { RelatedWordModule } from './related_word/related_word.module';
 import { RelatedVerbModule } from './related_verb/related_verb.module';
+import { WordUserModule } from './word_user/word_user.module';
+import { TopicUserModule } from './topic_user/topic_user.module';
+import { CheckoutModule } from './checkout/checkout.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
-      isGlobal:true
+      isGlobal: true,
     }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
       port: 3306,
-      username: process.env.DB_USERNAME,
-      password: process.env.DB_PASSWORD,
-      database: "toeic_ready",
+      username: 'root',
+      password: '',
+      database: 'toeic_ready',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true, 
+      synchronize: true,
     }),
     UserModule,
     TestCollectionModule,
@@ -53,6 +56,9 @@ import { RelatedVerbModule } from './related_verb/related_verb.module';
     TopicModule,
     RelatedWordModule,
     RelatedVerbModule,
+    WordUserModule,
+    TopicUserModule,
+    CheckoutModule
   ],
   controllers: [AppController],
   providers: [AppService],

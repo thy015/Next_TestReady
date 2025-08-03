@@ -1,8 +1,18 @@
+import 'dart:convert';
+import '../../screens/login_signup/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class Settings extends StatelessWidget {
+class Settings extends StatefulWidget {
   const Settings({super.key});
+
+  @override
+  State<Settings> createState() => _SettingsState();
+}
+
+class _SettingsState extends State<Settings> {
+  String username = 'User';
 
   final List<Map<String, dynamic>> data = const [
     {
@@ -29,7 +39,42 @@ class Settings extends StatelessWidget {
       'title': 'Đặt mục tiêu',
       'color': Colors.cyan,
     },
+    {
+      'id': '5',
+      'icon': Ionicons.log_out_outline,
+      'title': 'Đăng xuất',
+      'color': Colors.red,
+    },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    loadUserName();
+  }
+
+  Future<void> loadUserName() async {
+    final prefs = await SharedPreferences.getInstance();
+    final userJson = prefs.getString('user');
+
+    if (userJson != null) {
+      final userData = jsonDecode(userJson);
+      setState(() {
+        username = userData['fullname'] ?? 'User';
+      });
+    }
+  }
+
+  Future<void> logout(BuildContext context) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('user');
+
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(builder: (context) => const LoginScreen()),
+      (Route<dynamic> route) => false,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,10 +105,10 @@ class Settings extends StatelessWidget {
                     color: Colors.grey,
                   ),
                   const SizedBox(width: 16),
-                  const Expanded(
+                  Expanded(
                     child: Text(
-                      'Bé Phúc chubby',
-                      style: TextStyle(
+                      username,
+                      style: const TextStyle(
                         color: Colors.blue,
                         fontSize: 18,
                         fontWeight: FontWeight.w600,
@@ -78,9 +123,9 @@ class Settings extends StatelessWidget {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: const Align(
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   'Cài đặt',
@@ -122,8 +167,10 @@ class Settings extends StatelessWidget {
                         Ionicons.chevron_forward,
                         color: Colors.grey,
                       ),
-                      onTap: () {
-                        // TODO: handle tap
+                      onTap: () async {
+                        if (item['id'] == '5') {
+                          logout(context);
+                        }
                       },
                     ),
                   );

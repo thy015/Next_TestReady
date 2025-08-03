@@ -51,28 +51,28 @@ export class PartController {
     return this.partService.findAll();
   }
 
-  // @Get('/:id')
-  // @ApiOperation({ 
-  //   summary: 'Lấy thông tin chi tiết phần bài test',
-  //   description: 'Lấy thông tin chi tiết của phần bài test theo ID'
-  // })
-  // @ApiParam({ 
-  //   name: 'id', 
-  //   type: 'number',
-  //   description: 'ID của phần bài test',
-  //   example: 1
-  // })
-  // @ApiResponse({
-  //   status: 200,
-  //   description: 'Lấy thông tin phần bài test thành công'
-  // })
-  // @ApiResponse({
-  //   status: 404,
-  //   description: 'Không tìm thấy phần bài test'
-  // })
-  // findOne(@Param('id') id: string) {
-  //   return this.partService.findOne(+id);
-  // }
+  @Get('get/:id')
+  @ApiOperation({ 
+    summary: 'Lấy thông tin chi tiết phần bài test',
+    description: 'Lấy thông tin chi tiết của phần bài test theo ID'
+  })
+  @ApiParam({ 
+    name: 'id', 
+    type: 'number',
+    description: 'ID của phần bài test',
+    example: 1
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lấy thông tin phần bài test thành công'
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Không tìm thấy phần bài test'
+  })
+  findOne(@Param('id') id: string) {
+    return this.partService.findOne(+id);
+  }
 
   @Patch(':id')
   @ApiOperation({ 

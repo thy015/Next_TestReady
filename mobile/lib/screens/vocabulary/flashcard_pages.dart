@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import '../../data/vocabulary_data.dart';
 import '../../widgets/flashcard_widget.dart';
 import "../../providers/course_provider.dart";
 

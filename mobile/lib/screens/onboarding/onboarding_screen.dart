@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:mobile/screens/login_signup/loginscreen.dart';
+import 'package:mobile/screens/login_signup/login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'onboarding_page.dart';
 

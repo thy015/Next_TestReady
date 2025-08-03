@@ -1,3 +1,4 @@
 {
-  "cmake.sourceDirectory": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/mobile/linux"
+  "cmake.sourceDirectory": "/home/maithy/Workplace/ts/NEXT/nest/toeic-ready/mobile/linux",
+  "java.configuration.updateBuildConfiguration": "interactive"
 }

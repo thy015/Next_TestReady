@@ -28,9 +28,9 @@ export class CreateTopicDto {
     @ApiProperty({
         example: "TOEIC",
         description: "Danh mục chủ đề",
-        enum: ['TOEIC CƠ BẢN',"IELT CƠ BẢN"]
+        enum: ['TOEIC CƠ BẢN',"IELTS CƠ BẢN","TOEIC NÂNG CAO","IELTS NÂNG CAO"]
     })
-    @IsEnum(['TOEIC CƠ BẢN',"IELT CƠ BẢN"])
+    @IsEnum(['TOEIC CƠ BẢN',"IELTS CƠ BẢN","TOEIC NÂNG CAO","IELTS NÂNG CAO"])
     category: string;
           
     @IsString()

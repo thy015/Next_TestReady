@@ -218,25 +218,48 @@ class SelectableArticleText extends StatelessWidget {
                           ],
                         ),
                       ),
-                      if (example.isNotEmpty)
-                        SizedBox(
-                          width: 400,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 8),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Text(
-                                  'Ví dụ: $example',
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 2),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Container(
+                              constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.4,
+                              ),
+                              child:
+                                  example.isNotEmpty
+                                      ? Text(
+                                        'Ví dụ: ',
+                                        textAlign: TextAlign.left,
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          color: Color.fromARGB(
+                                            255,
+                                            0,
+                                            159,
+                                            56,
+                                          ),
+                                        ),
+                                      )
+                                      : const SizedBox.shrink(),
+                            ),
+                            const SizedBox(width: 8),
+                            if (example.isNotEmpty)
+                              Expanded(
+                                child: Text(
+                                  example,
+                                  textAlign: TextAlign.left,
                                   style: const TextStyle(
                                     fontSize: 16,
-                                    color: Colors.black,
+                                    color: Colors.black87,
                                   ),
                                 ),
-                              ],
-                            ),
-                          ),
+                              ),
+                          ],
                         ),
+                      ),
                     ],
                   ),
                   shape: RoundedRectangleBorder(

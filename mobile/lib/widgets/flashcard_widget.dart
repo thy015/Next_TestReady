@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:mobile/data/models/word_model.dart';
+import 'package:mobile/providers/course_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class FlashcardWidget extends StatelessWidget {
+class FlashcardWidget extends ConsumerWidget {
   final WordModel vocab;
   final VoidCallback? onSpeak;
 
   const FlashcardWidget({super.key, required this.vocab, this.onSpeak});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return FlipCard(
       direction: FlipDirection.HORIZONTAL,
       front: frontCard(),
       back: backCard(),
+      onFlip: () => ref.read(isRight.notifier).state = true,
     );
   }
 
@@ -34,7 +37,7 @@ class FlashcardWidget extends StatelessWidget {
           ),
           const SizedBox(height: 30),
           Text(
-            v.def,
+            v.def[0],
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 16,

@@ -1,283 +1,381 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
-class SpecialPlansScreen extends StatefulWidget {
-  @override
-  _SpecialPlansScreenState createState() => _SpecialPlansScreenState();
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:mobile/core/api_constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'payment_method.dart';
+
+class Plan {
+  final int id;
+  final String duration;
+  final int price;
+  final int discount;
+  final String label;
+  final int months;
+
+  Plan({
+    required this.id,
+    required this.duration,
+    required this.price,
+    required this.discount,
+    required this.label,
+    required this.months,
+  });
+
+  int get pricePerMonth => (price - discount) ~/ (months == 0 ? 1 : months);
 }
 
-class _SpecialPlansScreenState extends State<SpecialPlansScreen> {
-  int selectedPlan = 0;
+class SpecialPlansScreen extends ConsumerStatefulWidget {
+  @override
+  ConsumerState<SpecialPlansScreen> createState() => _SpecialPlansScreenState();
+}
+
+class _SpecialPlansScreenState extends ConsumerState<SpecialPlansScreen> {
+  int selectedPlanIndex = 0;
+  bool isLoading = true;
+  int? remainingDays;
+
+  final List<Plan> plans = [
+    Plan(
+      id: 1,
+      duration: '3 Tháng',
+      price: 99000,
+      discount: 0,
+      label: 'Gói sơ cấp',
+      months: 3,
+    ),
+    Plan(
+      id: 2,
+      duration: '1 Năm',
+      price: 259000,
+      discount: 0,
+      label: 'Gói trung cấp',
+      months: 12,
+    ),
+    Plan(
+      id: 3,
+      duration: '3 Năm',
+      price: 599000,
+      discount: 0,
+      label: 'Gói cao cấp',
+      months: 36,
+    ),
+    Plan(
+      id: 4,
+      duration: 'Trọn Đời',
+      price: 1499000,
+      discount: 0,
+      label: 'Bao học',
+      months: 100,
+    ),
+  ];
+
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() => checkUserPackage());
+  }
+
+  Future<void> checkUserPackage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+
+    if (token == null || token.isEmpty) {
+      setState(() {
+        isLoading = false;
+      });
+      return;
+    }
+
+    final url = Uri.parse('${ApiConstants.baseUrl}/checkout/get-package');
+
+    try {
+      final response = await http.get(
+        url,
+        headers: {
+          'Authorization': 'Bearer $token',
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        final data = json.decode(response.body);
+        if (data['status'] == true) {
+          setState(() {
+            remainingDays = data['counterDay'];
+          });
+        }
+      } else {
+        print('Lỗi status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Lỗi khi kiểm tra package: $e');
+    } finally {
+      setState(() {
+        isLoading = false;
+      });
+    }
+  }
+
+  void navigateToPaymentMethod() async {
+    final selectedPlan = plans[selectedPlanIndex];
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PaymentMethodScreen(selectedPlan: selectedPlan),
+      ),
+    );
+
+    if (result == true) {
+      setState(() {
+        isLoading = true;
+      });
+      await checkUserPackage();
+    }
+  }
+
+  String formatCurrency(int amount) {
+    final formatter = NumberFormat.currency(locale: 'vi_VN', symbol: '₫');
+    return formatter.format(amount);
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'Goo Plus Plans',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  SizedBox(height: 20),
-                  planCard(
-                    index: 0,
-                    isPopular: true,
-                    duration: '3 Tháng',
-                    price: '99,000 VND',
-                    monthlyPrice: '33,000 VND / Tháng',
-                    discount: '15%',
-                    discountLabel: 'Gói sơ cấp',
-                  ),
-                  SizedBox(height: 16),
-                  planCard(
-                    index: 1,
-                    duration: '1 Năm',
-                    price: '259,000 VND',
-                    monthlyPrice: '25,000 VND / Tháng',
-                    discount: '20%',
-                    discountLabel: 'Gói trung cấp',
-                  ),
-                  SizedBox(height: 16),
-                  planCard(
-                    index: 2,
-                    duration: '3 Năm',
-                    price: '739,000 VND',
-                    monthlyPrice: '20,000 VND / Tháng',
-                    discount: '25%',
-                    discountLabel: 'Gói cao cấp',
-                  ),
-                  SizedBox(height: 16),
-                  planCard(
-                    index: 3,
-                    duration: 'Trọn Đời',
-                    price: '1,499,000 VND',
-                    monthlyPrice: '',
-                    discount: '99%',
-                    discountLabel: 'Bao họccc',
-                    isLifetime: true,
-                  ),
-                  SizedBox(height: 30),
-                  _buildBenefits(),
-                ],
-              ),
+    if (isLoading) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
+    if (remainingDays != null) {
+      return ActivePackageScreen(remainingDays: remainingDays!);
+    }
+
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: Colors.grey[50],
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Text(
+            'Goo Plus Plans',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
             ),
-            Container(
-              width: double.infinity,
-              height: 56,
-              margin: EdgeInsets.only(bottom: 20),
-              child: ElevatedButton(
-                onPressed: () {},
+          ),
+          centerTitle: true,
+          foregroundColor: Colors.black,
+        ),
+        body: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Expanded(
+                child: ListView.separated(
+                  itemCount: plans.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 16),
+                  itemBuilder: (context, index) {
+                    final plan = plans[index];
+                    final isSelected = index == selectedPlanIndex;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedPlanIndex = index;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color:
+                              isSelected
+                                  ? const Color(0xFF4285F4).withOpacity(0.1)
+                                  : Colors.white,
+                          border: Border.all(
+                            color:
+                                isSelected
+                                    ? const Color(0xFF4285F4)
+                                    : Colors.grey[300]!,
+                            width: isSelected ? 2 : 1,
+                          ),
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color:
+                                  isSelected
+                                      ? const Color(0xFF4285F4).withOpacity(0.1)
+                                      : Colors.black.withOpacity(0.05),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        padding: const EdgeInsets.all(20),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    plan.duration,
+                                    style: const TextStyle(
+                                      fontSize: 24,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 4),
+                                  Text(
+                                    plan.label,
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  formatCurrency(plan.price - plan.discount),
+                                  style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        plan.discount > 0
+                                            ? const Color(0xFF4285F4)
+                                            : Colors.black,
+                                  ),
+                                ),
+                                if (plan.months > 1 && plan.id != 4)
+                                  Text(
+                                    '${formatCurrency(plan.pricePerMonth)} / tháng',
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      color: Colors.grey[600],
+                                    ),
+                                  ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+              const SizedBox(height: 20),
+              Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.blue.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: Colors.blue.withOpacity(0.1)),
+                ),
+                child: Row(
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      color: Color(0xFF4285F4),
+                      size: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Gói trả phí của Goo sẽ cho bạn quyền truy cập tới một số khóa học cao cấp hơn',
+                        style: TextStyle(fontSize: 14, color: Colors.grey[700]),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: navigateToPaymentMethod,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF251C91),
+                  backgroundColor: const Color(0xFF251C91),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
+                  minimumSize: const Size(double.infinity, 56),
+                  elevation: 0,
                 ),
-                child: Text(
+                child: const Text(
                   'Tiếp theo',
                   style: TextStyle(
-                    color: Colors.white,
                     fontSize: 18,
+                    color: Colors.white,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 20),
+            ],
+          ),
         ),
       ),
-    );
-  }
-
-  Widget planCard({
-    required int index,
-    bool isPopular = false,
-    required String duration,
-    required String price,
-    required String monthlyPrice,
-    required String discount,
-    required String discountLabel,
-    bool isLifetime = false,
-  }) {
-    bool isSelected = selectedPlan == index;
-
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          selectedPlan = index;
-        });
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: isSelected ? Color(0xFF4285F4).withOpacity(0.1) : Colors.white,
-          border: Border.all(
-            color: isSelected ? Color(0xFF4285F4) : Colors.grey[300]!,
-            width: isSelected ? 2 : 1,
-          ),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Stack(
-          children: [
-            Padding(
-              padding: EdgeInsets.all(20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          duration,
-                          style: TextStyle(
-                            fontSize: 24,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(height: 4),
-                        Row(
-                          children: [
-                            Text(
-                              discountLabel,
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.grey[600],
-                              ),
-                            ),
-                            SizedBox(width: 8),
-                            Text(
-                              '$discount',
-                              style: TextStyle(
-                                fontSize: 14,
-                                color: Color(0xFF4285F4),
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: [
-                      Text(
-                        price,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      if (monthlyPrice.isNotEmpty)
-                        Text(
-                          monthlyPrice,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.grey[600],
-                          ),
-                        ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            // if (isPopular)
-            //   Positioned(
-            //     top: 0,
-            //     left: 0,
-            //     child: Container(
-            //       padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            //       decoration: BoxDecoration(
-            //         color: Color(0xFF4285F4),
-            //         borderRadius: BorderRadius.only(
-            //           topLeft: Radius.circular(16),
-            //           bottomRight: Radius.circular(16),
-            //         ),
-            //       ),
-            //       child: Text(
-            //         'Phổ biến',
-            //         style: TextStyle(
-            //           color: Colors.white,
-            //           fontSize: 12,
-            //           fontWeight: FontWeight.w600,
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBenefits() {
-    return Column(
-      children: [
-        _buildBenefitItem(
-          'Gói trả phí của Goo sẽ cho bạn quyền truy cập tới một số khóa học cao cấp hơn',
-        ),
-        SizedBox(height: 12),
-        _buildBenefitItem(
-          'Bạn có thể điều chỉnh gói ở trên App Store hoặc GooglePlay. Xem thêm về chính sách và điều khoản tại đây.',
-        ),
-      ],
-    );
-  }
-
-  Widget _buildBenefitItem(String text) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          margin: EdgeInsets.only(top: 6, right: 12),
-          width: 4,
-          height: 4,
-          decoration: BoxDecoration(
-            color: Colors.black,
-            shape: BoxShape.circle,
-          ),
-        ),
-        Expanded(
-          child: Text(
-            text,
-            style: TextStyle(
-              fontSize: 14,
-              color: Colors.grey[700],
-              height: 1.4,
-            ),
-          ),
-        ),
-      ],
     );
   }
 }
 
-class MyApp extends StatelessWidget {
+class ActivePackageScreen extends StatelessWidget {
+  final int remainingDays;
+
+  const ActivePackageScreen({super.key, required this.remainingDays});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Goo Plus Plans',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        fontFamily: 'SF Pro Display',
+    return Scaffold(
+      backgroundColor: const Color(0xFFF8F9FF),
+      appBar: AppBar(
+        title: const Text('Gói của bạn'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        centerTitle: true,
+        foregroundColor: Colors.black,
       ),
-      home: SpecialPlansScreen(),
-      debugShowCheckedModeBanner: false,
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 10,
+                  color: Colors.blue.withOpacity(0.1),
+                  offset: const Offset(0, 5),
+                ),
+              ],
+            ),
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(Icons.verified, size: 60, color: Colors.blue),
+                const SizedBox(height: 16),
+                const Text(
+                  'Gói Premium đang hoạt động!',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  'Còn $remainingDays ngày sử dụng',
+                  style: TextStyle(fontSize: 16, color: Colors.grey[700]),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

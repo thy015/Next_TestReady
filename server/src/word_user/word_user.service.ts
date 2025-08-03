@@ -21,23 +21,43 @@ export class WordUserService {
     private userRepo: Repository<User>,
   ) { }
 
-  async create(createWordUserDto: CreateWordUserDto, idUser: number) {
-    const { wordID } = createWordUserDto
-    const user = await this.userRepo.findOne({ where: { id: idUser } })
-    if (!user)
-      throw new BadRequestException("Không tìm thấy người dùng")
-    const word = await this.wordRepo.findOne({ where: { id: wordID } })
-    if (!word)
-      throw new BadRequestException("Không tìm thấy từ vựng !")
-    const userWord = await this.wordUserRepo.findOne({ where: { word: { id: wordID } } })
-    if (userWord) {
-      userWord.state = "Đã thuộc"
-      return await this.wordUserRepo.save(userWord);
-    }
+async create(createWordUserDto: CreateWordUserDto, idUser: number) {
+  const { wordID } = createWordUserDto;
 
-    const userWordCreated = this.wordUserRepo.create({ ...createWordUserDto, word: word, user: user })
+  const user = await this.userRepo.findOne({ where: { id: idUser } });
+  if (!user) throw new BadRequestException("Không tìm thấy người dùng");
+
+  const word = await this.wordRepo.findOne({ where: { id: wordID } });
+  if (!word) throw new BadRequestException("Không tìm thấy từ vựng!");
+
+  let userWord = await this.wordUserRepo.findOne({
+    where: {
+      word: { id: wordID },
+      user: { id: idUser },
+    },
+    relations: ['word', 'user'],
+  });
+  if (!userWord) {
+    const userWordCreated = this.wordUserRepo.create({
+      word: word,
+      user: user,
+      state: "Đã học",
+    });
     return await this.wordUserRepo.save(userWordCreated);
   }
+  switch (userWord.state) {
+    case "Đã học":
+      userWord.state = "Đã nhớ";
+      break;
+    case "Đã nhớ":
+      userWord.state = "Đã thuộc";
+      break;
+    case "Đã thuộc":
+      return userWord;
+  }
+  return await this.wordUserRepo.save(userWord);
+}
+
 
   async findAllWordByUser(idUser: number) {
     const wordUser = await this.wordUserRepo.find({

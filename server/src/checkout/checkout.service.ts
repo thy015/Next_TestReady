@@ -6,6 +6,7 @@ import { Checkout } from './entities/checkout.entity';
 import { Repository } from 'typeorm';
 import { User } from 'src/user/entities/user.entity';
 import { CategoryCourse } from 'src/category_course/entities/category_course.entity';
+import { ConfirmPaymentDto } from './dto/confirm-payment.dto';
 require('dotenv').config()
 const dayjs = require("dayjs")
 const stripe = require('stripe')('sk_test_51PxVYpBpaG5M20JqFZ3ejIPwqz5ghKCuVJ3mm2XsC0mtg97l2LzsQPkrHUmHAZ3KTfUTCeJapgLmRWy1tyBYhHES00qv9UQAlz');
@@ -71,35 +72,42 @@ async createPaymentIntent(createCheckoutDto: CreateCheckoutDto, idCus: number) {
   };
 }
 
-  async susscessSession(idCus: number, idSession: string) {
-    if (!idCus)
-      throw new BadRequestException("Mất id người dùng")
-    const user = await this.user.findOne({ where: { id: idCus } });
-    if (!user)
-      throw new BadRequestException("Không tìm thấy người dùng");
-    if (!idSession)
-      throw new BadRequestException("Không thấy idSession");
-
-    const session = await stripe.checkout.sessions.retrieve(idSession, { expand: ["line_items.data.price.product"] });
-    const { productId, duration } = session.line_items.data[0].price.product?.metadata;
-    if (!productId)
-      throw new BadRequestException("Không tìm thấy gói");
-    const expire = dayjs().add(duration, "month").toDate()
-
-    const userPackage = await this.checkOut.findOne({
-      where: {
-        user: { id: idCus }
-      }
-    })
-    if (userPackage) {
-      userPackage.id_package = productId
-      userPackage.expirePackage = expire
-      return await this.checkOut.save(userPackage)
-    }
-    const createdPackage = this.checkOut.create({ id_package: productId, user: user, expirePackage: expire });
-    return await this.checkOut.save(createdPackage);
-
+  async confirmPayment(idCus: number, confirmDto: ConfirmPaymentDto) {
+  if (!idCus) {
+    throw new BadRequestException("Thiếu ID người dùng");
   }
+
+  const user = await this.user.findOne({ where: { id: idCus } });
+  if (!user) {
+    throw new BadRequestException("Không tìm thấy người dùng");
+  }
+
+  const { idPackage, duration } = confirmDto;
+
+  if (!idPackage || !duration) {
+    throw new BadRequestException("Thiếu thông tin gói hoặc thời hạn");
+  }
+
+  const expire = dayjs().add(duration, "month").toDate();
+
+  const userPackage = await this.checkOut.findOne({
+    where: { user: { id: idCus } },
+  });
+
+  if (userPackage) {
+    userPackage.id_package = idPackage;
+    userPackage.expirePackage = expire;
+    return await this.checkOut.save(userPackage);
+  }
+
+  const createdPackage = this.checkOut.create({
+    id_package: idPackage,
+    user: user,
+    expirePackage: expire,
+  });
+
+  return await this.checkOut.save(createdPackage);
+}
 
   async findPackageByIdUser(idUser: number) {
     const userPackage = await this.checkOut.findOne({

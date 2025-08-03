@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:mobile/screens/main_screen.dart';
+import 'package:mobile/core/api_constants.dart';
+import 'package:mobile/screens/login_signup/register_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -19,6 +21,7 @@ class _LoginScreenState extends State<LoginScreen> {
   bool obscurePw = true;
 
   final _formKey = GlobalKey<FormState>();
+  String? _loginError;
 
   @override
   void dispose() {
@@ -54,19 +57,23 @@ class _LoginScreenState extends State<LoginScreen> {
 
   Future<void> _login() async {
     if (!_formKey.currentState!.validate()) return;
+
+    setState(() {
+      _loginError = null;
+    });
+
     final email = _emailController.text.trim();
     final password = pwController.text.trim();
 
     try {
-      print('im gay LOGIN TRC RESPONSE');
       final response = await http.post(
-        Uri.parse('http://10.21.11.97:4040/auth/login'),
+        Uri.parse('${ApiConstants.baseUrl}/auth/login'),
         headers: {'Content-Type': 'application/json'},
         body: jsonEncode({'email': email, 'password': password}),
       );
 
       final data = jsonDecode(response.body);
-      print('im gay LOGIN');
+
       if (response.statusCode == 201 && data['access_token'] != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('token', data['access_token']);
@@ -75,29 +82,25 @@ class _LoginScreenState extends State<LoginScreen> {
           context,
           MaterialPageRoute(builder: (context) => const MainScreen()),
         );
+
+        print(
+          '📦 Token hiện tại từ SharedPreferences: ' +
+              prefs.getString('token').toString(),
+        );
+      } else if (response.statusCode == 401) {
+        setState(() {
+          _loginError = 'Email hoặc mật khẩu không đúng';
+        });
       } else {
-        _showError(data['message'] ?? 'Đăng nhập thất bại');
+        setState(() {
+          _loginError = data['message'] ?? 'Đăng nhập thất bại';
+        });
       }
     } catch (e) {
-      _showError('Đã xảy ra lỗi. Vui lòng thử lại.' + e.toString());
+      setState(() {
+        _loginError = 'Đã xảy ra lỗi. Vui lòng thử lại.';
+      });
     }
-  }
-
-  void _showError(String message) {
-    showDialog(
-      context: context,
-      builder:
-          (ctx) => AlertDialog(
-            title: const Text('Lỗi'),
-            content: Text(message),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(ctx),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-    );
   }
 
   @override
@@ -133,9 +136,15 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   focusNode: _emailFocusNode,
                   keyboardType: TextInputType.emailAddress,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: inputDecoration(
                     hintText: 'Email',
                     isFocused: _emailFocusNode.hasFocus,
+                  ).copyWith(
+                    errorStyle: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                    ),
                   ),
                   validator:
                       (value) =>
@@ -148,6 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: pwController,
                   focusNode: pwFocus,
                   obscureText: obscurePw,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   decoration: inputDecoration(
                     hintText: 'Mật khẩu',
                     isFocused: pwFocus.hasFocus,
@@ -158,6 +168,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       onPressed: () => setState(() => obscurePw = !obscurePw),
                     ),
+                  ).copyWith(
+                    errorStyle: const TextStyle(
+                      color: Colors.red,
+                      fontSize: 14,
+                    ),
                   ),
                   validator:
                       (value) =>
@@ -165,6 +180,14 @@ class _LoginScreenState extends State<LoginScreen> {
                               ? 'Mật khẩu phải có ít nhất 6 ký tự'
                               : null,
                 ),
+
+                if (_loginError != null) ...[
+                  const SizedBox(height: 8),
+                  Text(
+                    _loginError!,
+                    style: const TextStyle(color: Colors.red, fontSize: 14),
+                  ),
+                ],
                 const SizedBox(height: 16),
                 Align(
                   alignment: Alignment.centerRight,
@@ -199,7 +222,14 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 const SizedBox(height: 24),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Tạo tài khoản mới',
                     style: TextStyle(

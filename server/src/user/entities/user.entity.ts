@@ -3,6 +3,9 @@ import { Diamond } from "./diamond.entity";
 import { Heart } from "./heart.entity";
 import { Column, CreateDateColumn, Entity, EntityRepository, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from "typeorm";
 import { UserLesson } from "src/user_lesson/entities/user_lesson.entity";
+import { WordUser } from "src/word_user/entities/word_user.entity";
+import { TopicUser } from "src/topic_user/entities/topic_user.entity";
+import { Checkout } from "src/checkout/entities/checkout.entity";
 
 @Entity()
 export class User {
@@ -52,4 +55,13 @@ export class User {
 
     @OneToMany(()=>UserLesson,(user_lesson)=> user_lesson.user,)
     lessons:UserLesson[]
+
+    @OneToMany(()=>WordUser,(word_user)=>word_user.user)
+    words:WordUser[]
+
+    @OneToMany(()=>TopicUser,(topic_user)=>topic_user.user)
+    topics:TopicUser[]
+
+    @OneToMany(()=>Checkout,checkOut => checkOut.user)
+    packages:Checkout[]
 }

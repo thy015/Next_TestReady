@@ -1,10 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ValidationPipe, UseGuards, UseInterceptors, UploadedFile } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiParam, ApiBearerAuth, ApiBody } from '@nestjs/swagger';
 import { QuestionService } from './question.service';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
 import { AdminGuard } from 'src/guards/admin.guards';
-
+import { FileInterceptor } from '@nestjs/platform-express';
+import Multer from 'multer'
+import * as XLSX from 'xlsx';
 @ApiTags('Question')
 @Controller('test/part')
 export class QuestionController {
@@ -123,5 +125,56 @@ export class QuestionController {
   })
   remove(@Param('id') id: string) {
     return this.questionService.remove(+id);
+  }
+
+  @Post('upload-question')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadFile(@UploadedFile(ValidationPipe) file: Express.Multer.File) {
+    const workbook = XLSX.read(file.buffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData: CreateQuestionDto[] = XLSX.utils.sheet_to_json(worksheet);
+   
+    const data = jsonData.map(item => {
+      // if (typeof item.answers === 'string') {
+      //     item.answers = JSON.parse(item.answers);
+      // }
+      if (item.imgSrc && typeof item.imgSrc === 'string') {
+        const imgSrcArray = item.imgSrc.split("\r\n")
+        item.imgSrc = JSON.stringify(imgSrcArray);
+      }
+      return item;
+    })
+    return this.questionService.createQuestions(data)
+  }
+
+  @Post('upload-img')
+  @UseInterceptors(FileInterceptor('file'))
+  uploadImg(@UploadedFile() file: Express.Multer.File) {
+    const workbook = XLSX.read(file.buffer, { type: 'buffer' });
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData: CreateQuestionDto[] = XLSX.utils.sheet_to_json(worksheet);
+    const data = jsonData.map(item => {
+      console.log("ID ITEM", item.answers);
+      return item
+      if (item.imgSrc && typeof item.imgSrc === 'string') {
+        const imgSrcArray = item.imgSrc.split("\r\n")
+        const imgSrcJson = JSON.stringify(imgSrcArray);
+
+        return {
+          ...item,
+          imgSrc: imgSrcJson
+        }
+
+      }
+      return item
+    })
+
+    console.log("testdata",JSON.parse("{\"a\":\"A. It was less expensive than most models.\", \"b\":\"It was the largest model available.\", \"c\":\"It was rated very highly.\", \"d\":\"It was the same brand as her other appliances.\"}"))
+
+    return {
+      jsonData: data
+    }
   }
 }

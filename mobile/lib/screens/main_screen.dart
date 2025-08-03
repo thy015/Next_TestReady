@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
+import '../screens/leaderboard/ative_recall.dart' as wordchart;
 import 'newspaper/newspaper.dart' as newspaper;
 import 'settings/settings.dart' as settings;
 import 'vocabulary/course.dart' as vocabulary;
 import 'premium/premium.dart' as premium;
-import 'leaderboard/leaderboard.dart' as leaderboard;
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
@@ -17,6 +17,8 @@ class MainScreen extends StatefulWidget {
 class _MainScreenState extends State<MainScreen>
     with SingleTickerProviderStateMixin {
   int _currentIndex = 0;
+  String? token;
+  List<Widget>? _pages;
 
   final List<IconData> iconList = [
     Icons.newspaper,
@@ -24,20 +26,41 @@ class _MainScreenState extends State<MainScreen>
     Icons.diamond,
     Icons.settings,
   ];
-  final List<String> labelList = ['Đọc báo', 'Xếp hạng', 'Nâng cấp', 'Cài đặt'];
-  final List<Widget> _pages = [
-    newspaper.Newspaper(),
-    leaderboard.Leaderboard(),
-    premium.SpecialPlansScreen(),
-    settings.Settings(),
-    vocabulary.Vocabulary(),
-  ];
+
+  final List<String> labelList = ['Đọc báo', 'Ôn tập', 'Nâng cấp', 'Cài đặt'];
+
+  @override
+  void initState() {
+    super.initState();
+    loadTokenAndInitPages();
+  }
+
+  Future<void> loadTokenAndInitPages() async {
+    final prefs = await SharedPreferences.getInstance();
+    final storedToken = prefs.getString('token');
+
+    setState(() {
+      token = storedToken;
+
+      _pages = [
+        newspaper.Newspaper(),
+        wordchart.WordChartScreen(token: token!),
+        premium.SpecialPlansScreen(),
+        settings.Settings(),
+        vocabulary.Vocabulary(),
+      ];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (_pages == null) {
+      return const Scaffold(body: Center(child: CircularProgressIndicator()));
+    }
+
     return Scaffold(
       backgroundColor: Colors.white,
-      body: _pages[_currentIndex],
+      body: _pages![_currentIndex],
       floatingActionButton: Container(
         decoration: BoxDecoration(
           shape: BoxShape.circle,
@@ -62,7 +85,6 @@ class _MainScreenState extends State<MainScreen>
           onPressed: () => setState(() => _currentIndex = 4),
         ),
       ),
-
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(

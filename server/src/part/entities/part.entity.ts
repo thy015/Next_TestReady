@@ -8,7 +8,7 @@ export class Part {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({type:'enum',enum:[1,2,3,4,5,6]})
+    @Column({type:'enum',enum:[1,2,3,4,5,6,7]})
     name: number
 
     @Column({type:'enum',enum:["listening","reading"]})
@@ -20,8 +20,8 @@ export class Part {
     @Column()
     total_question:number
 
-    @Column({default:30})
-    durations:number
+    // @Column({default:30})
+    // durations:number
 
     @Column()
     end_time:number
